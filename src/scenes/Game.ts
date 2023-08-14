@@ -42,11 +42,7 @@ export default class Game extends Phaser.Scene {
                     .setFixedRotation()
                     this.playerController = new PlayerController(this.player, this.cursors)
             
-                    this.player.setOnCollide((data: MatterJS.ICollisionPair) => {
-                        this.isTouchingGround = true
-                         // Camera
-
-                    })
+                   
                     this.cameras.main.startFollow(this.player)
 
                     break

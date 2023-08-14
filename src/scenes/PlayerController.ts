@@ -15,6 +15,7 @@ export default class PlayerController{
         this.createAnimations()
         this.stateMachine = new StateMachine(this, 'player')
 
+    
 
         // Adding States
 
@@ -35,6 +36,11 @@ export default class PlayerController{
         })
 
             .setState('idle')
+            this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
+           if (this.stateMachine.isCurrentState('jump')) {
+            this.stateMachine.setState('idle')
+           }
+            })
     }
 
  // Updating States
@@ -42,90 +48,104 @@ export default class PlayerController{
  update(dt: number) {
     this.stateMachine.update(dt)
 }
-private idleOnEnter() {
+private idleOnEnter()
+{
     this.sprite.play('player-idle')
 }
 
-private idleOnUpdate() {
-    if (this.cursors.left.isDown || this.cursors.right.isDown) {
+private idleOnUpdate()
+{
+    if (this.cursors.left.isDown || this.cursors.right.isDown)
+    {
         this.stateMachine.setState('walk')
     }
 
     const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
-    if (spaceJustPressed) {
+    if (spaceJustPressed)
+    {
         this.stateMachine.setState('jump')
     }
-
-
 }
 
-private walkOnEnter() {
+
+
+private walkOnEnter()
+{
     this.sprite.play('player-walk')
-
-}
-private walkOnUpdate() {
-    const speed = 10;
-
-
-    if (this.cursors.left.isDown) {
-        this.sprite!.flipX = true;
-        this.sprite!.setVelocityX(-speed);
-
-    } else if (this.cursors.right.isDown) {
-        this.sprite!.flipX = false;
-        this.sprite!.setVelocityX(speed);
-
-    } else {
-        this.sprite!.setVelocityX(0);
-        this.stateMachine.setState('idle')
-    }
-
-    const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space);
-    const upJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.up);
-    if (spaceJustPressed || upJustPressed) {
-        this.stateMachine.setState('jump');
-    }
 }
 
-private walkOnExit() {
-    this.sprite.stop()
-}
-
-private jumpOnEnter() {
-    this.sprite.setVelocityY(-30);
-
-}
-private jumpOnUpdate() {
+private walkOnUpdate()
+{
     const speed = 5
 
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown)
+    {
         this.sprite.flipX = true
         this.sprite.setVelocityX(-speed)
     }
-    else if (this.cursors.right.isDown) {
+    else if (this.cursors.right.isDown)
+    {
         this.sprite.flipX = false
         this.sprite.setVelocityX(speed)
     }
+    else
+    {
+        this.sprite.setVelocityX(0)
+        this.stateMachine.setState('idle')
+    }
+
+    const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
+    if (spaceJustPressed)
+    {
+        this.stateMachine.setState('jump')
+    }
 }
+
+private walkOnExit()
+{
+    this.sprite.stop()
+}
+
+private jumpOnEnter()
+	{
+		this.sprite.setVelocityY(-12)
+	}
+
+	private jumpOnUpdate()
+	{
+		const speed = 5
+
+		if (this.cursors.left.isDown)
+		{
+			this.sprite.flipX = true
+			this.sprite.setVelocityX(-speed)
+		}
+		else if (this.cursors.right.isDown)
+		{
+			this.sprite.flipX = false
+			this.sprite.setVelocityX(speed)
+		}
+	}
 
     // Player Animations 
 
-    private createAnimations() {
-        this.sprite.anims.create({
-            key: 'player-idle',
-            frames: [{ key: 'player', frame: 'penguin_walk01.png' }]
-        });
+    private createAnimations()
+	{
+		this.sprite.anims.create({
+			key: 'player-idle',
+			frames: [{ key: 'player', frame: 'penguin_walk01.png' }]
+		})
 
-        this.sprite.anims.create({
-            key: 'player-walk',
-            frameRate: 10,
-            frames: this.sprite.anims.generateFrameNames('player', {
-                start: 1,
-                end: 4,
-                prefix: 'penguin_walk0',
-                suffix: '.png'
-            }),
-            repeat: -1
-        });
-}
-}
+		this.sprite.anims.create({
+			key: 'player-walk',
+			frameRate: 10,
+			frames: this.sprite.anims.generateFrameNames('player', {
+				start: 1,
+				end: 4,
+				prefix: 'penguin_walk0',
+				suffix: '.png'
+			}),
+			repeat: -1
+		})
+
+}}
