@@ -1,18 +1,22 @@
-import Phaser from 'phaser'
-
-import HelloWorldScene from './scenes/HelloWorldScene'
+import Phaser from 'phaser';
+import Game from './scenes/Game';
 
 const config: Phaser.Types.Core.GameConfig = {
-	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
-	physics: {
-		default: 'arcade',
-		arcade: {
-			gravity: { y: 200 }
-		}
-	},
-	scene: [HelloWorldScene]
-}
+  type: Phaser.AUTO,
+  scale: {
+    mode: Phaser.Scale.FIT, // Use the FIT scale mode
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+  physics: {
+    default: 'matter',
+    matter: {
+      debug:true,
+      // este hay que quitarlo es el que muestra las cajas
+    },
+  },
+  scene: [Game],
 
-export default new Phaser.Game(config)
+  backgroundColor: '#CDD6F1'
+};
+
+const game = new Phaser.Game(config);
