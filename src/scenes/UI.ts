@@ -17,7 +17,7 @@ private beansCollected = 0
     }
 
     create (){
-        this.beansLabel = this.add.text(10, 10, 'BEANS: 0', {
+        this.beansLabel = this.add.text(10, 10, 'Compliance: 0', {
             font: '900 24px Arial',
 
             color: '#00264d'  // Dark blue color
@@ -34,7 +34,7 @@ private beansCollected = 0
     private handleBeanCollected(){
 
 this.beansCollected += 1
-this.beansLabel.text = `Beans: ${this.beansCollected}`
+this.beansLabel.text = `Compliance: ${this.beansCollected}`
 
 }
 }
