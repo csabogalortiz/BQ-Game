@@ -55,7 +55,7 @@ export default class PlayerController
             })
 
             .addState('trucks-stomp', {
-                // onEnter: this.trucksStompOnEnter,
+                onEnter: this.trucksStompOnEnter,
             })
             .setState('idle')
 
@@ -63,6 +63,7 @@ export default class PlayerController
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
 
+            // Colision con una nube
             if (this.obstacles.is('fall-clouds', body)
             ) 
         {
@@ -71,6 +72,8 @@ export default class PlayerController
           this.stateMachine.setState('idle')
             return
         }
+
+        // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa
 
         if (this, obstacles.is('trucks', body)) {
 
@@ -287,6 +290,39 @@ this.scene.tweens.addCounter({
 
 this.stateMachine.setState('idle')
 
+    }
+
+    private trucksStompOnEnter() {
+
+        this.sprite.setVelocityY(-12); 
+
+        const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
+const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
+this.scene.tweens.addCounter({
+    from: 0,
+    to: 100,
+    duration: 100,
+    repeat: 2,
+    yoyo: true,
+    ease: Phaser.Math.Easing.Sine.InOut,
+    onUpdate: tween => {
+        const value = tween.getValue()
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+            startColor,
+            endColor,
+            100,
+            value
+        )
+        const color = Phaser.Display.Color.GetColor(
+            colorObject.r,
+            colorObject.g,
+            colorObject.b,
+
+        )
+        this.sprite.setTint(color)
+    }
+})
+        this.stateMachine.setState('idle')
     }
 
     // Player Animations ---------------------------------------------
