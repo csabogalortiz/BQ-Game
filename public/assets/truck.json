@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "truckL.png",
+	"frame": {"x":0,"y":0,"w":200,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":140},
+	"sourceSize": {"w":200,"h":140}
+},
+{
+	"filename": "truckR.png",
+	"frame": {"x":200,"y":0,"w":200,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":140},
+	"sourceSize": {"w":200,"h":140}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "truck.png",
+	"format": "RGBA8888",
+	"size": {"w":400,"h":140},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2630715b2ce0cd6c70b01c9d102adc73:8da37852b10e76a733a08a30b8a823dc:426d0b5b73d8f66a4aeeb311bc215f07$"
+}
+}
