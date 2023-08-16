@@ -26,6 +26,7 @@ export default class Game extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemap', 'assets/game.json')
         this.load.image('bean', 'assets/bean.png')
         this.load.image ('bad-bean', 'assets/bad-bean.png')
+        this.load.image('compliance', 'assets/compliance.png')
     }
 
     create() {
@@ -78,6 +79,18 @@ export default class Game extends Phaser.Scene {
                     bean.setData('type', 'bean')
                     break
                 }
+
+                case 'compliance': {
+                    const compliance = this.matter.add.sprite(x, y, 'compliance', undefined, {
+                        isStatic: true,
+                        isSensor: true
+
+                    })
+                    compliance.setData('type', 'compliance')
+                    compliance.setData('compliancePoints', 10)
+                    break
+                }
+
 
                 case 'bad-bean': {
                     const badBean = this.matter.add.sprite(x, y, 'bad-bean', undefined, {

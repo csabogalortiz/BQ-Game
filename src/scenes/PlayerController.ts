@@ -7,11 +7,16 @@ type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys
 
 export default class PlayerController 
 {
+
+    // Properties
     private scene: Phaser.Scene
     private sprite: Phaser.Physics.Matter.Sprite
     private cursors: CursorKeys
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
+  private compliance =100
+
+//   Constructor -----
 
     constructor(scene: Phaser.Scene,  sprite: Phaser.Physics.Matter.Sprite, cursors: CursorKeys, obstacles:ObstaclesController) {
         this.scene = scene
@@ -23,7 +28,7 @@ export default class PlayerController
 
         this.stateMachine = new StateMachine(this, 'player')
 
-        // Adding States
+        // Adding States -------------------
         this.stateMachine
             .addState('idle', {
                 onEnter: this.idleOnEnter,
@@ -45,7 +50,7 @@ export default class PlayerController
             })
             .setState('idle')
 
-        // Collisions
+        // Collisions ----------------
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
 
@@ -84,12 +89,32 @@ export default class PlayerController
 					sprite.destroy()
 					break
 				}
+
+                case 'red-bean':
+				{
+                    events.emit('redBean-collected')
+					sprite.destroy()
+					break
+				}
+
+                case 'compliance':
+                    {
+                        const value = sprite.getData('compliancePoints') ?? 10
+                        this.compliance += value
+                        events.emit('compliance-changed', this.compliance)
+                        sprite.destroy()
+                        break
+                    }
             }
+
+
+
+            
             
         })
     }
 
-    // Updating States
+    // Updating States ------------------------
     update(dt: number) {
         this.stateMachine.update(dt)
     }
@@ -155,6 +180,8 @@ export default class PlayerController
 
     private cloudHitOnEnter() {
         this.sprite.setVelocityY(-12);
+        this.compliance = Phaser.Math.Clamp(this.compliance - 10, 0, 100)
+        events.emit('compliance-changed', this.compliance)
 
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
         const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
@@ -184,7 +211,7 @@ export default class PlayerController
         })
     }
 
-    // Player Animations
+    // Player Animations ---------------------------------------------
     private createAnimations() {
         this.sprite.anims.create({
             key: 'player-idle',
