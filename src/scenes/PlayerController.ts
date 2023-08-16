@@ -15,6 +15,7 @@ export default class PlayerController
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
   private compliance =100
+  private lastTrucks?: Phaser.Physics.Matter.Sprite
 
 //   Constructor -----
 
@@ -48,6 +49,14 @@ export default class PlayerController
                 onEnter: this.cloudHitOnEnter,
                 // onUpdate: this.cloudHitOnUpdate
             })
+
+            .addState('trucks-hit',{
+                onEnter: this.trucksHitOnEnter,
+            })
+
+            .addState('trucks-stomp', {
+                // onEnter: this.trucksStompOnEnter,
+            })
             .setState('idle')
 
         // Collisions ----------------
@@ -59,9 +68,28 @@ export default class PlayerController
         {
             // primero rebota  y luego vuelve al idle state 
            this.stateMachine.setState('cloud-hit')
-           this.stateMachine.setState('idle')
+          this.stateMachine.setState('idle')
             return
         }
+
+        if (this, obstacles.is('trucks', body)) {
+
+          
+            this.lastTrucks = body.gameObject
+
+            if (this.sprite.y < body.position.y) {
+
+                this.stateMachine.setState('trucks-stomp')
+
+            } else {
+                console.log('trucks hit!!')
+                this.stateMachine.setState('trucks-hit')
+
+            }
+            return
+        }
+
+
             const gameObject = body.gameObject
 
             if (!gameObject)
@@ -107,9 +135,6 @@ export default class PlayerController
                     }
             }
 
-
-
-            
             
         })
     }
@@ -178,6 +203,9 @@ export default class PlayerController
         }
     }
 
+
+    // Handling Obstacles States 
+
     private cloudHitOnEnter() {
         this.sprite.setVelocityY(-12);
         this.compliance = Phaser.Math.Clamp(this.compliance - 10, 0, 100)
@@ -209,6 +237,56 @@ export default class PlayerController
                 this.sprite.setTint(color)
             }
         })
+
+        this.stateMachine.setState('idle')
+        
+    }
+
+private trucksHitOnEnter() {
+
+if(this.lastTrucks) {
+    if(this.sprite.x < this.lastTrucks.x) {
+        this.sprite.setVelocityX(-20)
+    } 
+    else {
+        this.sprite.setVelocityY(20)
+    }
+} else {
+    this.sprite.setVelocityY(-20)
+}
+
+// this.compliance = Phaser.Math.Clamp(this.compliance + 10, 0, 100)
+// events.emit('compliance-changed', this.compliance)
+
+const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
+const endColor = Phaser.Display.Color.ValueToColor(0x454CFF)
+this.scene.tweens.addCounter({
+    from: 0,
+    to: 100,
+    duration: 100,
+    repeat: 2,
+    yoyo: true,
+    ease: Phaser.Math.Easing.Sine.InOut,
+    onUpdate: tween => {
+        const value = tween.getValue()
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+            startColor,
+            endColor,
+            100,
+            value
+        )
+        const color = Phaser.Display.Color.GetColor(
+            colorObject.r,
+            colorObject.g,
+            colorObject.b,
+
+        )
+        this.sprite.setTint(color)
+    }
+})
+
+this.stateMachine.setState('idle')
+
     }
 
     // Player Animations ---------------------------------------------

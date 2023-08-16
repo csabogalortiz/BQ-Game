@@ -79,6 +79,7 @@ export default class Game extends Phaser.Scene {
                         .setFixedRotation();
 
                         this.trucks.push(new TrucksController(trucks))
+                        this.obstacles.add('trucks', trucks.body as MatterJS.BodyType)
                         break 
                     }
               
