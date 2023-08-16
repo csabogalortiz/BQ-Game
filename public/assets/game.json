@@ -93,8 +93,8 @@
                  "type":"",
                  "visible":true,
                  "width":65.578,
-                 "x":72.0072,
-                 "y":491.192
+                 "x":490.290215685613,
+                 "y":422.040372406814
                 }, 
                 {
                  "height":72.0432,
@@ -172,17 +172,6 @@
                  "width":212.232,
                  "x":769.824,
                  "y":630.909
-                }, 
-                {
-                 "height":72.0432,
-                 "id":17,
-                 "name":"bean",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":68.0408,
-                 "x":558.301,
-                 "y":421.243
                 }, 
                 {
                  "height":72.0432,
@@ -315,6 +304,17 @@
                  "width":0,
                  "x":1587.62,
                  "y":45.6505
+                }, 
+                {
+                 "height":69.6695,
+                 "id":36,
+                 "name":"trucks",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":71.2897,
+                 "x":203.855908981279,
+                 "y":491.392269733513
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -323,7 +323,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":36,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

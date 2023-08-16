@@ -20,7 +20,7 @@ export default class TrucksController
 constructor(sprite: Phaser.Physics.Matter.Sprite) {
     this.sprite = sprite
 
-    // this.createAnimations()
+    this.createAnimations()
 
     this.stateMachine = new StateMachine(this, 'trucks')
 
@@ -48,6 +48,35 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
         this.stateMachine.update(dt)
     }
 
+     // Truck Animations ---------------------------------------------
+     private createAnimations() {
+        this.sprite.anims.create({
+            key: 'idle',
+            frames: [{
+                key: 'trucks', frame: 'truckL.png'
+            }]
+        })
+    
+        this.sprite.anims.create({
+            key: 'move-left',
+            frames: [{
+                key: 'trucks', frame: 'truckL.png'
+            }],
+            // frameRate: 5,
+            // repeat: -1
+        })
+    
+        this.sprite.anims.create({
+            key: 'move-right',
+            frames: [{
+                key: 'trucks', frame: 'truckR.png'
+            }],
+            // frameRate: 5,
+            // repeat: -1
+        })
+    }
+    
+
     // States Handlers
 
     private idleOnEnter() {
@@ -63,6 +92,7 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
 
     private moveLeftOnEnter () { 
         this.moveTime =0 
+        this.sprite.anims.play('move-left')
     }
 
     private moveLeftOnUpdate (dt: number) { 
@@ -76,6 +106,7 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
 
     private moveRightOnEnter () { 
         this.moveTime =0 
+        this.sprite.anims.play('move-right')
     }
 
     private moveRightOnUpdate (dt: number) { 
