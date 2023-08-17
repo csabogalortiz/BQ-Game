@@ -41,7 +41,7 @@ private lastCompliance=100
         events.on('compliance-changed', this.handleComplianceChanged, this)
 
         // hay que revisar esto
-        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             events.off('bean-collected', this.handleBeanCollected, this)
 
         })

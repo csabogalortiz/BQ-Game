@@ -130,12 +130,13 @@ export default class Game extends Phaser.Scene {
                   }  }
         });
 
-        this.cameras.main.startFollow(this.player!);
+        this.cameras.main.startFollow(this.player!, true);
         this.matter.world.convertTilemapLayer(ground);
 
     }
 
     destroy () {
+        this.scene.stop('ui')
         this.trucks.forEach(trucks => trucks.destroy())
     }
 

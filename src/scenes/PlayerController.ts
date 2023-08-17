@@ -230,8 +230,11 @@ export default class PlayerController
         this.sprite.play('player-celebrate')
 
         this.sprite.setOnCollide(() => {})
+        this.scene.time.delayedCall(2000, () => {
 
-        this.scene.scene.start('level-complete')
+            this.scene.scene.start('level-complete')
+        })
+
 
     }
 
@@ -323,9 +326,6 @@ this.stateMachine.setState('idle')
     private trucksStompOnEnter() {
 
         this.sprite.setVelocityY(-12); 
-
-
-
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
 const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
 this.scene.tweens.addCounter({
@@ -355,7 +355,7 @@ this.scene.tweens.addCounter({
 events.emit('trucks-stomped', this.lastTrucks)
 
         this.stateMachine.setState('idle')
-        this.setCompliance(this.compliance + 30)
+        this.setCompliance(this.compliance + 20)
     }
 
     // -----------------------------  Player Animations ---------------------------------------------

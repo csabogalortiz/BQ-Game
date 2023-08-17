@@ -8,12 +8,29 @@ export default class LevelComplete extends Phaser.Scene {
     constructor () {
         super ('level-complete')
     }
+    
+    preload() {
+        this.load.image('background', '/assets/background_Try.jpg');
+    }
 
     create () {
+
+        
+        // this.cameras.main.setBackgroundColor('#FFB46F'); // Change to your desired color
         const {width, height} = this.scale 
+        
+            // Create the background image sprite
+            const backgroundImage = this.add.sprite(width * 0.5, height * 0.5, 'background');
+        
+            // Set the size of the background image to cover the entire camera viewport
+            backgroundImage.displayWidth = width;
+            backgroundImage.displayHeight = height;
+        
+            // Send the background image to the back layer
+            backgroundImage.setDepth(-1);
         this.add.text(width * 0.5, height * 0.3, 'Level Complete', {  
             font: '900 54px Arial', 
-        color: '#00264d'  // Dark blue color
+        color: '#FFFFF'  // Dark blue color
     })
 
     .setOrigin (0.5)
@@ -31,5 +48,6 @@ export default class LevelComplete extends Phaser.Scene {
 color: 'FEB36F'
 
 } )
+.setOrigin (0.5)
 }
  }
