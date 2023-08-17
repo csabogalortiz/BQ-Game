@@ -22,7 +22,7 @@ private lastCompliance=100
     create (){
 
         this.graphics = this.add.graphics()
-        this.setComplianceBar(100)
+        this.setComplianceBar(10)
        
 
         this.beansLabel = this.add.text(250, 20, 'Data: 0', {

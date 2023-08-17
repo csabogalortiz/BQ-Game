@@ -4,12 +4,14 @@ import { sharedInstance as events } from "./EventCenter";
 import ObstaclesController from "./ObstaclesController";
 
 
+
 export default class TrucksController 
 {
       // Properties
+      private scene: Phaser.Scene
       private sprite: Phaser.Physics.Matter.Sprite
       private stateMachine: StateMachine
-      private moveTime = 0 
+      private moveTime = 0
     //   private obstacles: ObstaclesController
       //   private cursors: CursorKeys
       //   private player: PlayerController
@@ -17,7 +19,8 @@ export default class TrucksController
 
 //   Constructor -----
 
-constructor(sprite: Phaser.Physics.Matter.Sprite) {
+constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
+   this.scene = scene
     this.sprite = sprite
 
     this.createAnimations()
@@ -39,9 +42,17 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
         onUpdate: this.moveRightOnUpdate
     })
 
+    .addState('crushed')
+
 
         .setState('idle')
 
+        events.on('trucks-stomped', this.handleTrucksStomped, this)
+
+    }
+
+    destroy () {
+        events.off('trucks-stomped', this.handleTrucksStomped, this)
     }
 
     update(dt: number) {
@@ -80,7 +91,7 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
     // States Handlers
 
     private idleOnEnter() {
-
+        this.sprite.play('idle')
         const r = Phaser.Math.Between(1, 1000)
         if (r < 50) {
             this.stateMachine.setState('move-left')
@@ -110,13 +121,33 @@ constructor(sprite: Phaser.Physics.Matter.Sprite) {
     }
 
     private moveRightOnUpdate (dt: number) { 
-        this.moveTime += dt 
+        this.moveTime += dt
         this.sprite.setVelocityX(1)
-
         if (this.moveTime > 2000) {
             this.stateMachine.setState('move-left')
+
         }
+
        
+    }
+
+    private handleTrucksStomped(trucks: Phaser.Physics.Matter.Sprite) {
+if (this.sprite !== trucks) {
+    return
+}
+events.off('trucks-stomped', this.handleTrucksStomped, this)
+this.stateMachine.setState('crushed')
+this.scene.tweens.add({
+    targets: this.sprite,
+    displayHeight: 0, 
+    y:this.sprite.y + (this.sprite.height  + 0,5),
+    duration: 200, 
+    onComplete: () => { 
+        this.sprite.destroy()
+    }
+
+})
+
     }
 
 }

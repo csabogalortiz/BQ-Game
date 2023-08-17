@@ -20,6 +20,10 @@ export default class Game extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.trucks = []
+       this.events.once(Phaser.Scenes.Events.DESTROY, () => {
+       this.destroy()
+
+    })
     }
 
     preload() {
@@ -78,7 +82,7 @@ export default class Game extends Phaser.Scene {
                      const trucks = this.matter.add.sprite(x, y, 'trucks') 
                         .setFixedRotation();
 
-                        this.trucks.push(new TrucksController(trucks))
+                        this.trucks.push(new TrucksController(this, trucks))
                         this.obstacles.add('trucks', trucks.body as MatterJS.BodyType)
                         break 
                     }
@@ -128,6 +132,10 @@ export default class Game extends Phaser.Scene {
         this.cameras.main.startFollow(this.player!);
         this.matter.world.convertTilemapLayer(ground);
 
+    }
+
+    destroy () {
+        this.trucks.forEach(trucks => trucks.destroy())
     }
 
 

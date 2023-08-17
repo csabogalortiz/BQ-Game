@@ -14,8 +14,9 @@ export default class PlayerController
     private cursors: CursorKeys
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
-  private compliance =100
+  private compliance = 10
   private lastTrucks?: Phaser.Physics.Matter.Sprite
+  
 
 //   Constructor -----
 
@@ -56,6 +57,10 @@ export default class PlayerController
 
             .addState('trucks-stomp', {
                 onEnter: this.trucksStompOnEnter,
+            })
+
+            .addState ('player-celebrate', {
+                onEnter: this.playerCelebrateOnEnter,
             })
             .setState('idle')
 
@@ -147,6 +152,21 @@ export default class PlayerController
         this.stateMachine.update(dt)
     }
 
+    private setCompliance (value: number) {
+
+        this.compliance = Phaser.Math.Clamp(value, 0, 100)
+        events.emit('compliance-changed', this.compliance)
+        console.log('Compliance:', this.compliance); // Add this line to check compliance value
+
+        if(this.compliance >= 80) {
+            console.log('Player Celebrate!'); // Add this line to check if this block is reached
+            this.stateMachine.setState('player-celebrate')
+        }
+
+        // to do- check for death
+
+    }
+
     private idleOnEnter() {
         this.sprite.play('player-idle')
     }
@@ -206,13 +226,16 @@ export default class PlayerController
         }
     }
 
+    private playerCelebrateOnEnter () {
+        this.sprite.play('player-celebrate')
+    }
 
-    // Handling Obstacles States 
+
+    // -------------------  Handling Obstacles States 
 
     private cloudHitOnEnter() {
         this.sprite.setVelocityY(-12);
-        this.compliance = Phaser.Math.Clamp(this.compliance - 10, 0, 100)
-        events.emit('compliance-changed', this.compliance)
+  
 
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
         const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
@@ -242,7 +265,7 @@ export default class PlayerController
         })
 
         this.stateMachine.setState('idle')
-        
+        this.setCompliance(this.compliance- 10)
     }
 
 private trucksHitOnEnter() {
@@ -296,6 +319,8 @@ this.stateMachine.setState('idle')
 
         this.sprite.setVelocityY(-12); 
 
+
+
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
 const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
 this.scene.tweens.addCounter({
@@ -322,10 +347,13 @@ this.scene.tweens.addCounter({
         this.sprite.setTint(color)
     }
 })
+events.emit('trucks-stomped', this.lastTrucks)
+
         this.stateMachine.setState('idle')
+        this.setCompliance(this.compliance + 30)
     }
 
-    // Player Animations ---------------------------------------------
+    // -----------------------------  Player Animations ---------------------------------------------
     private createAnimations() {
         this.sprite.anims.create({
             key: 'player-idle',
@@ -343,6 +371,20 @@ this.scene.tweens.addCounter({
             }),
             repeat: -1
         })
+
+        // This can be changed to 'player celebrate' if we want to add a celebration animation
+
+        this.sprite.anims.create({
+            key: 'player-celebrate',
+            frameRate: 10,
+            frames: this.sprite.anims.generateFrameNames('player', {
+                start: 1,
+                end: 4,
+                prefix: 'penguin_die0',
+                suffix: '.png'
+            }),
+        })
+        
 
      
     }
