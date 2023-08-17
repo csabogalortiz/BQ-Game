@@ -228,6 +228,11 @@ export default class PlayerController
 
     private playerCelebrateOnEnter () {
         this.sprite.play('player-celebrate')
+
+        this.sprite.setOnCollide(() => {})
+
+        this.scene.scene.start('level-complete')
+
     }
 
 

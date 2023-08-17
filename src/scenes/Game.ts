@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene {
     private obstacles!: ObstaclesController
 
     constructor() {
+        // Desde donde llamo la escena con un boton- este es el nombre 
         super('game');
     }
     // super('game') calls the constructor of the parent class (Phaser.Scene), passing the string 'game' as an argument.
