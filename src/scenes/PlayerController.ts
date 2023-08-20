@@ -227,7 +227,8 @@ export default class PlayerController
     }
 
     private playerCelebrateOnEnter () {
-        this.sprite.play('player-celebrate')
+        this.sprite.play('player-celebrate0')
+        this.sprite.play('player-celebrate1')
 
         this.sprite.setOnCollide(() => {})
         this.scene.time.delayedCall(2000, () => {
@@ -362,17 +363,17 @@ events.emit('trucks-stomped', this.lastTrucks)
     private createAnimations() {
         this.sprite.anims.create({
             key: 'player-idle',
-            frames: [{ key: 'player', frame: 'penguin_walk01.png' }]
+            frames: [{ key: 'player', frame: 'Player-Idle.svg' }]
         })
 
         this.sprite.anims.create({
             key: 'player-walk',
-            frameRate: 10,
+            frameRate: 4,
             frames: this.sprite.anims.generateFrameNames('player', {
                 start: 1,
-                end: 4,
-                prefix: 'penguin_walk0',
-                suffix: '.png'
+                end: 2,
+                prefix: 'Player-Walk',
+                suffix: '.svg'
             }),
             repeat: -1
         })
@@ -380,14 +381,22 @@ events.emit('trucks-stomped', this.lastTrucks)
         // This can be changed to 'player celebrate' if we want to add a celebration animation
 
         this.sprite.anims.create({
-            key: 'player-celebrate',
-            frameRate: 10,
+            key: 'player-celebrate0',
+            frames: [{ key: 'player', frame: 'Player-Celebrate1.svg' }]
+            }),
+        
+        this.sprite.anims.create({
+            key: 'player-celebrate1',
+            frameRate: 4,
             frames: this.sprite.anims.generateFrameNames('player', {
                 start: 1,
                 end: 4,
-                prefix: 'penguin_die0',
-                suffix: '.png'
+                prefix: 'Player-Celebrate',
+                suffix: '.svg'
             }),
+            repeat: -1
+
+
         })
         
 
