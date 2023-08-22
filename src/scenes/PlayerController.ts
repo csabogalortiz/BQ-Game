@@ -62,6 +62,12 @@ export default class PlayerController
             .addState ('player-celebrate', {
                 onEnter: this.playerCelebrateOnEnter,
             })
+            .addState ('player-surprise', {
+                onEnter: this.playerSurpriseOnEnter,
+
+
+            })
+
             .setState('idle')
 
         // Collisions ----------------
@@ -75,6 +81,41 @@ export default class PlayerController
             // primero rebota  y luego vuelve al idle state 
            this.stateMachine.setState('cloud-hit')
           this.stateMachine.setState('idle')
+            return
+        }
+
+        if (this.obstacles.is('ohno', body)) {
+            this.stateMachine.setState('player-surprise')
+            const ohNO = this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohno');
+            ohNO.setOrigin(0.5, 1);
+            ohNO.setScale(0.5);
+            ohNO.setDepth(1);
+            ohNO.alpha = 0.8;
+        
+            // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+            this.scene.time.delayedCall(4000, () => {
+                ohNO.destroy();
+                this.stateMachine.setState('idle')
+                
+            });
+      
+            return
+        }
+
+        if (this.obstacles.is('sign', body)) {
+            const sign = this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'signBubble');
+            sign.setOrigin(0.5, 1);
+            sign.setScale(0.5);
+            sign.setDepth(1);
+            sign.alpha = 0.8;
+        
+            // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+            this.scene.time.delayedCall(4000, () => {
+                sign.destroy();
+
+                
+            });
+      
             return
         }
 
@@ -212,7 +253,9 @@ export default class PlayerController
     }
 
     private jumpOnEnter() {
+        this.sprite.play('player-jump')
         this.sprite.setVelocityY(-12)
+
     }
 
     private jumpOnUpdate() {
@@ -235,7 +278,10 @@ export default class PlayerController
 
             this.scene.scene.start('level-complete')
         })
+    }
 
+    private playerSurpriseOnEnter () {
+        this.sprite.play('player-surprise')
 
     }
 
@@ -378,7 +424,8 @@ events.emit('trucks-stomped', this.lastTrucks)
             repeat: -1
         })
 
-        // This can be changed to 'player celebrate' if we want to add a celebration animation
+
+        // Player Celebrate 
 
         this.sprite.anims.create({
             key: 'player-celebrate0',
@@ -395,8 +442,24 @@ events.emit('trucks-stomped', this.lastTrucks)
                 suffix: '.svg'
             }),
             repeat: -1
+        })
 
+    
+        this.sprite.anims.create({
+            key: 'player-jump',
+            frames: [{ key: 'player', frame: 'Player-Jump2.svg' }]
 
+        })
+
+        this.sprite.anims.create({
+            key: 'player-surprise',
+            frameRate: 2,
+            frames: this.sprite.anims.generateFrameNames('player', {
+                start: 11,
+                end: 10,
+                prefix: 'Player-Surprise-',
+                suffix: '.svg'
+            }),
         })
         
 

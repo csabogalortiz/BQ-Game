@@ -26,7 +26,7 @@
 },
 {
 	"filename": "Player-Celebrate4.svg",
-	"frame": {"x":0,"y":70,"w":70,"h":70},
+	"frame": {"x":210,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -34,7 +34,7 @@
 },
 {
 	"filename": "Player-Idle.svg",
-	"frame": {"x":70,"y":70,"w":70,"h":70},
+	"frame": {"x":280,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -42,7 +42,7 @@
 },
 {
 	"filename": "Player-Jump1.svg",
-	"frame": {"x":140,"y":70,"w":70,"h":70},
+	"frame": {"x":350,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -50,7 +50,23 @@
 },
 {
 	"filename": "Player-Jump2.svg",
-	"frame": {"x":0,"y":140,"w":70,"h":70},
+	"frame": {"x":420,"y":0,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "Player-Surprise-10.svg",
+	"frame": {"x":490,"y":0,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "Player-Surprise-11.svg",
+	"frame": {"x":560,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -58,7 +74,7 @@
 },
 {
 	"filename": "Player-Walk1.svg",
-	"frame": {"x":70,"y":140,"w":70,"h":70},
+	"frame": {"x":630,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -66,7 +82,7 @@
 },
 {
 	"filename": "Player-Walk2.svg",
-	"frame": {"x":140,"y":140,"w":70,"h":70},
+	"frame": {"x":700,"y":0,"w":70,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
@@ -77,8 +93,8 @@
 	"version": "1.0",
 	"image": "player.png",
 	"format": "RGBA8888",
-	"size": {"w":210,"h":210},
+	"size": {"w":770,"h":70},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4e8c03a7f40aa41421c18f8a2e732b56:50bb71b4387f79091d222a1a110e47f9:86d5339b780aedd87b35e2b7c0a7e11b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:40c9b4ed554ccf3c1fb9c630d7541eea:5850b1eea119fdbfb656105062d8fa85:86d5339b780aedd87b35e2b7c0a7e11b$"
 }
 }

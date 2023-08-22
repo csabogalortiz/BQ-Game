@@ -35,6 +35,11 @@ export default class Game extends Phaser.Scene {
         this.load.image('bean', 'assets/bean.png')
         this.load.image ('bad-bean', 'assets/bad-bean.png')
         this.load.image('compliance', 'assets/compliance.png')
+        this.load.image('sign', 'assets/sign.png')
+        this.load.image('ohno', 'assets/ohno.png')
+        this.load.image('signBubble', 'assets/signBubble.png')
+
+
     }
 
     create() {
@@ -109,7 +114,20 @@ export default class Game extends Phaser.Scene {
                     break
                 }
 
+                case 'sign': {
 
+                    const sign = this.matter.add.sprite(x, y, 'sign', undefined, {
+                        isStatic: true,
+                        isSensor: true
+                    }) 
+                    
+                       .setFixedRotation();
+
+                       this.obstacles.add('sign', sign.body as MatterJS.BodyType)
+                       break 
+                   }
+             
+                
                 case 'bad-bean': {
                     const badBean = this.matter.add.sprite(x, y, 'bad-bean', undefined, {
                         isStatic: true,
@@ -127,7 +145,20 @@ export default class Game extends Phaser.Scene {
                    this.obstacles.add('fall-clouds', fallClouds)
                    break
              
-                  }  }
+                  }  
+                  case 'ohno' : {
+                    const ohno=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                        isStatic: true,
+                   
+                    })
+                    this.obstacles.add('ohno', ohno)
+                    break
+              
+                   }
+
+                
+                
+                }
         });
 
         this.cameras.main.startFollow(this.player!, true);
