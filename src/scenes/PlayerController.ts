@@ -409,7 +409,7 @@ events.emit('trucks-stomped', this.lastTrucks)
     private createAnimations() {
         this.sprite.anims.create({
             key: 'player-idle',
-            frames: [{ key: 'player', frame: 'Player-Idle.svg' }]
+            frames: [{ key: 'player', frame: 'Player_Idle-05.png' }]
         })
 
         this.sprite.anims.create({
@@ -418,8 +418,8 @@ events.emit('trucks-stomped', this.lastTrucks)
             frames: this.sprite.anims.generateFrameNames('player', {
                 start: 1,
                 end: 2,
-                prefix: 'Player-Walk',
-                suffix: '.svg'
+                prefix: 'Player_Walk-0',
+                suffix: '.png'
             }),
             repeat: -1
         })
@@ -429,17 +429,17 @@ events.emit('trucks-stomped', this.lastTrucks)
 
         this.sprite.anims.create({
             key: 'player-celebrate0',
-            frames: [{ key: 'player', frame: 'Player-Celebrate1.svg' }]
+            frames: [{ key: 'player', frame: 'Player_Celebrate-01.png' }]
             }),
         
         this.sprite.anims.create({
             key: 'player-celebrate1',
             frameRate: 4,
             frames: this.sprite.anims.generateFrameNames('player', {
-                start: 1,
+                start: 2,
                 end: 4,
-                prefix: 'Player-Celebrate',
-                suffix: '.svg'
+                prefix: 'Player_Celebrate-0',
+                suffix: '.png'
             }),
             repeat: -1
         })
@@ -447,19 +447,19 @@ events.emit('trucks-stomped', this.lastTrucks)
     
         this.sprite.anims.create({
             key: 'player-jump',
-            frames: [{ key: 'player', frame: 'Player-Jump2.svg' }]
+            frameRate: 4,
+            frames: this.sprite.anims.generateFrameNames('player', {
+                start: 1,
+                end: 2,
+                prefix: 'Player_Jump-0',
+                suffix: '.png'
+            }),
 
         })
 
         this.sprite.anims.create({
             key: 'player-surprise',
-            frameRate: 2,
-            frames: this.sprite.anims.generateFrameNames('player', {
-                start: 11,
-                end: 10,
-                prefix: 'Player-Surprise-',
-                suffix: '.svg'
-            }),
+            frames: [{ key: 'player', frame: 'Player_Talk-01.png' }]
         })
         
 

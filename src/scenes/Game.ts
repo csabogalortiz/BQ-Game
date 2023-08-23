@@ -28,14 +28,14 @@ export default class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.load.atlas('player', 'assets/player.png', 'assets/player.json')
+        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json')
         this.load.atlas('trucks', 'assets/truck.png', 'assets/truck.json')
         this.load.image('tiles', 'assets/sheet 8.00.17 AM.png')
         this.load.tilemapTiledJSON('tilemap', 'assets/game.json')
         this.load.image('bean', 'assets/bean.png')
         this.load.image ('bad-bean', 'assets/bad-bean.png')
         this.load.image('compliance', 'assets/compliance.png')
-        this.load.image('sign', 'assets/sign.png')
+        this.load.image('sign', 'assets/citySign.png')
         this.load.image('ohno', 'assets/ohno.png')
         this.load.image('signBubble', 'assets/signBubble.png')
 
@@ -66,8 +66,13 @@ export default class Game extends Phaser.Scene {
             switch (name) {
                 case 'player-spawn':
                     {
+                       
                         this.player = this.matter.add.sprite(x, y- (height + 0.5), 'player')
+                        
+                    
                             .setFixedRotation();
+                   
+                  
 
                         this.playerController = new PlayerController(
                             this,
@@ -82,6 +87,8 @@ export default class Game extends Phaser.Scene {
                         break
 
                     }
+                   
+                    
 
                     case 'trucks': {
 
