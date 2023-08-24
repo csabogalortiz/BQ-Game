@@ -163,9 +163,9 @@ export default class PlayerController
 
 			switch (type)
 			{
-				case 'bean':
+				case 'data':
 				{
-                    events.emit('bean-collected')
+                    events.emit('data-collected')
 					sprite.destroy()
 					break
 				}
@@ -406,6 +406,7 @@ events.emit('trucks-stomped', this.lastTrucks)
 
         this.stateMachine.setState('idle')
         this.setCompliance(this.compliance + 20)
+        
     }
 
     // -----------------------------  Player Animations ---------------------------------------------

@@ -12,10 +12,14 @@ export default class TrucksController
       private sprite: Phaser.Physics.Matter.Sprite
       private stateMachine: StateMachine
       private moveTime = 0
+        
+    private isStomped: boolean = false;
+
     //   private obstacles: ObstaclesController
       //   private cursors: CursorKeys
       //   private player: PlayerController
 
+      
 
 //   Constructor -----
 
@@ -29,23 +33,37 @@ constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
 
     // Adding States -------------------
     this.stateMachine
-    .addState('idle', {
+    .addState('red-idle', {
         onEnter: this.idleOnEnter,
     })
-    .addState('move-left', {
+    .addState('red-left', {
         onEnter: this.moveLeftOnEnter,
         onUpdate: this.moveLeftOnUpdate
     })
 
-    .addState('move-right', {
+    .addState('red-right', {
         onEnter: this.moveRightOnEnter,
         onUpdate: this.moveRightOnUpdate
     })
 
     .addState('crushed')
 
+    .addState('green-idle', {
+        onEnter: this.greenIdleOnEnter,
+    })
 
-        .setState('idle')
+    .addState('green-left', {
+        onEnter: this.greenLeftOnEnter,
+        onUpdate: this.greenLeftOnUpdate,
+    })
+    
+
+    .addState('green-right', {
+        onEnter: this.greenRightOnEnter,
+        onUpdate: this.greenRightOnUpdate,
+    })
+    
+        .setState('red-idle')
 
         events.on('trucks-stomped', this.handleTrucksStomped, this)
 
@@ -61,93 +79,166 @@ constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
 
      // Truck Animations ---------------------------------------------
      private createAnimations() {
+        // Red truck animations
         this.sprite.anims.create({
-            key: 'idle',
+            key: 'red-idle',
             frames: [{
-                key: 'trucks', frame: 'truckL.png'
+                key: 'trucks', frame: 'trucks_red_left-1.png'
             }]
-        })
+        });
     
         this.sprite.anims.create({
-            key: 'move-left',
-            frames: [{
-                key: 'trucks', frame: 'truckL.png'
-            }],
-            // frameRate: 5,
-            // repeat: -1
-        })
+            key: 'red-left',
+            frameRate: 4,
+            frames: this.sprite.anims.generateFrameNames('trucks', {
+                start: 1,
+                end: 3,
+                prefix: 'trucks_red_left-',
+                suffix: '.png'
+            }),
+            repeat: -1
+        });
     
         this.sprite.anims.create({
-            key: 'move-right',
+            key: 'red-right',
+            frameRate: 4,
+            frames: this.sprite.anims.generateFrameNames('trucks', {
+                start: 1,
+                end: 3,
+                prefix: 'trucks_red_right-',
+                suffix: '.png'
+            }),
+            repeat: -1
+        });
+    
+        // Green truck animations
+        this.sprite.anims.create({
+            key: 'green-idle',
             frames: [{
-                key: 'trucks', frame: 'truckR.png'
-            }],
-            // frameRate: 5,
-            // repeat: -1
-        })
+                key: 'trucks', frame: 'trucks_green_left-1.png'
+            }]
+        });
+    
+        this.sprite.anims.create({
+            key: 'green-left',
+            frameRate: 4,
+            frames: this.sprite.anims.generateFrameNames('trucks', {
+                start: 1,
+                end: 3,
+                prefix: 'trucks_green_left-',
+                suffix: '.png'
+            }),
+            repeat: -1
+        });
+    
+        this.sprite.anims.create({
+            key: 'green-right',
+            frameRate: 4,
+            frames: this.sprite.anims.generateFrameNames('trucks', {
+                start: 1,
+                end: 3,
+                prefix: 'trucks_green_right-',
+                suffix: '.png'
+            }),
+            repeat: -1
+        });
     }
+    
     
 
     // States Handlers
 
     private idleOnEnter() {
-        this.sprite.play('idle')
+        this.sprite.play('red-idle')
         const r = Phaser.Math.Between(1, 1000)
         if (r < 50) {
-            this.stateMachine.setState('move-left')
+            this.stateMachine.setState('red-left')
         } else {
-            this.stateMachine.setState('move-right')
+            this.stateMachine.setState('red-right')
         }
             }
 
 
     private moveLeftOnEnter () { 
         this.moveTime =0 
-        this.sprite.anims.play('move-left')
+        this.sprite.anims.play('red-left')
     }
 
     private moveLeftOnUpdate (dt: number) { 
       this.moveTime += dt 
-      this.sprite.setVelocityX(-1)
+      this.sprite.setVelocityX(-2)
 
       if (this.moveTime > 2000) {
-          this.stateMachine.setState('move-right')
+          this.stateMachine.setState('red-right')
       }
     }
 
     private moveRightOnEnter () { 
         this.moveTime =0 
-        this.sprite.anims.play('move-right')
+        this.sprite.anims.play('red-right')
     }
 
     private moveRightOnUpdate (dt: number) { 
         this.moveTime += dt
-        this.sprite.setVelocityX(1)
+        this.sprite.setVelocityX(2)
         if (this.moveTime > 2000) {
-            this.stateMachine.setState('move-left')
+            this.stateMachine.setState('red-left')
 
         }
-
-       
+    }
+    private greenIdleOnEnter() {
+        this.sprite.play('green-idle');
+        this.stateMachine.setState('green-right'); // Transition to 'green-right'
+    }
+    
+   
+    private greenRightOnEnter() {
+        this.moveTime = 0;
+        this.sprite.anims.play('green-right')
     }
 
+    
+    
+    private greenRightOnUpdate(dt: number) {
+        this.moveTime += dt;
+        this.sprite.setVelocityX(2);
+    
+        if (this.moveTime > 2000) {
+            this.stateMachine.setState('green-left'); // Transition to 'green-left'
+        }
+    }
+    
+
+
+
+    private greenLeftOnEnter() {
+        this.moveTime = 0;
+        this.sprite.anims.play('green-left');
+    }
+    private greenLeftOnUpdate(dt: number) {
+        this.moveTime += dt;
+        this.sprite.setVelocityX(-2);
+    
+        if (this.moveTime > 2000) {
+            this.stateMachine.setState('green-right'); // Transition to 'green-right'
+        }
+    }
+    
     private handleTrucksStomped(trucks: Phaser.Physics.Matter.Sprite) {
-if (this.sprite !== trucks) {
-    return
-}
-events.off('trucks-stomped', this.handleTrucksStomped, this)
-this.stateMachine.setState('crushed')
-this.scene.tweens.add({
-    targets: this.sprite,
-    displayHeight: 0, 
-    y:this.sprite.y + (this.sprite.height  + 0,5),
-    duration: 200, 
-    onComplete: () => { 
-        this.sprite.destroy()
+        if (this.sprite !== trucks || this.isStomped) {
+            return;
+        }
+        events.off('trucks-stomped', this.handleTrucksStomped, this);
+    
+        // Change the truck's state and animation to green
+        this.stateMachine.setState('green-idle');
+        this.sprite.play('green-idle');
+    
+        // Update the isStomped flag to prevent further stomping
+        this.isStomped = true;
+    
+        // Optionally, you can reset any timers or movement-related properties
     }
-
-})
-
-    }
+    
 
 }

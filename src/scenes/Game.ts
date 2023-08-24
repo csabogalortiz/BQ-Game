@@ -29,12 +29,10 @@ export default class Game extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json')
-        this.load.atlas('trucks', 'assets/truck.png', 'assets/truck.json')
+        this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
         this.load.image('tiles', 'assets/sheet 8.00.17 AM.png')
         this.load.tilemapTiledJSON('tilemap', 'assets/game.json')
-        this.load.image('bean', 'assets/bean.png')
-        this.load.image ('bad-bean', 'assets/bad-bean.png')
-        this.load.image('compliance', 'assets/compliance.png')
+        this.load.image('data', 'assets/data.png')
         this.load.image('sign', 'assets/citySign.png')
         this.load.image('ohno', 'assets/ohno.png')
         this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
@@ -100,27 +98,15 @@ export default class Game extends Phaser.Scene {
                         break 
                     }
               
-                case 'bean': {
-                    const bean = this.matter.add.sprite(x, y, 'bean', undefined, {
+                case 'data': {
+                    const data = this.matter.add.sprite(x, y, 'data', undefined, {
                         isStatic: true,
                         isSensor: true
 
                     })
-                    bean.setData('type', 'bean')
+                    data.setData('type', 'data')
                     break
                 }
-
-                case 'compliance': {
-                    const compliance = this.matter.add.sprite(x, y, 'compliance', undefined, {
-                        isStatic: true,
-                        isSensor: true
-
-                    })
-                    compliance.setData('type', 'compliance')
-                    compliance.setData('compliancePoints', 10)
-                    break
-                }
-
                 case 'sign': {
 
                     const sign = this.matter.add.sprite(x, y, 'sign', undefined, {
@@ -135,15 +121,7 @@ export default class Game extends Phaser.Scene {
                    }
              
                 
-                case 'bad-bean': {
-                    const badBean = this.matter.add.sprite(x, y, 'bad-bean', undefined, {
-                        isStatic: true,
-                        isSensor: true
-
-                    })
-                    badBean.setData('type', 'bad-bean')
-                    break
-                }
+               
 
                 case 'fall-clouds' : {
                   const fallClouds=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {

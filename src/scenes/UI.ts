@@ -3,14 +3,14 @@ import { sharedInstance as events } from "./EventCenter";
 import  WebFontFile from './WebFontFile';
 
 export default class UI extends Phaser.Scene {
-private beansLabel!: Phaser.GameObjects.Text 
+private dataLabel!: Phaser.GameObjects.Text 
 private complianceLabel!: Phaser.GameObjects.Text 
-private beansCollected = 0
+private dataCollected = 0
 private graphics!: Phaser.GameObjects.Graphics
 private lastCompliance=100
 private timerText!: Phaser.GameObjects.Text;
 private countdownTimer: number = 60;
-private coinsImage!: Phaser.GameObjects.Image;
+private dataImage!: Phaser.GameObjects.Image;
 
     constructor () {
         super({
@@ -20,7 +20,7 @@ private coinsImage!: Phaser.GameObjects.Image;
 
     // Everytime it starts it starts at 0
     init (){
-        this.beansCollected = 0
+        this.dataCollected = 0
     }
 
 
@@ -28,7 +28,7 @@ private coinsImage!: Phaser.GameObjects.Image;
 	{
 		const fonts = new WebFontFile(this.load, "Press Start 2P")
 		this.load.addFile(fonts)
-        this.load.image('coinsImage', '/assets/compliance.png');
+        this.load.image('dataImage', '/assets/data.png');
 	}
 
 
@@ -36,7 +36,7 @@ private coinsImage!: Phaser.GameObjects.Image;
 
 
 
-        this.timerText = this.add.text(500, 20, 'Time: ' + this.countdownTimer, {
+        this.timerText = this.add.text(500, 45, 'Time: ' + this.countdownTimer, {
             fontFamily: '"Press Start 2P"',
             fontSize: '20px',
             color: '#FFFFFF' 
@@ -56,10 +56,10 @@ private coinsImage!: Phaser.GameObjects.Image;
         this.graphics = this.add.graphics()
         this.setComplianceBar(10)
        
-        this.coinsImage = this.add.image(300, 35, 'coinsImage');
+        this.dataImage = this.add.image(300, 55, 'dataImage');
 
         // Add the text next to the image
-        this.beansLabel = this.add.text(340, 20, 'x 0', {
+        this.dataLabel = this.add.text(340, 45, 'Data:0', {
             fontFamily: '"Press Start 2P"',
             fontSize: '20px',
             color: '#FFFFFF'
@@ -70,12 +70,12 @@ private coinsImage!: Phaser.GameObjects.Image;
             color: '#FFFFFF' // Dark blue color
         });
 
-        events.on('bean-collected', this.handleBeanCollected, this)
+        events.on('data-collected', this.handleDataCollected, this)
         events.on('compliance-changed', this.handleComplianceChanged, this)
 
         // hay que revisar esto
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            events.off('bean-collected', this.handleBeanCollected, this)
+            events.off('data-collected', this.handleDataCollected, this)
 
         })
     }
@@ -96,10 +96,10 @@ private coinsImage!: Phaser.GameObjects.Image;
 
     }
 
-    private handleBeanCollected(){
+    private handleDataCollected(){
 
-this.beansCollected += 1
-this.beansLabel.text = `Data: ${this.beansCollected}`
+this.dataCollected += 1
+this.dataLabel.text =`Data:${this.dataCollected}`
 }
 
 handleComplianceChanged (value: number) {
