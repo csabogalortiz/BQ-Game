@@ -37,7 +37,7 @@ export default class Game extends Phaser.Scene {
         this.load.image('compliance', 'assets/compliance.png')
         this.load.image('sign', 'assets/citySign.png')
         this.load.image('ohno', 'assets/ohno.png')
-        this.load.image('signBubble', 'assets/signBubble.png')
+        this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
 
 
     }

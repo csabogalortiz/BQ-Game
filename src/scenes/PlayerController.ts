@@ -5,6 +5,10 @@ import ObstaclesController from "./ObstaclesController";
 import { Scene } from "phaser";
 type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys
 
+interface IBound {
+    height: number; // or appropriate data type
+    // Other properties...
+}
 export default class PlayerController 
 {
 
@@ -93,7 +97,7 @@ export default class PlayerController
             ohNO.alpha = 0.8;
         
             // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-            this.scene.time.delayedCall(4000, () => {
+            this.scene.time.delayedCall(1000, () => {
                 ohNO.destroy();
                 this.stateMachine.setState('idle')
                 
@@ -103,21 +107,20 @@ export default class PlayerController
         }
 
         if (this.obstacles.is('sign', body)) {
-            const sign = this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'signBubble');
+            const offsetY = -80
+            const sign = this.scene.add.image(body.position.x,body.position.y + offsetY,  'aggregator_signBubble');
+            
             sign.setOrigin(0.5, 1);
-            sign.setScale(0.5);
+            sign.setScale(0.4);
             sign.setDepth(1);
             sign.alpha = 0.8;
         
-            // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+            // Remove the 'sign' image after a certain duration (e.g., 4 seconds)
             this.scene.time.delayedCall(4000, () => {
                 sign.destroy();
-
-                
             });
-      
-            return
         }
+        
 
         // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa
 
@@ -409,7 +412,7 @@ events.emit('trucks-stomped', this.lastTrucks)
     private createAnimations() {
         this.sprite.anims.create({
             key: 'player-idle',
-            frames: [{ key: 'player', frame: 'Player_Idle-05.png' }]
+            frames: [{ key: 'player', frame: 'Player_Idle.png' }]
         })
 
         this.sprite.anims.create({
@@ -459,7 +462,7 @@ events.emit('trucks-stomped', this.lastTrucks)
 
         this.sprite.anims.create({
             key: 'player-surprise',
-            frames: [{ key: 'player', frame: 'Player_Talk-01.png' }]
+            frames: [{ key: 'player', frame: 'Player_Talk-02.png' }]
         })
         
 

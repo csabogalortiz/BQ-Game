@@ -307,7 +307,7 @@
   <object id="41" name="trucks" x="2236.86" y="70.9767" width="71.2897" height="69.6695"/>
   <object id="44" name="sign" x="352.236" y="489.873" width="65.578" height="65.578"/>
   <object id="45" name="trucks" x="1118.78" y="212.04" width="71.2897" height="69.6695"/>
-  <object id="46" name="ohno" x="283.975" y="68.9264" width="67.4506" height="67.4506"/>
+  <object id="46" name="ohno" x="140.37" y="558.746" width="67.4506" height="-1.42109e-14"/>
   <object id="47" x="639.866" y="767.169"/>
   <object id="48" name="compliance" x="530.085" y="211.633" width="66.429" height="68.0493"/>
   <object id="49" name="bean" x="558.987" y="418.732" width="68.0408" height="72.0432"/>
