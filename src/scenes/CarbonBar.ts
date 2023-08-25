@@ -1,32 +1,39 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
 import Phaser from "phaser";
 import { sharedInstance as events } from "./EventCenter"; // Make sure to import your event center
 
 export default class CarbonBar {
+
+    public show() {
+        this.graphics.visible = true;
+        this.carbonText?.setVisible(true);
+    }
+
+    public hide() {
+        this.graphics.visible = false;
+        this.carbonText?.setVisible(false);
+    }
+
+
     private graphics: Phaser.GameObjects.Graphics;
     private lastCarbon: number = 0;
     private scene: Phaser.Scene;
     private carbonText?: Phaser.GameObjects.Text;
+    // public setPosition(x: number, y: number) {
+    //     // this.graphics.setPosition(x, y);
+    //     // this.carbonText?.setPosition(x, y - 30); // Adjust the offset as needed
+    // }
 
     constructor(scene: Phaser.Scene) {
+
+        
         this.scene = scene;
 
         // Initialize the graphics and text objects
-        this.carbonText = scene.add.text(150, 500, "Carbon Bar", {
+        this.carbonText = scene.add.text(150, 800, "Carbon Emissions", {
             fontFamily: 'Arial',
-            fontSize: '16px',
+            fontSize: '20px',
             color: '#D60000'
         });
         this.graphics = scene.add.graphics();
@@ -34,8 +41,13 @@ export default class CarbonBar {
         // Set up the carbon-changed event listener
         events.on('carbon-changed', this.handleCarbonChanged, this);
         
+
+        this.graphics.setScrollFactor(0, 0);
+        this.carbonText.setScrollFactor(0, 0);
         // Draw the initial carbon bar
         this.setCarbonBar(0);
+
+        
     }
 
     private setCarbonBar(value: number) {
@@ -45,7 +57,7 @@ export default class CarbonBar {
         // Clear previous graphics and redraw
         // this.graphics.clear();
         this.graphics.fillStyle(0x3E5DBF);
-        this.graphics.fillRoundedRect(10, 500, 180, 20, 5);
+        this.graphics.fillRoundedRect(150, 400, 180, 20, 5);
 
         if (percent > 0) {
             this.graphics.fillStyle(0x99D128);

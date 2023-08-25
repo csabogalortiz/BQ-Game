@@ -52,11 +52,12 @@ export default class Game extends Phaser.Scene {
 
     create() {
 // we are running the UI scene in parallel  with this one- this means i have to do this if the Ui is cheanging depending on the scene
-        this.scene.launch('ui')
-
+this.scene.launch('ui');
 
         const carbonBar = new CarbonBar(this);
+        // // carbonBar.setPosition(x, y);
         console.log("CarbonBar instance created:", carbonBar);
+        
         
 
         const map = this.make.tilemap({ key: 'tilemap' });
@@ -161,6 +162,8 @@ export default class Game extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player!, true);
         this.matter.world.convertTilemapLayer(ground);
+
+        
 
     }
 

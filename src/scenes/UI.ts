@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { sharedInstance as events } from "./EventCenter";
 import  WebFontFile from './WebFontFile';
+import CarbonBar from "./CarbonBar";
 
 export default class UI extends Phaser.Scene {
 private dataLabel!: Phaser.GameObjects.Text 
@@ -11,6 +12,8 @@ private lastCompliance=100
 private timerText!: Phaser.GameObjects.Text;
 private countdownTimer: number = 60;
 private dataImage!: Phaser.GameObjects.Image;
+
+
 
     constructor () {
         super({
@@ -35,6 +38,12 @@ private dataImage!: Phaser.GameObjects.Image;
     create (){
 
 
+
+        // Other UI setup code...
+
+        // Example usage:
+
+        
         // Timer
         this.timerText = this.add.text(500, 45, 'Time: ' + this.countdownTimer, {
             fontFamily: '"Press Start 2P"',
