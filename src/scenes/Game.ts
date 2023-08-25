@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import PlayerController from './PlayerController';
 import ObstaclesController from './ObstaclesController';
 import TrucksController from './TrucksController';
+import CarbonBar from './CarbonBar';
+import CarbonTest from './CarbonTest';
 
 
 export default class Game extends Phaser.Scene {
@@ -10,7 +12,13 @@ export default class Game extends Phaser.Scene {
     private trucks: TrucksController [] = []
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-
+    private carbonBar!: CarbonBar;
+    private carbonTest?: CarbonTest;
+    
+     // CarbonBar properties
+     private graphics!: Phaser.GameObjects.Graphics;
+     private lastCarbon: number = 0;
+     private carbonText?: Phaser.GameObjects.Text;
 
     constructor() {
         // Desde donde llamo la escena con un boton- este es el nombre 
@@ -44,8 +52,13 @@ export default class Game extends Phaser.Scene {
 
     create() {
 // we are running the UI scene in parallel  with this one- this means i have to do this if the Ui is cheanging depending on the scene
-this.scene.launch('carbon')
         this.scene.launch('ui')
+
+
+        const carbonBar = new CarbonBar(this);
+        console.log("CarbonBar instance created:", carbonBar);
+        
+
         const map = this.make.tilemap({ key: 'tilemap' });
         const tileset = map.addTilesetImage('bqworld', 'tiles');
         const ground = map.createLayer('ground', tileset);
@@ -154,6 +167,7 @@ this.scene.launch('carbon')
     destroy () {
         this.scene.stop('ui')
         this.trucks.forEach(trucks => trucks.destroy())
+        
     }
 
 

@@ -18,7 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
       // este hay que quitarlo es el que muestra las cajas
     },
   },
-  scene: [StartScene, Game,UI,  LevelComplete],
+  scene: [StartScene,UI, Game,  LevelComplete],
 
   backgroundColor: '#738CD7'
 };

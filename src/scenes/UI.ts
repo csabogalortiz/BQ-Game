@@ -47,16 +47,8 @@ private dataImage!: Phaser.GameObjects.Image;
         const webFontFile = new WebFontFile(this.load, "Press Start 2P");
         this.load.addFile(webFontFile);
 
-        // Set the font for the text
-        // const fontConfig = {
-        //     fontFamily: '"Press Start 2P"',
-        //     fontSize: '24px',
-        //     color: '#FFFFFF' // Dark blue color
-        // };
 
 
-
-        
         this.graphics = this.add.graphics()
         this.setComplianceBar(10)
        
