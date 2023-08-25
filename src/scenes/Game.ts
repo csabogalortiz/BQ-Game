@@ -3,12 +3,14 @@ import PlayerController from './PlayerController';
 import ObstaclesController from './ObstaclesController';
 import TrucksController from './TrucksController';
 
+
 export default class Game extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private player?: Phaser.Physics.Matter.Sprite;
     private trucks: TrucksController [] = []
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
+
 
     constructor() {
         // Desde donde llamo la escena con un boton- este es el nombre 
@@ -42,8 +44,7 @@ export default class Game extends Phaser.Scene {
 
     create() {
 // we are running the UI scene in parallel  with this one- this means i have to do this if the Ui is cheanging depending on the scene
-
-
+this.scene.launch('carbon')
         this.scene.launch('ui')
         const map = this.make.tilemap({ key: 'tilemap' });
         const tileset = map.addTilesetImage('bqworld', 'tiles');
@@ -51,8 +52,7 @@ export default class Game extends Phaser.Scene {
         ground.setCollisionByProperty({ collides: true });
         map.createLayer('obstacles', tileset);
         map.createLayer('background', tileset);
-
-
+    // Inside the create() method of your Game class
         const objectsLayer = map.getObjectLayer('objects');
 
         //  The objects property within this layer is an array that holds various objects placed on the map. 

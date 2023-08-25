@@ -35,13 +35,14 @@ private dataImage!: Phaser.GameObjects.Image;
     create (){
 
 
-
+        // Timer
         this.timerText = this.add.text(500, 45, 'Time: ' + this.countdownTimer, {
             fontFamily: '"Press Start 2P"',
             fontSize: '20px',
             color: '#FFFFFF' 
         });
 
+        // Load the font
 
         const webFontFile = new WebFontFile(this.load, "Press Start 2P");
         this.load.addFile(webFontFile);
@@ -53,6 +54,9 @@ private dataImage!: Phaser.GameObjects.Image;
         //     color: '#FFFFFF' // Dark blue color
         // };
 
+
+
+        
         this.graphics = this.add.graphics()
         this.setComplianceBar(10)
        
@@ -86,7 +90,7 @@ private dataImage!: Phaser.GameObjects.Image;
         const borderRadius = 5;
         this.graphics.clear()
 
-       this.graphics.fillStyle(0xFFFFFF)
+       this.graphics.fillStyle(0x3E5DBF)
        this.graphics.fillRoundedRect(10, 60, 200, 30, 5)
         if (percent > 0) {
             this.graphics.fillStyle(0x99D128)

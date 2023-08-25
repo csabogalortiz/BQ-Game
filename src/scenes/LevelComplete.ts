@@ -30,13 +30,13 @@ export default class LevelComplete extends Phaser.Scene {
 
         // Create the animation
         this.anims.create({
-            key: 'player-celebrate1',
+            key: 'player-celebrate',
             frameRate: 4,
             frames: this.anims.generateFrameNames('player', {
                 start: 1,
                 end: 4,
-                prefix: 'Player-Celebrate',
-                suffix: '.svg'
+                prefix: 'Player_Celebrate-0',
+                suffix: '.png'
             }),
             repeat: -1
             
@@ -44,8 +44,8 @@ export default class LevelComplete extends Phaser.Scene {
 
         // Play the animation on a sprite
         const playerSprite = this.add.sprite(width * 0.5, height * 0.75, 'player');
-        playerSprite.anims.play('player-celebrate1');
-        playerSprite.setScale(1.7);
+        playerSprite.anims.play('player-celebrate');
+        playerSprite.setScale(1.6);
 
         // Boton!
 
@@ -56,15 +56,5 @@ export default class LevelComplete extends Phaser.Scene {
                 this.scene.start('game');
             }); 
 
-        // const button = this.add.rectangle(width * 0.5, height * 0.40, 150, 75, 0x8AFFC1)
-        //     .setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        //         this.scene.start('game');
-        //     });
-
-        // this.add.text(button.x, button.y, 'Next Phase', {
-        //     fontSize: '52px',
-        //     color: 'FEB36F'
-        // }).setOrigin(0.5);
     }
 }

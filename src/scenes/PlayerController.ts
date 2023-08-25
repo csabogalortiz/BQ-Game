@@ -6,9 +6,10 @@ import { Scene } from "phaser";
 type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys
 
 interface IBound {
-    height: number; // or appropriate data type
-    // Other properties...
+    height: number; 
 }
+
+
 export default class PlayerController 
 {
 
@@ -19,6 +20,7 @@ export default class PlayerController
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
   private compliance = 10
+  private carbon = 10
   private lastTrucks?: Phaser.Physics.Matter.Sprite
   
 
@@ -74,7 +76,8 @@ export default class PlayerController
 
             .setState('idle')
 
-        // Collisions ----------------
+ // ------------------------------------------Collisions ------------------------------------------------------------------
+
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
 
@@ -204,6 +207,21 @@ export default class PlayerController
 
         if(this.compliance >= 80) {
             console.log('Player Celebrate!'); // Add this line to check if this block is reached
+            this.stateMachine.setState('player-celebrate')
+        }
+
+        // to do- check for death
+
+    }
+
+    private setCarbon (value: number) {
+
+        this.carbon = Phaser.Math.Clamp(value, 0, 100)
+        events.emit('carbon-changed', this.carbon)
+        console.log('Carboon:', this.carbon); // Add this line to check compliance value
+
+        if(this.carbon > 80) {
+            console.log('Carbon Changed!!'); // Add this line to check if this block is reached
             this.stateMachine.setState('player-celebrate')
         }
 
@@ -406,6 +424,8 @@ events.emit('trucks-stomped', this.lastTrucks)
 
         this.stateMachine.setState('idle')
         this.setCompliance(this.compliance + 20)
+        this.setCarbon(this.carbon + 10)
+
         
     }
 
