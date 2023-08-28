@@ -52,9 +52,18 @@ export default class CarbonBar {
         this.graphics.fillRoundedRect(10, 150, 200, 30, 5);
 
         if (percent > 0) {
-            this.graphics.fillStyle(0xFF0000);
+            let fillColor = 0x99D128; // Default: Green
+    
+            if (percent > 0.6) {
+                fillColor = 0xFF0000; // Red for percentage > 80%
+            } else if (percent >= 0.) {
+                fillColor = 0xFFBB00; // Yellow for percentage between 60% and 80%
+            }
+    
+            this.graphics.fillStyle(fillColor);
             this.graphics.fillRoundedRect(10, 150, width * percent, 30, 5);
         }
+    
         
     }
 

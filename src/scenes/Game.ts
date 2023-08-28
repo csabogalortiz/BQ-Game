@@ -39,7 +39,7 @@ export default class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json')
+        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
         this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
         this.load.image('tiles', 'assets/sheet 8.00.17 AM.png')
         this.load.tilemapTiledJSON('tilemap', 'assets/game.json')
