@@ -20,7 +20,7 @@ export default class PlayerController
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
   private compliance = 10
-  private carbon = 10
+  private carbon = 80
   private lastTrucks?: Phaser.Physics.Matter.Sprite
   
 
@@ -180,14 +180,14 @@ export default class PlayerController
 					break
 				}
 
-                case 'compliance':
-                    {
-                        const value = sprite.getData('compliancePoints') ?? 10
-                        this.compliance += value
-                        events.emit('compliance-changed', this.compliance)
-                        sprite.destroy()
-                        break
-                    }
+                // case 'compliance':
+                //     {
+                //         const value = sprite.getData('compliancePoints') ?? 10
+                //         this.compliance += value
+                //         events.emit('compliance-changed', this.compliance)
+                //         sprite.destroy()
+                //         break
+                //     }
             }
 
             
@@ -424,7 +424,10 @@ events.emit('trucks-stomped', this.lastTrucks)
 
         this.stateMachine.setState('idle')
         this.setCompliance(this.compliance + 20)
-        this.setCarbon(this.carbon + 10)
+
+        const carbonDecreaseAmount = 10; // Decrease the carbon by 10 units
+        this.setCarbon(this.carbon - carbonDecreaseAmount);
+    
 
         
     }

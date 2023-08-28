@@ -38,12 +38,6 @@ private dataImage!: Phaser.GameObjects.Image;
     create (){
 
 
-
-        // Other UI setup code...
-
-        // Example usage:
-
-        
         // Timer
         this.timerText = this.add.text(500, 45, 'Time: ' + this.countdownTimer, {
             fontFamily: '"Press Start 2P"',
@@ -56,7 +50,7 @@ private dataImage!: Phaser.GameObjects.Image;
         const webFontFile = new WebFontFile(this.load, "Press Start 2P");
         this.load.addFile(webFontFile);
 
-
+// Graphics
 
         this.graphics = this.add.graphics()
         this.setComplianceBar(10)

@@ -15,36 +15,21 @@ export default class CarbonBar {
         this.carbonText?.setVisible(false);
     }
 
-    public preload () {
-        
-    }
-
     private graphics: Phaser.GameObjects.Graphics;
     private lastCarbon: number = 0;
     private scene: Phaser.Scene;
     private carbonText?: Phaser.GameObjects.Text;
-    // public setPosition(x: number, y: number) {
-    //     // this.graphics.setPosition(x, y);
-    //     // this.carbonText?.setPosition(x, y - 30); // Adjust the offset as needed
-    // }
 
     constructor(scene: Phaser.Scene, fontStyles) {
 
-
-        
         this.scene = scene;
 
         // Initialize the graphics and text objects
-
-    
         this.graphics = scene.add.graphics();
 
         this.carbonText = scene.add.text(20, 120, "Carbon Emissions", fontStyles);
 
         
-        
-      
-
         // Set up the carbon-changed event listener
         events.on('carbon-changed', this.handleCarbonChanged, this);
         
@@ -52,7 +37,7 @@ export default class CarbonBar {
         this.graphics.setScrollFactor(0, 0);
         this.carbonText.setScrollFactor(0, 0);
         // Draw the initial carbon bar
-        this.setCarbonBar(0);
+        this.setCarbonBar(80);
 
         
     }
@@ -70,6 +55,7 @@ export default class CarbonBar {
             this.graphics.fillStyle(0xFF0000);
             this.graphics.fillRoundedRect(10, 150, width * percent, 30, 5);
         }
+        
     }
 
     private handleCarbonChanged(value: number) {
