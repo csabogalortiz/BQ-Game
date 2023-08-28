@@ -53,7 +53,7 @@ export default class LevelComplete extends Phaser.Scene {
         const phaseButton = this.add.sprite(width * 0.55, height * 0.50, 'phaase_button')
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-                this.scene.start('game');
+                this.scene.start('farmerLevel');
             }); 
 
     }

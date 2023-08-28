@@ -40,9 +40,8 @@ export default class FarmerLevel extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
-
-        this.load.image('tiles', 'assets/farmGround.png');
-        this.load.tilemapTiledJSON('tilemap', 'assets/gameFarm.json')
+        this.load.image('tilesFarm', 'assets/farmGround.png');
+        this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
 
         // this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
         this.load.image('data', 'assets/data.png')
@@ -65,12 +64,14 @@ const customFontStyle = {
     color: '#FFFFFF' // Adjust the font color as needed
 };
 
-        const map = this.make.tilemap({ key: 'tilemap' });
-        const tileset = map.addTilesetImage('bqworld', 'tiles');
-        const ground = map.createLayer('ground', tileset);
-        ground.setCollisionByProperty({ collides: true });
-        map.createLayer('obstacles', tileset);
-        map.createLayer('background', tileset);
+        const map = this.make.tilemap({ key: 'tilemapFarm' });
+        const tilesetFarm = map.addTilesetImage('farmworld', 'tilesFarm');
+        const groundFarm = map.createLayer('groundFarm', tilesetFarm);
+
+
+        groundFarm.setCollisionByProperty({ collides: true });
+        map.createLayer('obstacles', tilesetFarm);
+        map.createLayer('background', tilesetFarm);
         const objectsLayer = map.getObjectLayer('objects');
 
 // this.carbonBar = new CarbonBar(this, customFontStyle);
@@ -173,7 +174,7 @@ const customFontStyle = {
         });
 
         this.cameras.main.startFollow(this.player!, true);
-        this.matter.world.convertTilemapLayer(ground);
+        this.matter.world.convertTilemapLayer(groundFarm);
 
         
 
