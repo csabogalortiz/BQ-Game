@@ -365,7 +365,7 @@ const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
 const endColor = Phaser.Display.Color.ValueToColor(0x454CFF)
 
 
-// -------------------------------------------TWEENS DE REVISION ---------------------------------------------------
+// ---------------------------------------------TWEENS DE REVISION ---------------------------------------------------
 // this.scene.tweens.addCounter({
 //     from: 0,
 //     to: 100,
