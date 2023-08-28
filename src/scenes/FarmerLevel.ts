@@ -1,29 +1,29 @@
 import Phaser from 'phaser';
 import PlayerController from './PlayerController';
 import ObstaclesController from './ObstaclesController';
-import TrucksController from './TrucksController';
-import CarbonBar from './CarbonBar';
-import CarbonTest from './CarbonTest';
 import  WebFontFile from './WebFontFile';
+// import TrucksController from './TrucksController';
+// import CarbonBar from './CarbonBar';
+// import CarbonTest from './CarbonTest';
 
 
-export default class Game extends Phaser.Scene {
+export default class FarmerLevel extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private player?: Phaser.Physics.Matter.Sprite;
-    private trucks: TrucksController [] = []
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-    private carbonBar!: CarbonBar;
-    private carbonTest?: CarbonTest;
+    // private trucks: TrucksController [] = []
+    // private carbonBar!: CarbonBar;
+    // private carbonTest?: CarbonTest;
     
      // CarbonBar properties
-     private graphics!: Phaser.GameObjects.Graphics;
-     private lastCarbon: number = 0;
-     private carbonText?: Phaser.GameObjects.Text;
+    //  private graphics!: Phaser.GameObjects.Graphics;
+    //  private lastCarbon: number = 0;
+    //  private carbonText?: Phaser.GameObjects.Text;
 
     constructor() {
         // Desde donde llamo la escena con un boton- este es el nombre 
-        super('game');
+        super('farmerLevel');
     }
     // super('game') calls the constructor of the parent class (Phaser.Scene), passing the string 'game' as an argument.
 
@@ -31,7 +31,7 @@ export default class Game extends Phaser.Scene {
     {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
-       this.trucks = []
+    //    this.trucks = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -40,9 +40,11 @@ export default class Game extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
-        this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
-        this.load.image('tiles', 'assets/sheet2.png')
-        this.load.tilemapTiledJSON('tilemap', 'assets/farm_world.json')
+
+        this.load.image('tiles', 'assets/farmGround.png');
+        this.load.tilemapTiledJSON('tilemap', 'assets/gameFarm.json')
+
+        // this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
         this.load.image('data', 'assets/data.png')
         this.load.image('sign', 'assets/citySign.png')
         this.load.image('ohno', 'assets/ohno.png')
@@ -52,14 +54,9 @@ export default class Game extends Phaser.Scene {
 // Inside your game scene's preload() method
 const fonts = new WebFontFile(this.load, "Press Start 2P")
 		this.load.addFile(fonts)
-
-// Other preload assets...
-
-
     }
 
     create() {
-// we are running the UI scene in parallel  with this one- this means i have to do this if the Ui is cheanging depending on the scene
 this.scene.launch('ui');
 
 const customFontStyle = {
@@ -68,22 +65,21 @@ const customFontStyle = {
     color: '#FFFFFF' // Adjust the font color as needed
 };
 
-this.carbonBar = new CarbonBar(this, customFontStyle);
-
-        const carbonBar = new CarbonBar(this, customFontStyle);
-        // // carbonBar.setPosition(x, y);
-        console.log("CarbonBar instance created:", carbonBar);
-        
-        
-
         const map = this.make.tilemap({ key: 'tilemap' });
-        const tileset = map.addTilesetImage('farmworld', 'tiles');
+        const tileset = map.addTilesetImage('bqworld', 'tiles');
         const ground = map.createLayer('ground', tileset);
         ground.setCollisionByProperty({ collides: true });
         map.createLayer('obstacles', tileset);
         map.createLayer('background', tileset);
-    // Inside the create() method of your Game class
         const objectsLayer = map.getObjectLayer('objects');
+
+// this.carbonBar = new CarbonBar(this, customFontStyle);
+
+//         const carbonBar = new CarbonBar(this, customFontStyle);
+//         // // carbonBar.setPosition(x, y);
+//         console.log("CarbonBar instance created:", carbonBar);
+        
+        
 
         //  The objects property within this layer is an array that holds various objects placed on the map. 
         // The forEach method is used to iterate over each object within this array and execute a callback function for each object.
@@ -118,15 +114,15 @@ this.carbonBar = new CarbonBar(this, customFontStyle);
                    
                     
 
-                    case 'trucks': {
+                    // case 'trucks': {
 
-                     const trucks = this.matter.add.sprite(x, y, 'trucks') 
-                        .setFixedRotation();
+                    //  const trucks = this.matter.add.sprite(x, y, 'trucks') 
+                    //     .setFixedRotation();
 
-                        this.trucks.push(new TrucksController(this, trucks))
-                        this.obstacles.add('trucks', trucks.body as MatterJS.BodyType)
-                        break 
-                    }
+                    //     this.trucks.push(new TrucksController(this, trucks))
+                    //     this.obstacles.add('trucks', trucks.body as MatterJS.BodyType)
+                    //     break 
+                    // }
               
                 case 'data': {
                     const data = this.matter.add.sprite(x, y, 'data', undefined, {
@@ -185,7 +181,7 @@ this.carbonBar = new CarbonBar(this, customFontStyle);
 
     destroy () {
         this.scene.stop('ui')
-        this.trucks.forEach(trucks => trucks.destroy())
+        // this.trucks.forEach(trucks => trucks.destroy())
         
     }
 
@@ -194,10 +190,11 @@ this.carbonBar = new CarbonBar(this, customFontStyle);
         if (this.playerController) {
             this.playerController.update(dt)
         }
-        this.trucks.forEach(trucks => trucks.update(dt))
+        // this.trucks.forEach(trucks => trucks.update(dt))
     }
 
 }
 
 
 
+// We have commented all logic regarding trucks
