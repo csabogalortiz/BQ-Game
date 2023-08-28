@@ -4,6 +4,7 @@ import ObstaclesController from './ObstaclesController';
 import TrucksController from './TrucksController';
 import CarbonBar from './CarbonBar';
 import CarbonTest from './CarbonTest';
+import  WebFontFile from './WebFontFile';
 
 
 export default class Game extends Phaser.Scene {
@@ -47,6 +48,13 @@ export default class Game extends Phaser.Scene {
         this.load.image('ohno', 'assets/ohno.png')
         this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
 
+        
+// Inside your game scene's preload() method
+const fonts = new WebFontFile(this.load, "Press Start 2P")
+		this.load.addFile(fonts)
+
+// Other preload assets...
+
 
     }
 
@@ -54,7 +62,15 @@ export default class Game extends Phaser.Scene {
 // we are running the UI scene in parallel  with this one- this means i have to do this if the Ui is cheanging depending on the scene
 this.scene.launch('ui');
 
-        const carbonBar = new CarbonBar(this);
+const customFontStyle = {
+    fontFamily: '"Press Start 2P"',
+    fontSize: '18px', // Adjust the font size as needed
+    color: '#FFFFFF' // Adjust the font color as needed
+};
+
+this.carbonBar = new CarbonBar(this, customFontStyle);
+
+        const carbonBar = new CarbonBar(this, customFontStyle);
         // // carbonBar.setPosition(x, y);
         console.log("CarbonBar instance created:", carbonBar);
         
