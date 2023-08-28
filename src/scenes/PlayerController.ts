@@ -20,7 +20,7 @@ export default class PlayerController
     private stateMachine: StateMachine
   private obstacles: ObstaclesController
   private compliance = 10
-  private carbon = 80
+  private carbon = 99
   private lastTrucks?: Phaser.Physics.Matter.Sprite
   
 
@@ -100,7 +100,7 @@ export default class PlayerController
             ohNO.alpha = 0.8;
         
             // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-            this.scene.time.delayedCall(1000, () => {
+            this.scene.time.delayedCall(1300, () => {
                 ohNO.destroy();
                 this.stateMachine.setState('idle')
                 
@@ -423,9 +423,9 @@ this.scene.tweens.addCounter({
 events.emit('trucks-stomped', this.lastTrucks)
 
         this.stateMachine.setState('idle')
-        this.setCompliance(this.compliance + 20)
+        this.setCompliance(this.compliance + 23)
 
-        const carbonDecreaseAmount = 10; // Decrease the carbon by 10 units
+        const carbonDecreaseAmount = 23; // Decrease the carbon by 10 units
         this.setCarbon(this.carbon - carbonDecreaseAmount);
     
 

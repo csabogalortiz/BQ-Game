@@ -37,7 +37,7 @@ export default class CarbonBar {
         this.graphics.setScrollFactor(0, 0);
         this.carbonText.setScrollFactor(0, 0);
         // Draw the initial carbon bar
-        this.setCarbonBar(80);
+        this.setCarbonBar(99);
 
         
     }
@@ -50,13 +50,12 @@ export default class CarbonBar {
         // this.graphics.clear();
         this.graphics.fillStyle(0x3E5DBF);
         this.graphics.fillRoundedRect(10, 150, 200, 30, 5);
-
         if (percent > 0) {
             let fillColor = 0x99D128; // Default: Green
-    
-            if (percent > 0.6) {
+        
+            if (percent > 0.8) {
                 fillColor = 0xFF0000; // Red for percentage > 80%
-            } else if (percent >= 0.) {
+            } else if (percent >= 0.6) {
                 fillColor = 0xFFBB00; // Yellow for percentage between 60% and 80%
             }
     
