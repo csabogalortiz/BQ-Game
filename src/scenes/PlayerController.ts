@@ -22,7 +22,8 @@ export default class PlayerController
   private compliance = 10
   private carbon = 99
   private lastTrucks?: Phaser.Physics.Matter.Sprite
-  
+  private stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> = new Map();
+
 
 //   Constructor -----
 
@@ -52,10 +53,10 @@ export default class PlayerController
                 onUpdate: this.jumpOnUpdate
             })
 
-            .addState('cloud-hit', {
-                onEnter: this.cloudHitOnEnter,
-                // onUpdate: this.cloudHitOnUpdate
-            })
+            // .addState('cloud-hit', {
+            //     onEnter: this.cloudHitOnEnter,
+            //     // onUpdate: this.cloudHitOnUpdate
+            // })
 
             .addState('trucks-hit',{
                 onEnter: this.trucksHitOnEnter,
@@ -309,40 +310,40 @@ export default class PlayerController
 
     // -------------------  Handling Obstacles States 
 
-    private cloudHitOnEnter() {
-        this.sprite.setVelocityY(-12);
+    // private cloudHitOnEnter() {
+    //     this.sprite.setVelocityY(-12);
   
 
-        const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
-        const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
-        this.scene.tweens.addCounter({
-            from: 0,
-            to: 100,
-            duration: 100,
-            repeat: 2,
-            yoyo: true,
-            ease: Phaser.Math.Easing.Sine.InOut,
-            onUpdate: tween => {
-                const value = tween.getValue()
-                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-                    startColor,
-                    endColor,
-                    100,
-                    value
-                )
-                const color = Phaser.Display.Color.GetColor(
-                    colorObject.r,
-                    colorObject.g,
-                    colorObject.b,
+    //     const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
+    //     const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
+    //     this.scene.tweens.addCounter({
+    //         from: 0,
+    //         to: 100,
+    //         duration: 100,
+    //         repeat: 2,
+    //         yoyo: true,
+    //         ease: Phaser.Math.Easing.Sine.InOut,
+    //         onUpdate: tween => {
+    //             const value = tween.getValue()
+    //             const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+    //                 startColor,
+    //                 endColor,
+    //                 100,
+    //                 value
+    //             )
+    //             const color = Phaser.Display.Color.GetColor(
+    //                 colorObject.r,
+    //                 colorObject.g,
+    //                 colorObject.b,
 
-                )
-                this.sprite.setTint(color)
-            }
-        })
+    //             )
+    //             this.sprite.setTint(color)
+    //         }
+    //     })
 
-        this.stateMachine.setState('idle')
-        this.setCompliance(this.compliance- 10)
-    }
+    //     this.stateMachine.setState('idle')
+    //     this.setCompliance(this.compliance- 10)
+    // }
 
 private trucksHitOnEnter() {
 
@@ -362,75 +363,138 @@ if(this.lastTrucks) {
 
 const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
 const endColor = Phaser.Display.Color.ValueToColor(0x454CFF)
-this.scene.tweens.addCounter({
-    from: 0,
-    to: 100,
-    duration: 100,
-    repeat: 2,
-    yoyo: true,
-    ease: Phaser.Math.Easing.Sine.InOut,
-    onUpdate: tween => {
-        const value = tween.getValue()
-        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-            startColor,
-            endColor,
-            100,
-            value
-        )
-        const color = Phaser.Display.Color.GetColor(
-            colorObject.r,
-            colorObject.g,
-            colorObject.b,
 
-        )
-        this.sprite.setTint(color)
-    }
-})
+
+// -------------------------------------------TWEENS DE REVISION ---------------------------------------------------
+// this.scene.tweens.addCounter({
+//     from: 0,
+//     to: 100,
+//     duration: 100,
+//     repeat: 2,
+//     yoyo: true,
+//     ease: Phaser.Math.Easing.Sine.InOut,
+//     onUpdate: tween => {
+//         const value = tween.getValue()
+//         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+//             startColor,
+//             endColor,
+//             100,
+//             value
+//         )
+//         const color = Phaser.Display.Color.GetColor(
+//             colorObject.r,
+//             colorObject.g,
+//             colorObject.b,
+
+//         )
+//         this.sprite.setTint(color)
+//     }
+// })
 
 this.stateMachine.setState('idle')
 
     }
 
-    private trucksStompOnEnter() {
+//     private trucksStompOnEnter() {
+//         if (this.lastTrucks && !this.stompedTrucks.get(this.lastTrucks)) {
 
-        this.sprite.setVelocityY(-12); 
-        const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
-const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
-this.scene.tweens.addCounter({
-    from: 0,
-    to: 100,
-    duration: 100,
-    repeat: 2,
-    yoyo: true,
-    ease: Phaser.Math.Easing.Sine.InOut,
-    onUpdate: tween => {
-        const value = tween.getValue()
-        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-            startColor,
-            endColor,
-            100,
-            value
-        )
-        const color = Phaser.Display.Color.GetColor(
-            colorObject.r,
-            colorObject.g,
-            colorObject.b,
+//         this.sprite.setVelocityY(-12); 
+//         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
+// const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
+// this.scene.tweens.addCounter({
+//     from: 0,
+//     to: 100,
+//     duration: 100,
+//     repeat: 2,
+//     yoyo: true,
+//     ease: Phaser.Math.Easing.Sine.InOut,
+//     onUpdate: tween => {
+//         const value = tween.getValue()
+//         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+//             startColor,
+//             endColor,
+//             100,
+//             value
+//         )
+//         const color = Phaser.Display.Color.GetColor(
+//             colorObject.r,
+//             colorObject.g,
+//             colorObject.b,
 
-        )
-        this.sprite.setTint(color)
-    }
-})
-events.emit('trucks-stomped', this.lastTrucks)
+//         )
+//         this.sprite.setTint(color)
+//     }
+// })
+// events.emit('trucks-stomped', this.lastTrucks)
 
-        this.stateMachine.setState('idle')
-        this.setCompliance(this.compliance + 23)
+//         this.stateMachine.setState('idle')
+//         this.setCompliance(this.compliance + 23)
 
-        const carbonDecreaseAmount = 23; // Decrease the carbon by 10 units
+//         const carbonDecreaseAmount = 23; // Decrease the carbon by 10 units
+//         this.setCarbon(this.carbon - carbonDecreaseAmount);
+//         this.stompedTrucks.set(this.lastTrucks, true);
+
+// }
+// this.stateMachine.setState('idle');
+//     }
+
+private trucksStompOnEnter() {
+    if (this.lastTrucks && !this.stompedTrucks.get(this.lastTrucks)) {
+        const onTrucksStomped = (truck: Phaser.Physics.Matter.Sprite) => {
+            if (truck === this.lastTrucks) {
+                this.stompedTrucks.set(this.lastTrucks, true);
+                events.removeListener('trucks-stomped', onTrucksStomped);
+            }
+        };
+
+        // Add the event listener
+        events.addListener('trucks-stomped', onTrucksStomped);
+
+        this.sprite.setVelocityY(-12);
+
+        const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+        const endColor = Phaser.Display.Color.ValueToColor(0x58E21E);
+
+        // Add the tweens
+        this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: 2,
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: tween => {
+                const value = tween.getValue();
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                );
+                const color = Phaser.Display.Color.GetColor(
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b
+                );
+                this.sprite.setTint(color);
+            }
+        });
+
+        // Emit the event
+        events.emit('trucks-stomped', this.lastTrucks);
+
+        // Change the state and update compliance and carbon
+        this.stateMachine.setState('idle');
+        this.setCompliance(this.compliance + 23);
+        const carbonDecreaseAmount = 23; // Decrease the carbon by 23 units
         this.setCarbon(this.carbon - carbonDecreaseAmount);
-    
 
-        
+        // Clean up the lastTrucks reference
+        this.lastTrucks = undefined;
+    } else {
+        this.stateMachine.setState('idle');
     }
+}
 
     // -----------------------------  Player Animations ---------------------------------------------
     private createAnimations() {
