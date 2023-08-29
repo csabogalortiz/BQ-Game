@@ -3,6 +3,7 @@ import PlayerController from './PlayerController';
 import ObstaclesController from './ObstaclesController';
 import  WebFontFile from './WebFontFile';
 import FarmersController from './FarmersController';
+import PlayerControllerFarm from './PlayerControllerFarm';
 // import CarbonBar from './CarbonBar';
 // import CarbonTest from './CarbonTest';
 
@@ -47,7 +48,7 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
         this.load.image('data', 'assets/data.png')
         this.load.image('farmSign', 'assets/farmSign.png')
-        this.load.image('ohno', 'assets/ohno.png')
+        this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
         this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
 
         
@@ -99,7 +100,7 @@ const customFontStyle = {
                    
                   
 
-                        this.playerController = new PlayerController(
+                        this.playerController = new PlayerControllerFarm (
                             this,
                             this.player,
                             this.cursors,
@@ -170,12 +171,12 @@ const customFontStyle = {
                 //    break
              
                 //   }  
-                  case 'ohno' : {
-                    const ohno=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                  case 'ohnoFarm' : {
+                    const ohnoFarm=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
                         isStatic: true,
                    
                     })
-                    this.obstacles.add('ohno', ohno)
+                    this.obstacles.add('ohnoFarm', ohnoFarm)
                     break
               
                    }

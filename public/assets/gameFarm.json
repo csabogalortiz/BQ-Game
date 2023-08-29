@@ -99,7 +99,7 @@
                 {
                  "height":5.16636,
                  "id":4,
-                 "name":"ohno",
+                 "name":"ohnoFarm",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -174,17 +174,6 @@
                  "y":423.614
                 }, 
                 {
-                 "height":0,
-                 "id":16,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":24.5851,
-                 "y":596.189
-                }, 
-                {
                  "height":70.2576112412178,
                  "id":17,
                  "name":"farmSign",
@@ -202,7 +191,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

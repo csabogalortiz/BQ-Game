@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="18">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="19">
  <editorsettings>
   <export target="gameFarm.json" format="json"/>
  </editorsettings>
@@ -485,14 +485,13 @@
  </layer>
  <objectgroup id="2" name="objects">
   <object id="3" name="player-spawn" x="68.5453" y="491.523" width="66.1986" height="64.1926"/>
-  <object id="4" name="ohno" x="212.854" y="555.9" width="137.425" height="5.16636"/>
+  <object id="4" name="ohnoFarm" x="212.854" y="555.9" width="137.425" height="5.16636"/>
   <object id="6" name="farmers" x="1471.87" y="492.007" width="68.5074" height="66.4314"/>
   <object id="9" name="farmers" x="498.936" y="487.501" width="68.5074" height="66.4314"/>
   <object id="10" name="data" x="1194.23" y="214.06" width="60.8382" height="63.0915"/>
   <object id="11" name="data" x="771.744" y="423.614" width="60.8382" height="63.0915"/>
   <object id="13" name="data" x="1686.57" y="286.165" width="60.8382" height="63.0915"/>
   <object id="14" name="data" x="1896.12" y="423.614" width="60.8382" height="63.0915"/>
-  <object id="16" x="24.5851" y="596.189"/>
   <object id="17" name="farmSign" x="632.319" y="488.29" width="65.5738" height="70.2576"/>
  </objectgroup>
 </map>

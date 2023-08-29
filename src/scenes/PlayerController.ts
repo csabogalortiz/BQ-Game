@@ -14,15 +14,15 @@ export default class PlayerController
 {
 
     // Properties
-    private scene: Phaser.Scene
-    private sprite: Phaser.Physics.Matter.Sprite
-    private cursors: CursorKeys
-    private stateMachine: StateMachine
-  private obstacles: ObstaclesController
-  private compliance = 10
-  private carbon = 99
-  private lastTrucks?: Phaser.Physics.Matter.Sprite
-  private stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> = new Map();
+    protected scene: Phaser.Scene
+    protected sprite: Phaser.Physics.Matter.Sprite
+    protected cursors: CursorKeys
+    protected stateMachine: StateMachine
+    protected obstacles: ObstaclesController
+    protected compliance = 10
+    protected carbon = 99
+    protected lastTrucks?: Phaser.Physics.Matter.Sprite
+    protected stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> = new Map();
 
 
 //   Constructor -----
