@@ -288,7 +288,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="objects">
+ <objectgroup id="4" name="objects" visible="0">
   <object id="3" name="player-spawn" x="2.13034" y="632.509" width="65.578" height="65.578"/>
   <object id="7" name="data" x="777.897" y="488.354" width="68.0408" height="72.0432"/>
   <object id="8" name="data" x="493.339" y="548.103" width="68.0408" height="72.0432"/>

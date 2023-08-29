@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import PlayerController from './PlayerController';
 import ObstaclesController from './ObstaclesController';
 import  WebFontFile from './WebFontFile';
-// import TrucksController from './TrucksController';
+import FarmersController from './FarmersController';
 // import CarbonBar from './CarbonBar';
 // import CarbonTest from './CarbonTest';
 
@@ -12,7 +12,8 @@ export default class FarmerLevel extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-    // private trucks: TrucksController [] = []
+    
+    private farmers: FarmersController [] = []
     // private carbonBar!: CarbonBar;
     // private carbonTest?: CarbonTest;
     
@@ -23,7 +24,7 @@ export default class FarmerLevel extends Phaser.Scene {
 
     constructor() {
         // Desde donde llamo la escena con un boton- este es el nombre 
-        super('farmerLevel');
+        super('farmLevel');
     }
     // super('game') calls the constructor of the parent class (Phaser.Scene), passing the string 'game' as an argument.
 
@@ -31,7 +32,7 @@ export default class FarmerLevel extends Phaser.Scene {
     {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
-    //    this.trucks = []
+       this.farmers = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -40,12 +41,12 @@ export default class FarmerLevel extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
-        this.load.image('tilesFarm', 'assets/farmGround.png');
+        this.load.image('tilesFarm', 'assets/farmworld.png');
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
 
-        // this.load.atlas('trucks', 'assets/trucks.png', 'assets/trucks.json')
+        this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
         this.load.image('data', 'assets/data.png')
-        this.load.image('sign', 'assets/citySign.png')
+        this.load.image('farmSign', 'assets/farmSign.png')
         this.load.image('ohno', 'assets/ohno.png')
         this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
 
@@ -57,6 +58,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
     create() {
 this.scene.launch('ui');
+
 
 const customFontStyle = {
     fontFamily: '"Press Start 2P"',
@@ -93,8 +95,6 @@ const customFontStyle = {
                     {
                        
                         this.player = this.matter.add.sprite(x, y- (height + 0.5), 'player')
-                        
-                    
                             .setFixedRotation();
                    
                   
@@ -113,17 +113,15 @@ const customFontStyle = {
 
                     }
                    
-                    
+                    case 'farmers': {
 
-                    // case 'trucks': {
+                     const farmers = this.matter.add.sprite(x, y, 'farmers') 
+                        .setFixedRotation();
 
-                    //  const trucks = this.matter.add.sprite(x, y, 'trucks') 
-                    //     .setFixedRotation();
-
-                    //     this.trucks.push(new TrucksController(this, trucks))
-                    //     this.obstacles.add('trucks', trucks.body as MatterJS.BodyType)
-                    //     break 
-                    // }
+                        this.farmers.push(new FarmersController(this, farmers))
+                        this.obstacles.add('farmers', farmers.body as MatterJS.BodyType)
+                        break 
+                    }
               
                 case 'data': {
                     const data = this.matter.add.sprite(x, y, 'data', undefined, {
@@ -134,30 +132,44 @@ const customFontStyle = {
                     data.setData('type', 'data')
                     break
                 }
-                case 'sign': {
 
-                    const sign = this.matter.add.sprite(x, y, 'sign', undefined, {
+
+                case 'farmSign': {
+
+                    const farmSign = this.matter.add.sprite(x, y+ (height -40), 'farmSign', undefined, {
                         isStatic: true,
                         isSensor: true
                     }) 
-                    
                        .setFixedRotation();
 
-                       this.obstacles.add('sign', sign.body as MatterJS.BodyType)
+                       this.obstacles.add('farmSign', farmSign.body as MatterJS.BodyType)
                        break 
                    }
-             
-                
+
+
+                // case 'happyFarmer': {
+
+
+                //     const happyFarmer = this.matter.add.sprite(x, y, 'happyFarmer', undefined, {
+                //         isStatic: true,
+                //         isSensor: true
+                //     }) 
+                //     .setFixedRotation();
+
+                //     this.obstacles.add('happyFarmer', happyFarmer.body as MatterJS.BodyType)
+                //     break 
+                // }
+
                
 
-                case 'fall-clouds' : {
-                  const fallClouds=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
-                       isStatic: true,
-                   })
-                   this.obstacles.add('fall-clouds', fallClouds)
-                   break
+                // case 'fall-clouds' : {
+                //   const fallClouds=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                //        isStatic: true,
+                //    })
+                //    this.obstacles.add('fall-clouds', fallClouds)
+                //    break
              
-                  }  
+                //   }  
                   case 'ohno' : {
                     const ohno=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
                         isStatic: true,
@@ -191,7 +203,7 @@ const customFontStyle = {
         if (this.playerController) {
             this.playerController.update(dt)
         }
-        // this.trucks.forEach(trucks => trucks.update(dt))
+        this.farmers .forEach(trucks => trucks.update(dt))
     }
 
 }
