@@ -49,7 +49,7 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('data', 'assets/data.png')
         this.load.image('farmSign', 'assets/farmSign.png')
         this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
-        this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
+        this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
 
         
 // Inside your game scene's preload() method

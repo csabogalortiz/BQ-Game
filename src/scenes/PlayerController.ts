@@ -51,6 +51,7 @@ export default class PlayerController
             .addState('jump', {
                 onEnter: this.jumpOnEnter,
                 onUpdate: this.jumpOnUpdate
+                
             })
 
             // .addState('cloud-hit', {
@@ -234,7 +235,7 @@ export default class PlayerController
         this.sprite.play('player-idle')
     }
 
-   	private idleOnUpdate()
+   private idleOnUpdate()
 	{
 		if (this.cursors.left.isDown || this.cursors.right.isDown)
 		{
@@ -247,6 +248,7 @@ export default class PlayerController
 			this.stateMachine.setState('jump')
 		}
 	}
+
 
     private walkOnEnter() {
         this.sprite.play('player-walk')
@@ -289,6 +291,7 @@ export default class PlayerController
             this.sprite.flipX = false
             this.sprite.setVelocityX(speed)
         }
+        
     }
 
     private playerCelebrateOnEnter () {
