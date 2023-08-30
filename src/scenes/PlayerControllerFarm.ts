@@ -106,20 +106,4 @@ export default class PlayerControllerFarm extends PlayerController {
 
   }
 
-
-//   if (this.obstacles.is('ohnoFarm', body)) {
-//     this.stateMachine.setState('player-surprise');
-//     const ohNOFarm = this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohnoFarm');
-//     ohNOFarm.setOrigin(0.5, 1);
-//     ohNOFarm.setScale(0.5);
-//     ohNOFarm.setDepth(1);
-//     ohNOFarm.alpha = 0.8;
-
-//     // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-//     this.scene.time.delayedCall(1300, () => {
-//         ohNOFarm.destroy();
-//         this.stateMachine.setState('idle'); // Transition back to idle state
-//     });
-
-//     return;
 }

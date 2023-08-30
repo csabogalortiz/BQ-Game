@@ -50,6 +50,8 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('farmSign', 'assets/farmSign.png')
         this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
         this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
+        this.load.image('stump', 'assets/stump.png')
+
 
         
 // Inside your game scene's preload() method
@@ -137,13 +139,25 @@ const customFontStyle = {
 
                 case 'farmSign': {
 
-                    const farmSign = this.matter.add.sprite(x, y+ (height -40), 'farmSign', undefined, {
+                    const farmSign = this.matter.add.sprite(x, y+ (height -50), 'farmSign', undefined, {
                         isStatic: true,
                         isSensor: true
                     }) 
                        .setFixedRotation();
 
                        this.obstacles.add('farmSign', farmSign.body as MatterJS.BodyType)
+                       break 
+                   }
+
+                   case 'stump': {
+
+                    const farmSign = this.matter.add.sprite(x, y+ (height -30), 'stump', undefined, {
+                        isStatic: true,
+                        isSensor: true
+                    }) 
+                       .setFixedRotation();
+
+                       this.obstacles.add('stump', farmSign.body as MatterJS.BodyType)
                        break 
                    }
 
