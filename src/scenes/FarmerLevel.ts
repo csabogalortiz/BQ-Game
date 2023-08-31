@@ -5,8 +5,8 @@ import  WebFontFile from './WebFontFile';
 import FarmersController from './FarmersController';
 import PlayerControllerFarm from './PlayerControllerFarm';
 import BoxController from './BoxController';
-// import CarbonBar from './CarbonBar';
-// import CarbonTest from './CarbonTest';
+import FarmUI from './FarmUI';
+
 
 
 export default class FarmerLevel extends Phaser.Scene {
@@ -16,10 +16,7 @@ export default class FarmerLevel extends Phaser.Scene {
     private obstacles!: ObstaclesController
     private farmers: FarmersController [] = []
     private farmBox: BoxController [] = []
-
-
-
-    // private carbonBar!: CarbonBar;
+    private farmUi!: FarmUI;
     // private carbonTest?: CarbonTest;
     
      // CarbonBar properties
@@ -77,6 +74,9 @@ const customFontStyle = {
     fontSize: '18px', // Adjust the font size as needed
     color: '#FFFFFF' // Adjust the font color as needed
 };
+
+this.farmUi = new FarmUI(this, customFontStyle);
+
 
         const map = this.make.tilemap({ key: 'tilemapFarm' });
         const tilesetFarm = map.addTilesetImage('farmworld', 'tilesFarm');
