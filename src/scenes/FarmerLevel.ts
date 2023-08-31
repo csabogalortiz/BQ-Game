@@ -172,7 +172,12 @@ const customFontStyle = {
                    case 'farmBox': {
 
 
-                    const farmBox = this.matter.add.sprite(x, y, 'farmBox') 
+                    const farmBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'farmBox', undefined, {
+                        isStatic: true,
+                        isSensor: true
+
+                    })
+                    
                     .setFixedRotation();
 
                     this.farmBox.push(new BoxController(this, farmBox))

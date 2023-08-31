@@ -68,7 +68,7 @@ this.stateMachine.update(dt);
     
     
         this.sprite.anims.create({
-            key: 'box-open',
+            key: 'box-opens',
             frameRate: 4,
             frames: this.sprite.anims.generateFrameNames('farmBox', {
                 start: 1,
@@ -121,6 +121,8 @@ this.stateMachine.update(dt);
         if (this.sprite !== box || this.isOpen) {
             return;
         }
+
+        
 
         events.off('box-hit', this.handleBoxHit, this);
 
