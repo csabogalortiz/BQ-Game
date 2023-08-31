@@ -65,12 +65,11 @@ export default class PlayerControllerFarm extends PlayerController {
         const boxSprite = body.gameObject as Phaser.Physics.Matter.Sprite;
         const boxBottom = boxSprite.y + boxSprite.height / 2;
     
-        if (this.sprite.y < boxBottom) {
+        if (this.sprite.y > boxBottom) {
             console.log('box hit!!')
             events.emit('box-hit', boxSprite);
         }
     }
-    
     
 
     // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa

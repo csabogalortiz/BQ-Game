@@ -38,6 +38,7 @@ export default class FarmerLevel extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.farmers = []
+       this.farmBox = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -170,12 +171,9 @@ const customFontStyle = {
                    }
 
                    case 'farmBox': {
-
-
                     const farmBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'farmBox', undefined, {
                         isStatic: true,
                         isSensor: true
-
                     })
                     
                     .setFixedRotation();
@@ -251,7 +249,8 @@ const customFontStyle = {
         if (this.playerController) {
             this.playerController.update(dt)
         }
-        this.farmers .forEach(trucks => trucks.update(dt))
+        this.farmers .forEach(farmers => farmers.update(dt))
+        this.farmBox .forEach(farmBox => farmBox.update(dt))
     }
 
 }
