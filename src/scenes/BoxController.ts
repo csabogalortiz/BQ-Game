@@ -99,15 +99,14 @@ this.stateMachine.update(dt);
 
     private spawnItems() {
         // Spawn mushroom
-        const coordinates = this.scene.matter.add.sprite(this.sprite.x, this.sprite.y - 30, 'coordinates', 0);
-        // coordinates.setScale(0.5);
-        coordinates.setVelocityY(-10);
+    const coordinates = this.scene.matter.add.sprite(this.sprite.x, this.sprite.y - 30, 'coordinates', 0);
+    coordinates.setData('type', 'coordinates'); // Set the type data attribute
+    // coordinates.setVelocityY(-10);
 
-        // Spawn coin
-        const id = this.scene.matter.add.sprite(this.sprite.x, this.sprite.y - 30, 'id', 0);
-        // id.setScale(0.5);
-        id.setVelocityY(-20);
-
+    // Spawn coin
+    const id = this.scene.matter.add.sprite(this.sprite.x, this.sprite.y - 30, 'id', 0);
+    id.setData('type', 'id'); // Set the type data attribute
+    // id.setVelocityY(-20);
         // // Remove spawned items after a delay
         // this.scene.time.delayedCall(2000, () => {
         //     coordinates.destroy();

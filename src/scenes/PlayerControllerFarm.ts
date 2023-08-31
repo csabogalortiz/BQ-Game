@@ -103,15 +103,16 @@ export default class PlayerControllerFarm extends PlayerController {
             }
 
             case 'coordinates':
-                {
-                    sprite.destroy()
-                    break
-                }
-
+                    {
+                        events.emit('coordinates-collected', gameObject); // Emit event to notify UI about collected coordinates
+                        gameObject.destroy();
+                        break;
+                    }
                 case 'id':
                     {
-                        sprite.destroy()
-                        break
+                        events.emit('id-collected', gameObject); // Emit event to notify UI about collected ID
+                        gameObject.destroy();
+                        break;
                     }
     
 
