@@ -108,11 +108,11 @@ this.stateMachine.update(dt);
         // id.setScale(0.5);
         id.setVelocityY(-20);
 
-        // Remove spawned items after a delay
-        this.scene.time.delayedCall(2000, () => {
-            coordinates.destroy();
-            id.destroy();
-        });
+        // // Remove spawned items after a delay
+        // this.scene.time.delayedCall(2000, () => {
+        //     coordinates.destroy();
+        //     id.destroy();
+        // });
         return { coordinates, id };
     }
 
