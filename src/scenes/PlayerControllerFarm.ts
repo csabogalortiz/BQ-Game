@@ -90,6 +90,19 @@ export default class PlayerControllerFarm extends PlayerController {
                 break
             }
 
+            case 'coordinates':
+                {
+                    sprite.destroy()
+                    break
+                }
+
+                case 'id':
+                    {
+                        sprite.destroy()
+                        break
+                    }
+    
+
             // case 'compliance':
             //     {
             //         const value = sprite.getData('compliancePoints') ?? 10

@@ -4,6 +4,7 @@ import ObstaclesController from './ObstaclesController';
 import  WebFontFile from './WebFontFile';
 import FarmersController from './FarmersController';
 import PlayerControllerFarm from './PlayerControllerFarm';
+import BoxController from './BoxController';
 // import CarbonBar from './CarbonBar';
 // import CarbonTest from './CarbonTest';
 
@@ -13,8 +14,11 @@ export default class FarmerLevel extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-    
     private farmers: FarmersController [] = []
+    private farmBox: BoxController [] = []
+
+
+
     // private carbonBar!: CarbonBar;
     // private carbonTest?: CarbonTest;
     
@@ -42,15 +46,19 @@ export default class FarmerLevel extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
+        this.load.atlas('farmBox', 'assets/farmBox_sprite_sheet.png', 'assets/farmBox_sprite_sheet.json');
         this.load.image('tilesFarm', 'assets/farmworld.png');
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
-
         this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
         this.load.image('data', 'assets/data.png')
         this.load.image('farmSign', 'assets/farmSign.png')
         this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
         this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
         this.load.image('stump', 'assets/stump.png')
+        // this.load.image('farmBox', 'assets/farmBox.png')
+        this.load.image('coordinates', 'assets/coordinates.png');
+        this.load.image('id', 'assets/id.png');
+
 
 
         
@@ -159,6 +167,26 @@ const customFontStyle = {
 
                        this.obstacles.add('stump', farmSign.body as MatterJS.BodyType)
                        break 
+                   }
+
+                   case 'farmBox': {
+
+
+                    const farmBox = this.matter.add.sprite(x, y, 'farmBox') 
+                    .setFixedRotation();
+
+                    this.farmBox.push(new BoxController(this, farmBox))
+                    this.obstacles.add('farmBox', farmBox.body as MatterJS.BodyType)
+                    break 
+
+                    // const farmSign = this.matter.add.sprite(x+ (width -35), y+ (height -35), 'farmBox', undefined, {
+                    //     isStatic: true,
+                    //     isSensor: true
+                    // }) 
+                    //    .setFixedRotation();
+
+                    //    this.obstacles.add('farmBox', farmSign.body as MatterJS.BodyType)
+                    //    break 
                    }
 
 
