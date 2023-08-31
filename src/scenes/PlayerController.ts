@@ -201,7 +201,7 @@ export default class PlayerController
         this.stateMachine.update(dt)
     }
 
-    private setCompliance (value: number) {
+    protected setCompliance (value: number) {
 
         this.compliance = Phaser.Math.Clamp(value, 0, 100)
         events.emit('compliance-changed', this.compliance)
@@ -398,48 +398,6 @@ this.stateMachine.setState('idle')
 
     }
 
-//     private trucksStompOnEnter() {
-//         if (this.lastTrucks && !this.stompedTrucks.get(this.lastTrucks)) {
-
-//         this.sprite.setVelocityY(-12); 
-//         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
-// const endColor = Phaser.Display.Color.ValueToColor(0x58E21E)
-// this.scene.tweens.addCounter({
-//     from: 0,
-//     to: 100,
-//     duration: 100,
-//     repeat: 2,
-//     yoyo: true,
-//     ease: Phaser.Math.Easing.Sine.InOut,
-//     onUpdate: tween => {
-//         const value = tween.getValue()
-//         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-//             startColor,
-//             endColor,
-//             100,
-//             value
-//         )
-//         const color = Phaser.Display.Color.GetColor(
-//             colorObject.r,
-//             colorObject.g,
-//             colorObject.b,
-
-//         )
-//         this.sprite.setTint(color)
-//     }
-// })
-// events.emit('trucks-stomped', this.lastTrucks)
-
-//         this.stateMachine.setState('idle')
-//         this.setCompliance(this.compliance + 23)
-
-//         const carbonDecreaseAmount = 23; // Decrease the carbon by 10 units
-//         this.setCarbon(this.carbon - carbonDecreaseAmount);
-//         this.stompedTrucks.set(this.lastTrucks, true);
-
-// }
-// this.stateMachine.setState('idle');
-//     }
 
 private trucksStompOnEnter() {
     if (this.lastTrucks && !this.stompedTrucks.get(this.lastTrucks)) {
