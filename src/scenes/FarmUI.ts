@@ -12,7 +12,7 @@ export default class FarmUI {
         this.scene = scene;
 
         this.coordinatesLabel = scene.add.text(730, 40, "Coordinates", fontStyles);
-        this.idLabel = scene.add.text(730, 80, "IDs", fontStyles);
+        this.idLabel = scene.add.text(730, 120, "Farmer Ids", fontStyles);
 
         this.coordinatesLabel.setScrollFactor(0, 0);
         this.idLabel.setScrollFactor(0, 0);
@@ -36,12 +36,12 @@ export default class FarmUI {
     
         if (label) {
             if (imageKey === 'coordinates') {
-                x += this.collectedCoordinatesImages.length * 40; // Adjust spacing as needed
+                x += this.collectedCoordinatesImages.length * 80; // Adjust spacing as needed
             } else {
-                x += this.collectedIdImages.length * 40; // Adjust spacing as needed
+                x += this.collectedIdImages.length * 80; // Adjust spacing as needed
             }
     
-            const collectedImage = this.scene.add.image(x, label.y + label.displayHeight + 10, imageKey);
+            const collectedImage = this.scene.add.image(x, label.y + label.displayHeight + 30, imageKey);
             collectedImage.setScale(0.9); // Adjust the scale as needed
             collectedImage.setVisible(true);
             collectedImage.setScrollFactor(0, 0);

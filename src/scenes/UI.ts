@@ -79,21 +79,26 @@ private dataImage!: Phaser.GameObjects.Image;
         })
     }
 
-    private setComplianceBar (value: number) {
-        const width = 200 
-        const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+    private setComplianceBar(value: number) {
+        const width = 200;
+        const percent = Phaser.Math.Clamp(value, 0, 100);
         const borderRadius = 5;
-        this.graphics.clear()
-
-       this.graphics.fillStyle(0x3E5DBF)
-       this.graphics.fillRoundedRect(10, 60, 200, 30, 5)
+        this.graphics.clear();
+    
+        this.graphics.fillStyle(0x3E5DBF);
+        this.graphics.fillRoundedRect(10, 60, 200, 30, 5);
+    
         if (percent > 0) {
-            this.graphics.fillStyle(0x99D128)
-            this.graphics.fillRoundedRect(10, 60, width *percent, 30, 5)
-                }
-
-
+            this.graphics.fillStyle(0x99D128);
+            this.graphics.fillRoundedRect(10, 60, (width * percent) / 100, 30, 5);
+        }
+    
+        // Display the percentage value
+        if (this.complianceLabel) {
+            this.complianceLabel.text = `Compliance: ${percent}%`;
+        }
     }
+    
 
     private handleDataCollected(){
 
