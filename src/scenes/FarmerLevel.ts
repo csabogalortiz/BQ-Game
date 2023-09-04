@@ -226,6 +226,19 @@ this.farmUi = new FarmUI(this, customFontStyle);
               
                    }
 
+                   //   }  
+                  case 'nonCompliantLand' : {
+                    const nonCompliantLand=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                        isStatic: true,
+                   
+                    })
+                    this.obstacles.add('nonCompliantLand', nonCompliantLand)
+                    break
+              
+                   }
+
+
+
                 
                 
                 }

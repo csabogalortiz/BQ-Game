@@ -24,7 +24,13 @@ export default class PlayerControllerFarm extends PlayerController {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
         const body = data.bodyB as MatterJS.BodyType
 
-        // Colision con una nube
+        if (this.obstacles.is('nonCompliantLand', body)) {
+
+            this.stateMachine.setState('nonCompliantLand-hit')
+        
+      
+            return
+        }
 
     if (this.obstacles.is('ohnoFarm', body)) {
         this.stateMachine.setState('player-surprise')

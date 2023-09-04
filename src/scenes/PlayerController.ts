@@ -54,10 +54,10 @@ export default class PlayerController
                 
             })
 
-            // .addState('cloud-hit', {
-            //     onEnter: this.cloudHitOnEnter,
-            //     // onUpdate: this.cloudHitOnUpdate
-            // })
+            .addState('nonCompliantLand-hit', {
+                onEnter: this.nonCompliantLandOnEnter,
+  
+            })
 
             .addState('trucks-hit',{
                 onEnter: this.trucksHitOnEnter,
@@ -83,16 +83,7 @@ export default class PlayerController
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
 
-            // Colision con una nube
-            if (this.obstacles.is('fall-clouds', body)
-            ) 
-        {
-            // primero rebota  y luego vuelve al idle state 
-           this.stateMachine.setState('cloud-hit')
-          this.stateMachine.setState('idle')
-            return
-        }
-
+          
         if (this.obstacles.is('ohno', body)) {
             this.stateMachine.setState('player-surprise')
             const ohNO = this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohno');
@@ -311,42 +302,46 @@ export default class PlayerController
     }
 
 
+    
+
+
     // -------------------  Handling Obstacles States 
 
-    // private cloudHitOnEnter() {
-    //     this.sprite.setVelocityY(-12);
+    private nonCompliantLandOnEnter() {
+        console.log('noncompliantHit!')
+        this.sprite.setVelocityY(-12);
   
 
-    //     const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
-    //     const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
-    //     this.scene.tweens.addCounter({
-    //         from: 0,
-    //         to: 100,
-    //         duration: 100,
-    //         repeat: 2,
-    //         yoyo: true,
-    //         ease: Phaser.Math.Easing.Sine.InOut,
-    //         onUpdate: tween => {
-    //             const value = tween.getValue()
-    //             const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-    //                 startColor,
-    //                 endColor,
-    //                 100,
-    //                 value
-    //             )
-    //             const color = Phaser.Display.Color.GetColor(
-    //                 colorObject.r,
-    //                 colorObject.g,
-    //                 colorObject.b,
+        const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
+        const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
+        this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: 2,
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: tween => {
+                const value = tween.getValue()
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                )
+                const color = Phaser.Display.Color.GetColor(
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b,
 
-    //             )
-    //             this.sprite.setTint(color)
-    //         }
-    //     })
+                )
+                this.sprite.setTint(color)
+            }
+        })
 
-    //     this.stateMachine.setState('idle')
-    //     this.setCompliance(this.compliance- 10)
-    // }
+        this.stateMachine.setState('idle')
+        this.setCompliance(this.compliance- 1)
+    }
 
 private trucksHitOnEnter() {
 
