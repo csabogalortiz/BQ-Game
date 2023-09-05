@@ -118,6 +118,21 @@ export default class PlayerControllerFarm extends PlayerController {
         });
     }
 
+    if (this.obstacles.is('bqPowerSign', body)) {
+        const offsetY = -80
+        const sign = this.scene.add.image(body.position.x,body.position.y + offsetY,  'info_bubble_bqPower');
+        
+        sign.setOrigin(0.5, 1);
+        sign.setScale(0.4);
+        sign.setDepth(1);
+        sign.alpha = 0.8;
+    
+        // Remove the 'sign' image after a certain duration (e.g., 4 seconds)
+        this.scene.time.delayedCall(4000, () => {
+            sign.destroy();
+        });
+    }
+
     
 
     if (this.obstacles.is('farmBox', body)) {

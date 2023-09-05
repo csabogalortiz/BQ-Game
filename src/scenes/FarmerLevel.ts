@@ -64,6 +64,8 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('ohnoWater', 'assets/ohnoWater.png')
         this.load.image('ohnoRadio', 'assets/ohnoRadio.png')
         this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
+        this.load.image('bqPowerSign', 'assets/farmSign.png')
+        this.load.image('info_bubble_bqPower', 'assets/info_bubble_bqPower.png')
         this.load.image('stump', 'assets/stump.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
@@ -173,6 +175,20 @@ this.farmUi = new FarmUI(this, customFontStyle);
                        .setFixedRotation();
 
                        this.obstacles.add('farmSign', farmSign.body as MatterJS.BodyType)
+                       break 
+                   }
+
+
+
+                   case 'bqPowerSign': {
+
+                    const bqPowerSign = this.matter.add.sprite(x, y+ (height -50), 'bqPowerSign', undefined, {
+                        isStatic: true,
+                        isSensor: true
+                    }) 
+                       .setFixedRotation();
+
+                       this.obstacles.add('bqPowerSign', bqPowerSign.body as MatterJS.BodyType)
                        break 
                    }
 
