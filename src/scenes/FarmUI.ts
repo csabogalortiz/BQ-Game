@@ -20,13 +20,13 @@ export default class FarmUI {
         events.on('coordinates-collected', this.handleCoordinatesCollected, this);
         events.on('id-collected', this.handleIdCollected, this);
 
-        const bqButton = this.scene.add.sprite(45, 180, 'bqButton')
-        .setInteractive()
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-            // Handle button click here, for example:
-            console.log("BQ Button clicked!");
-        });
-    bqButton.setScrollFactor(0, 0);
+    //     const bqButton = this.scene.add.sprite(45, 180, 'bqButton')
+    //     .setInteractive()
+    //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    //         // Handle button click here, for example:
+    //         console.log("BQ Button clicked!");
+    //     });
+    // bqButton.setScrollFactor(0, 0);
 
 
     }

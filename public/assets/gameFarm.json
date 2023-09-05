@@ -548,15 +548,15 @@
                  "y":485.466165675057
                 }, 
                 {
-                 "height":71.5103,
-                 "id":70,
-                 "name":"bqPower",
+                 "height":70.2576,
+                 "id":71,
+                 "name":"blueBox",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":71.5103,
-                 "x":544.035021176145,
-                 "y":488.81690963556
+                 "width":65.5738,
+                 "x":487.649067302452,
+                 "y":275.497902997275
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -565,7 +565,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":71,
+ "nextobjectid":72,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

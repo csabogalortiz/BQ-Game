@@ -145,6 +145,16 @@ export default class PlayerControllerFarm extends PlayerController {
         }
     }
     
+    if (this.obstacles.is('blueBox', body)) {
+        const blueBoxSprite = body.gameObject as Phaser.Physics.Matter.Sprite;
+        const blueBoxBottom = blueBoxSprite.y + blueBoxSprite.height / 2;
+    
+        if (this.sprite.y > blueBoxBottom) {
+            console.log('Bluebox hit!!')
+            events.emit('blueBox-hit', blueBoxSprite);
+        }
+    }
+    
 
     // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa
 
