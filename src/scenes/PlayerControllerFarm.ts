@@ -50,6 +50,59 @@ export default class PlayerControllerFarm extends PlayerController {
         return
     }
 
+    if (this.obstacles.is('ohnoWater', body)) {
+        this.stateMachine.setState('player-surprise')
+        const ohNoWater= this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohnoWater');
+        ohNoWater.setOrigin(0.5, 1);
+        ohNoWater.setScale(0.5);
+        ohNoWater.setDepth(1);
+        ohNoWater.alpha = 0.8;
+    
+        // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+        this.scene.time.delayedCall(1300, () => {
+            ohNoWater.destroy();
+            this.stateMachine.setState('idle')
+            
+        });
+  
+        return
+    }
+    if (this.obstacles.is('ohnoRadio', body)) {
+        this.stateMachine.setState('player-surprise')
+        const ohNoRadio= this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohnoRadio');
+        ohNoRadio.setOrigin(0.5, 1);
+        ohNoRadio.setScale(0.5);
+        ohNoRadio.setDepth(1);
+        ohNoRadio.alpha = 0.8;
+    
+        // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+        this.scene.time.delayedCall(1300, () => {
+            ohNoRadio.destroy();
+            this.stateMachine.setState('idle')
+            
+        });
+  
+        return
+    }
+
+    if (this.obstacles.is('ohnoDeforest', body)) {
+        this.stateMachine.setState('player-surprise')
+        const ohNoDeforest= this.scene.add.image(this.sprite.x, this.sprite.y - this.sprite.height / 2, 'ohnoDeforest');
+        ohNoDeforest.setOrigin(0.5, 1);
+        ohNoDeforest.setScale(0.5);
+        ohNoDeforest.setDepth(1);
+        ohNoDeforest.alpha = 0.8;
+    
+        // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+        this.scene.time.delayedCall(1300, () => {
+            ohNoDeforest.destroy();
+            this.stateMachine.setState('idle')
+            
+        });
+  
+        return
+    }
+
     if (this.obstacles.is('farmSign', body)) {
         const offsetY = -80
         const sign = this.scene.add.image(body.position.x,body.position.y + offsetY,  'farm_signBubble');
