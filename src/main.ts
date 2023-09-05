@@ -15,7 +15,7 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'matter',
     matter: {
-      debug:true,
+      debug:false,
       // este hay que quitarlo es el que muestra las cajas
     },
   },

@@ -41,7 +41,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoFarm.alpha = 0.8;
     
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(1300, () => {
+        this.scene.time.delayedCall(1700, () => {
             ohNoFarm.destroy();
             this.stateMachine.setState('idle')
             
@@ -59,7 +59,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoWater.alpha = 0.8;
     
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(1300, () => {
+        this.scene.time.delayedCall(1700, () => {
             ohNoWater.destroy();
             this.stateMachine.setState('idle')
             
@@ -76,7 +76,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoRadio.alpha = 0.8;
     
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(1300, () => {
+        this.scene.time.delayedCall(1700, () => {
             ohNoRadio.destroy();
             this.stateMachine.setState('idle')
             
@@ -94,7 +94,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoDeforest.alpha = 0.8;
     
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(1300, () => {
+        this.scene.time.delayedCall(1700, () => {
             ohNoDeforest.destroy();
             this.stateMachine.setState('idle')
             

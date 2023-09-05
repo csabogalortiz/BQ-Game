@@ -49,6 +49,7 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
         this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
         this.load.image('data', 'assets/data.png')
+        this.load.image('bqButton', 'assets/bqButton.png')
         this.load.image('farmSign', 'assets/farmSign.png')
         this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
         this.load.image('ohnoDeforest', 'assets/ohnoDeforest.png')
