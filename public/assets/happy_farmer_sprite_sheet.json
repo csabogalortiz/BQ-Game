@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "Happy_Farmer_Celebrate_1.png",
+	"filename": "Cry_Farmer_Idle.png",
 	"frame": {"x":0,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":84,"h":84}
 },
 {
-	"filename": "Happy_Farmer_Celebrate_2.png",
+	"filename": "Cry_Farmer_Left_1.png",
 	"frame": {"x":84,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":84,"h":84}
 },
 {
-	"filename": "Happy_Farmer_Idle.png",
+	"filename": "Cry_Farmer_Left_2.png",
 	"frame": {"x":168,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
@@ -25,8 +25,48 @@
 	"sourceSize": {"w":84,"h":84}
 },
 {
+	"filename": "Cry_Farmer_Right_1.png",
+	"frame": {"x":252,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Cry_Farmer_Right_2.png",
+	"frame": {"x":336,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Happy_Farmer_Celebrate_1.png",
+	"frame": {"x":420,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Happy_Farmer_Celebrate_2.png",
+	"frame": {"x":504,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Happy_Farmer_Idle.png",
+	"frame": {"x":588,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
 	"filename": "Happy_Farmer_Walk_Left_1.png",
-	"frame": {"x":0,"y":84,"w":84,"h":84},
+	"frame": {"x":672,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
@@ -34,7 +74,7 @@
 },
 {
 	"filename": "Happy_Farmer_Walk_Left_2.png",
-	"frame": {"x":84,"y":84,"w":84,"h":84},
+	"frame": {"x":756,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
@@ -42,7 +82,7 @@
 },
 {
 	"filename": "Happy_Farmer_Walk_Right_1.png",
-	"frame": {"x":168,"y":84,"w":84,"h":84},
+	"frame": {"x":840,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
@@ -50,7 +90,7 @@
 },
 {
 	"filename": "Happy_Farmer_Walk_Right_2.png",
-	"frame": {"x":0,"y":168,"w":84,"h":84},
+	"frame": {"x":924,"y":0,"w":84,"h":84},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
@@ -61,8 +101,8 @@
 	"version": "1.0",
 	"image": "happy_farmer_sprite_sheet.png",
 	"format": "RGBA8888",
-	"size": {"w":252,"h":252},
+	"size": {"w":1008,"h":84},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e69fb7d6e47d9de443f08f0746f1bee8:1ac4a566db2f308f06fbf3b78f75adcb:d978860708e8b90623dfc46cb2259b53$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5af5afe13a64dfe4445b9301f2c23ddd:7a15ff40443f45fa3435ef78eb307914:d978860708e8b90623dfc46cb2259b53$"
 }
 }

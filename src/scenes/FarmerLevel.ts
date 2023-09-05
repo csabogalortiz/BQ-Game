@@ -6,6 +6,7 @@ import FarmersController from './FarmersController';
 import PlayerControllerFarm from './PlayerControllerFarm';
 import BoxController from './BoxController';
 import FarmUI from './FarmUI';
+import CryFarmerController from './CryFarmerController';
 
 
 
@@ -17,6 +18,7 @@ export default class FarmerLevel extends Phaser.Scene {
     private farmers: FarmersController [] = []
     private farmBox: BoxController [] = []
     private farmUi!: FarmUI;
+    private cryFarmer: CryFarmerController [] = []
     // private carbonTest?: CarbonTest;
     
      // CarbonBar properties
@@ -35,6 +37,7 @@ export default class FarmerLevel extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.farmers = []
+       this.cryFarmer = []
        this.farmBox = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
@@ -60,6 +63,7 @@ export default class FarmerLevel extends Phaser.Scene {
         // this.load.image('farmBox', 'assets/farmBox.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
+        this.load.atlas('cryFarmer', 'assets/cry_farmer_sprite_sheet.png', 'assets/cry_farmer_sprite_sheet.json')
 
 
 
@@ -138,6 +142,24 @@ this.farmUi = new FarmUI(this, customFontStyle);
                         this.obstacles.add('farmers', farmers.body as MatterJS.BodyType)
                         break 
                     }
+
+                    case 'cryFarmer': {
+
+
+                        const cryFarmer = this.matter.add.sprite(x, y, 'cryFarmer') 
+                        .setFixedRotation();
+
+                        this.cryFarmer.push(new CryFarmerController(this, cryFarmer))
+                        this.obstacles.add('cryFarmer', cryFarmer.body as MatterJS.BodyType)
+                        break 
+                    }
+                    //     const cryFarmer = this.matter.add.sprite(x, y, 'farmers') 
+                    //        .setFixedRotation();
+   
+                    //        this.cryFarmer.push(new FarmersController(this, cryFarmer))
+                    //        this.obstacles.add('cryFarmer', cryFarmer.body as MatterJS.BodyType)
+                    //        break 
+                    //    }
               
                 case 'data': {
                     const data = this.matter.add.sprite(x, y, 'data', undefined, {
@@ -293,6 +315,7 @@ this.farmUi = new FarmUI(this, customFontStyle);
             this.playerController.update(dt)
         }
         this.farmers .forEach(farmers => farmers.update(dt))
+        this.cryFarmer .forEach(cryFarmer => cryFarmer.update(dt))
         this.farmBox .forEach(farmBox => farmBox.update(dt))
     }
 

@@ -95,6 +95,9 @@ constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
             }),
             repeat: -1
         });
+
+
+       
     }
     
     
@@ -139,21 +142,10 @@ constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
 
         }
     }
-    // private handleFarmerStomped(trucks: Phaser.Physics.Matter.Sprite) {
-    //     if (this.sprite !== trucks || this.isStomped) {
-    //         return;
-    //     }
-    //     events.off('farmer-stomped', this.handleFarmerStomped, this);
-    
-    //     // Change the truck's state and animation to green
-    //     this.stateMachine.setState('green-idle');
-    //     this.sprite.play('green-idle');
-    
-    //     // Update the isStomped flag to prevent further stomping
-    //     this.isStomped = true;
-    
-    //     // Optionally, you can reset any timers or movement-related properties
-    // }
-    
+
+
+
+
+// Cry Farmer
 
 }

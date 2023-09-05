@@ -513,6 +513,28 @@
                  "width":66.0505,
                  "x":5459.13183396983,
                  "y":557.21136174355
+                }, 
+                {
+                 "height":66.4314,
+                 "id":66,
+                 "name":"cryFarmer",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":68.5074,
+                 "x":7956.75079775112,
+                 "y":491.521931184408
+                }, 
+                {
+                 "height":66.4314,
+                 "id":67,
+                 "name":"cryFarmer",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":68.5074,
+                 "x":488.342144934676,
+                 "y":495.805503683872
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -521,7 +543,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":66,
+ "nextobjectid":68,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
