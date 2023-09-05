@@ -7,6 +7,7 @@ import PlayerControllerFarm from './PlayerControllerFarm';
 import BoxController from './BoxController';
 import FarmUI from './FarmUI';
 import CryFarmerController from './CryFarmerController';
+import BQPowerController from './BqPower';
 
 
 
@@ -17,6 +18,7 @@ export default class FarmerLevel extends Phaser.Scene {
     private obstacles!: ObstaclesController
     private farmers: FarmersController [] = []
     private farmBox: BoxController [] = []
+    private bqPower: BQPowerController[] = []
     private farmUi!: FarmUI;
     private cryFarmer: CryFarmerController [] = []
     // private carbonTest?: CarbonTest;
@@ -39,6 +41,7 @@ export default class FarmerLevel extends Phaser.Scene {
        this.farmers = []
        this.cryFarmer = []
        this.farmBox = []
+       this.bqPower = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -48,9 +51,11 @@ export default class FarmerLevel extends Phaser.Scene {
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
         this.load.atlas('farmBox', 'assets/farmBox_sprite_sheet.png', 'assets/farmBox_sprite_sheet.json');
+        this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
+        this.load.atlas('bqPower', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
+        this.load.atlas('cryFarmer', 'assets/cry_farmer_sprite_sheet.png', 'assets/cry_farmer_sprite_sheet.json')
         this.load.image('tilesFarm', 'assets/farmworld.png');
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
-        this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
         this.load.image('data', 'assets/data.png')
         this.load.image('bqButton', 'assets/bqButton.png')
         this.load.image('farmSign', 'assets/farmSign.png')
@@ -60,10 +65,8 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('ohnoRadio', 'assets/ohnoRadio.png')
         this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
         this.load.image('stump', 'assets/stump.png')
-        // this.load.image('farmBox', 'assets/farmBox.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
-        this.load.atlas('cryFarmer', 'assets/cry_farmer_sprite_sheet.png', 'assets/cry_farmer_sprite_sheet.json')
 
 
 
@@ -95,17 +98,6 @@ this.farmUi = new FarmUI(this, customFontStyle);
         map.createLayer('obstacles', tilesetFarm);
         map.createLayer('background', tilesetFarm);
         const objectsLayer = map.getObjectLayer('objects');
-
-// this.carbonBar = new CarbonBar(this, customFontStyle);
-
-//         const carbonBar = new CarbonBar(this, customFontStyle);
-//         // // carbonBar.setPosition(x, y);
-//         console.log("CarbonBar instance created:", carbonBar);
-        
-        
-
-        //  The objects property within this layer is an array that holds various objects placed on the map. 
-        // The forEach method is used to iterate over each object within this array and execute a callback function for each object.
 
         objectsLayer.objects.forEach(objData => {
 
@@ -208,6 +200,7 @@ this.farmUi = new FarmUI(this, customFontStyle);
                     this.obstacles.add('farmBox', farmBox.body as MatterJS.BodyType)
                     break 
 
+                    
                     // const farmSign = this.matter.add.sprite(x+ (width -35), y+ (height -35), 'farmBox', undefined, {
                     //     isStatic: true,
                     //     isSensor: true
@@ -218,6 +211,19 @@ this.farmUi = new FarmUI(this, customFontStyle);
                     //    break 
                    }
 
+
+                   case 'bqPower': {
+                    const bqPower = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'bqPower', undefined, {
+                        isStatic: true,
+                        isSensor: true
+                    })
+                    
+                    .setFixedRotation();
+
+                    this.bqPower.push(new BQPowerController(this, bqPower))
+                    this.obstacles.add('bqPower', bqPower.body as MatterJS.BodyType)
+                    break 
+                }
 
                 // case 'happyFarmer': {
 
@@ -317,6 +323,8 @@ this.farmUi = new FarmUI(this, customFontStyle);
         this.farmers .forEach(farmers => farmers.update(dt))
         this.cryFarmer .forEach(cryFarmer => cryFarmer.update(dt))
         this.farmBox .forEach(farmBox => farmBox.update(dt))
+        this.bqPower .forEach(bqPower => bqPower.update(dt))
+        
     }
 
 }
