@@ -155,9 +155,47 @@ export default class PlayerControllerFarm extends PlayerController {
         }
     }
 
+    let colorTween: Phaser.Tweens.Tween | null = null;
+
     if (this.obstacles.is('bqPower', body)) {
         // Emit an event to indicate that the player collected the BQPower
         events.emit('player-collect-bqpower');
+
+
+       const startColor = Phaser.Display.Color.ValueToColor(0xffa500); // Orange
+        const endColor = Phaser.Display.Color.ValueToColor(0x0000ff); // Blue
+
+        colorTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 200, // 30 seconds
+            repeat: -1, // Repeat indefinitely
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: (tween) => {
+                const value = tween.getValue();
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                );
+                const color = Phaser.Display.Color.GetColor(
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b
+                );
+                this.sprite.setTint(color); // Apply the color to the player sprite
+            },
+        });
+
+
+        this.scene.time.delayedCall(10000, () => {
+            if (colorTween) {
+                colorTween.stop(); // Stop the color-changing tween
+                this.sprite.clearTint(); // Clear the tint to return to the original color
+            }
+        });
         return;
     }
     
