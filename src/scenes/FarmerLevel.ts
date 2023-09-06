@@ -62,6 +62,8 @@ export default class FarmerLevel extends Phaser.Scene {
 
         this.load.image('tilesFarm', 'assets/farmworld.png');
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
+
+        
         this.load.image('data', 'assets/data.png')
         this.load.image('bqButton', 'assets/bqButton.png')
         this.load.image('farmSign', 'assets/farmSign.png')
@@ -77,9 +79,6 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('id', 'assets/id.png');
 
 
-
-        
-// Inside your game scene's preload() method
 const fonts = new WebFontFile(this.load, "Press Start 2P")
 		this.load.addFile(fonts)
     }

@@ -44,7 +44,7 @@ export default class CoOpLevel extends Phaser.Scene {
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
-        this.load.tilemapTiledJSON('gameCoOp', 'assets/gameCoOp.json')
+        this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
 
         
         this.load.image('data', 'assets/data.png')
@@ -58,6 +58,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
     create() {
         this.scene.launch('ui');
+
         
         const customFontStyle = {
             fontFamily: '"Press Start 2P"',
@@ -65,14 +66,14 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
             color: '#FFFFFF' // Adjust the font color as needed
         };
 
-        const map = this.make.tilemap({ key: 'gameCoOp' });
+        const map = this.make.tilemap({ key: 'tilemapCoOp' });
         const tilesetCoOp = map.addTilesetImage('coOpworld', 'tilesCoOp');
         const groundCoOp = map.createLayer('groundCoOp', tilesetCoOp);
 
 
         groundCoOp.setCollisionByProperty({ collides: true });
         map.createLayer('obstacles', tilesetCoOp);
-        map.createLayer('background', tilesetCoOp);
+        // map.createLayer('background', tilesetCoOp);
         const objectsLayer = map.getObjectLayer('objects');
 
         objectsLayer.objects.forEach(objData => {
@@ -94,9 +95,15 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             this.obstacles
                             )
 
-                            this.cameras.main.scrollY= 50
+                            // this.cameras.main.pan(0, -10, 1000, 'Linear'); 
+                            // this.cameras.main.scrollY= -10
                             // this.cameras.main.scrollX= 50
                             // this.cameras.main.setZoom(0.9);  
+
+                            const mapWidth = map.widthInPixels;
+                            const mapHeight = map.heightInPixels;
+                            this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
+                            this.cameras.main.centerToBounds(); 
                         break
 
                     }
