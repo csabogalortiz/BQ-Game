@@ -39,7 +39,7 @@ export default class StartScene extends Phaser.Scene {
     const button = this.add.image(width * 0.5, height * 0.50, 'button')
         .setInteractive({ useHandCursor: true }) // Enable the hand cursor on hover
         .on('pointerup', () => {
-            this.scene.start('farmLevel');
+            this.scene.start('coOpLevel');
         });
 
 //     // Boton!

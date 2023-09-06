@@ -5,6 +5,7 @@ import LevelComplete from './scenes/LevelComplete';
 import StartScene from './scenes/StartScene';
 import Carbon from './scenes/CarbonBar';
 import FarmerLevel from './scenes/FarmerLevel';
+import CoOpLevel from './scenes/CoOpLevel';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -19,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
       // este hay que quitarlo es el que muestra las cajas
     },
   },
-  scene: [StartScene,UI, Game, FarmerLevel,  LevelComplete],
+  scene: [StartScene,UI, Game,CoOpLevel, FarmerLevel,  LevelComplete],
 
   backgroundColor: '#738CD7'
 };
