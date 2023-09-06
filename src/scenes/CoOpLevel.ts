@@ -45,6 +45,8 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
         this.load.tilemapTiledJSON('gameCoOp', 'assets/gameCoOp.json')
+
+        
         this.load.image('data', 'assets/data.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
@@ -73,5 +75,53 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
         map.createLayer('background', tilesetCoOp);
         const objectsLayer = map.getObjectLayer('objects');
 
-    }        
+        objectsLayer.objects.forEach(objData => {
+
+            const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
+            switch (name) {
+                case 'player-spawn':
+                    {
+                       
+                        this.player = this.matter.add.sprite(x, y- (height + 0.5), 'player')
+                            .setFixedRotation();
+                   
+                  
+
+                        this.playerController = new PlayerControllerFarm (
+                            this,
+                            this.player,
+                            this.cursors,
+                            this.obstacles
+                            )
+
+                            this.cameras.main.scrollY= 50
+                            // this.cameras.main.scrollX= 50
+                            // this.cameras.main.setZoom(0.9);  
+                        break
+
+                    }
+                }
+
+    })
+
+
+    this.cameras.main.startFollow(this.player!, true);
+    this.matter.world.convertTilemapLayer(groundCoOp);
+
+
+    
+}     
+destroy () {
+    this.scene.stop('ui')
+    // this.trucks.forEach(trucks => trucks.destroy())
+    
+}
+
+update(t: number, dt: number) {
+    if (this.playerController) {
+        this.playerController.update(dt)
+    }
+}
+
+
 }
