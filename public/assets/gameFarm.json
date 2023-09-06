@@ -493,17 +493,6 @@
                  "y":493.926355324826
                 }, 
                 {
-                 "height":71.5102974828375,
-                 "id":68,
-                 "name":"bqPower",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":71.5102974828369,
-                 "x":549.374532340736,
-                 "y":485.294194303044
-                }, 
-                {
                  "height":70.2576,
                  "id":69,
                  "name":"farmSign",
@@ -515,15 +504,26 @@
                  "y":485.466165675057
                 }, 
                 {
+                 "height":71.5103,
+                 "id":73,
+                 "name":"bqPower",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":71.5103,
+                 "x":9031.26281129275,
+                 "y":758.995576054195
+                }, 
+                {
                  "height":66.4314,
-                 "id":72,
+                 "id":74,
                  "name":"blueBox",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":68.5074,
-                 "x":909.626468815682,
-                 "y":353.667273852178
+                 "x":9177.34577175403,
+                 "y":421.43776880543
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -532,7 +532,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":73,
+ "nextobjectid":75,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
