@@ -73,6 +73,7 @@ export default class BQPowerController {
     private handleCollectBQPower() {
         if (!this.isCollected) {
             this.stateMachine.setState('bq-power-collected');
+            events.emit('bqpower-collected', this.sprite.x, this.sprite.y);
         }
     }
 }

@@ -154,6 +154,12 @@ export default class PlayerControllerFarm extends PlayerController {
             events.emit('blueBox-hit', blueBoxSprite);
         }
     }
+
+    if (this.obstacles.is('bqPower', body)) {
+        // Emit an event to indicate that the player collected the BQPower
+        events.emit('player-collect-bqpower');
+        return;
+    }
     
 
     // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa

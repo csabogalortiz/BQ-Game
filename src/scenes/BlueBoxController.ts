@@ -3,17 +3,18 @@ import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
 
 export default class BlueBoxController {
-    private scene: Phaser.Scene;
-    private sprite: Phaser.Physics.Matter.Sprite;
-    private stateMachine: StateMachine;
-    private isOpen: boolean = false;
-    private hasSpawnedItems: boolean = false;
+    public scene: Phaser.Scene;
+    public sprite: Phaser.Physics.Matter.Sprite;
+    public stateMachine: StateMachine;
+    public isOpen: boolean = false;
+    public hasSpawnedItems: boolean = false;
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
         this.scene = scene;
         this.sprite = sprite;
 
         this.createAnimations();
+        this.sprite.setVisible(false); 
 
         this.stateMachine = new StateMachine(this, 'blueBox');
 
@@ -31,10 +32,12 @@ export default class BlueBoxController {
     .setState('blueBox-flashing');
 
 events.on('blueBox-hit', this.handleBoxHit, this);
+events.on('bqpower-collected', this.handleBQPowerCollected, this);
 }
 
 destroy() {
 events.off('blueBox-hit', this.handleBoxHit, this);
+events.off('bqpower-collected', this.handleBQPowerCollected, this);
 }
 
 update(dt: number) {
@@ -80,15 +83,15 @@ this.stateMachine.update(dt);
     }
 
     // States Handlers
-    private idleOnEnter() {
+    public idleOnEnter() {
         this.stateMachine.setState('blueBox-flashing');
     }
 
-    private boxFlashOnEnter() {
+    public boxFlashOnEnter() {
         this.sprite.play('blueBox-flashing');
     }
 
-    private boxOpenOnEnter() {
+    public boxOpenOnEnter() {
         this.sprite.play('blueBox-open');
 
         if (!this.hasSpawnedItems) {
@@ -97,7 +100,7 @@ this.stateMachine.update(dt);
         }
     }
 
-    private spawnItems() {
+    public spawnItems() {
         // Spawn mushroom
     const coordinates = this.scene.matter.add.sprite(this.sprite.x, this.sprite.y - 30, 'coordinates', 0);
     coordinates.setData('type', 'coordinates'); // Set the type data attribute
@@ -116,7 +119,7 @@ this.stateMachine.update(dt);
     }
 
 
-    private handleBoxHit(blueBox: Phaser.Physics.Matter.Sprite) {
+    public handleBoxHit(blueBox: Phaser.Physics.Matter.Sprite) {
         if (this.sprite !== blueBox || this.isOpen) {
             return;
         }
@@ -127,6 +130,9 @@ this.stateMachine.update(dt);
         this.isOpen = true;
     }
 
+    public handleBQPowerCollected(x: number, y: number) {
+        this.sprite.setVisible(true); // Make the sprite visible when bqPower is collected
+    }
    
 
 }

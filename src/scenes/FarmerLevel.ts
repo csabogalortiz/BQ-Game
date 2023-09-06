@@ -9,6 +9,7 @@ import FarmUI from './FarmUI';
 import CryFarmerController from './CryFarmerController';
 import BQPowerController from './BqPower';
 import BlueBoxController from './BlueBoxController';
+import { sharedInstance as events } from "./EventCenter";
 
 
 
@@ -105,6 +106,9 @@ this.farmUi = new FarmUI(this, customFontStyle);
         map.createLayer('obstacles', tilesetFarm);
         map.createLayer('background', tilesetFarm);
         const objectsLayer = map.getObjectLayer('objects');
+
+
+        
 
         objectsLayer.objects.forEach(objData => {
 
@@ -239,42 +243,18 @@ this.farmUi = new FarmUI(this, customFontStyle);
 
 
 
-                   case 'bqPower': {
-                    const bqPower = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'bqPower', undefined, {
+                case 'bqPower': {
+                    const bqPower = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'bqPower', undefined, {
                         isStatic: true,
-                        isSensor: true
-                    })
-                    
-                    .setFixedRotation();
+                        isSensor: true,
+                    }).setFixedRotation();
 
-                    this.bqPower.push(new BQPowerController(this, bqPower))
-                    this.obstacles.add('bqPower', bqPower.body as MatterJS.BodyType)
-                    break 
+                    this.bqPower.push(new BQPowerController(this, bqPower));
+                    this.obstacles.add('bqPower', bqPower.body as MatterJS.BodyType);
+
+                    break;
                 }
 
-                // case 'happyFarmer': {
-
-
-                //     const happyFarmer = this.matter.add.sprite(x, y, 'happyFarmer', undefined, {
-                //         isStatic: true,
-                //         isSensor: true
-                //     }) 
-                //     .setFixedRotation();
-
-                //     this.obstacles.add('happyFarmer', happyFarmer.body as MatterJS.BodyType)
-                //     break 
-                // }
-
-               
-
-                // case 'fall-clouds' : {
-                //   const fallClouds=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
-                //        isStatic: true,
-                //    })
-                //    this.obstacles.add('fall-clouds', fallClouds)
-                //    break
-             
-                //   }  
                   case 'ohnoFarm' : {
                     const ohnoFarm=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
                         isStatic: true,
@@ -326,8 +306,17 @@ this.farmUi = new FarmUI(this, customFontStyle);
               
                    }
    
+
+
+
+
+
+                   
                 }
         });
+
+      
+        
 
         this.cameras.main.startFollow(this.player!, true);
         this.matter.world.convertTilemapLayer(groundFarm);
@@ -335,6 +324,8 @@ this.farmUi = new FarmUI(this, customFontStyle);
         
 
     }
+
+
 
     destroy () {
         this.scene.stop('ui')
@@ -357,6 +348,3 @@ this.farmUi = new FarmUI(this, customFontStyle);
 
 }
 
-
-
-// We have commented all logic regarding trucks

@@ -131,17 +131,6 @@
                 }, 
                 {
                  "height":63.0915,
-                 "id":11,
-                 "name":"data",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60.8382,
-                 "x":657.373,
-                 "y":416.928
-                }, 
-                {
-                 "height":63.0915,
                  "id":13,
                  "name":"data",
                  "rotation":0,
@@ -205,28 +194,6 @@
                  "width":69.698,
                  "x":2587.12,
                  "y":493.694
-                }, 
-                {
-                 "height":63.0915,
-                 "id":23,
-                 "name":"data",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60.8382,
-                 "x":1031.57,
-                 "y":210.597
-                }, 
-                {
-                 "height":63.0915,
-                 "id":24,
-                 "name":"data",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60.8382,
-                 "x":835.05,
-                 "y":325.94
                 }, 
                 {
                  "height":69.7371,
@@ -533,8 +500,8 @@
                  "type":"",
                  "visible":true,
                  "width":71.5102974828369,
-                 "x":9024.93832167986,
-                 "y":764.554876617119
+                 "x":549.374532340736,
+                 "y":485.294194303044
                 }, 
                 {
                  "height":70.2576,
@@ -548,15 +515,15 @@
                  "y":485.466165675057
                 }, 
                 {
-                 "height":70.2576,
-                 "id":71,
+                 "height":66.4314,
+                 "id":72,
                  "name":"blueBox",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":65.5738,
-                 "x":487.649067302452,
-                 "y":275.497902997275
+                 "width":68.5074,
+                 "x":909.626468815682,
+                 "y":353.667273852178
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -565,7 +532,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":72,
+ "nextobjectid":73,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
