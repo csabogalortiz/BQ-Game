@@ -23,10 +23,11 @@ export default class GreenBoxController {
             const body = data.bodyB as MatterJS.BodyType
     
             if (this.obstacles.is('greySection', body)) {
-    
-                this.sprite.setVelocityX(0); // Stop horizontal movement
-                this.sprite.setVelocityY(0); // Stop vertical movement
-                return;
+
+                this.stateMachine.setState('greySection-hit')
+            
+          
+                return
             }
         })    
 
@@ -52,6 +53,11 @@ export default class GreenBoxController {
          .addState('greySection-hit', {
             onEnter: this.greenBoxLeftOnEnter,
             onUpdate: this.greenBoxLeftOnUpdate
+        })
+
+        .addState('greySection-hit', {
+            onEnter: this.greySectionHitOnEnter,
+
         })
      
          
@@ -121,5 +127,12 @@ export default class GreenBoxController {
             this.stateMachine.setState('greenBox-left')
 
         }
+}
+
+private greySectionHitOnEnter() {
+
+    console.log('BOOOOX-GREYYYYY-section-hit!')
+    // this.stateMachine.setState('idle');
+
 }
 }
