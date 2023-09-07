@@ -125,8 +125,8 @@ export default class GreenBoxController {
 
 private greySectionHitOnEnter() {
 
-    console.log('RED-GREYYYYY-section-hit!')
-    // this.stateMachine.setState('idle');
+    console.log('ROJO-GREYYYYY-section-hit!')
+    this.stateMachine.setState('redBox-right');
 
 }
 }

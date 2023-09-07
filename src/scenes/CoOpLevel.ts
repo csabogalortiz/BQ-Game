@@ -39,6 +39,7 @@ export default class CoOpLevel extends Phaser.Scene {
        this.bqPower = []
        this.redBox = []
        this.greenBox = []
+       this.bqPower = []
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -49,6 +50,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
         this.load.atlas('greenBox', 'assets/greenBox.png', 'assets/greenBox.json')
+        this.load.atlas('bqPower', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
         this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
@@ -136,6 +138,29 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         break
                     }
 
+                    case 'bqPower': {
+                        const bqPower = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'bqPower', undefined, {
+                            isStatic: true,
+                            isSensor: true,
+                        }).setFixedRotation();
+    
+                        this.bqPower.push(new BQPowerController(this, bqPower));
+                        this.obstacles.add('bqPower', bqPower.body as MatterJS.BodyType);
+    
+                        break;
+                    }
+
+
+
+                    case 'greySection':
+                        { const greySection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                            isStatic: true,
+                       
+                        })
+                        this.obstacles.add('greySection', greySection)
+                        break
+                        }
+
                     case 'redSection':
                         { const redSection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
                             isStatic: true,
@@ -153,19 +178,11 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         break
                         }
 
-                        case 'greySection':
-                            { const greySection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
-                                isStatic: true,
-                           
-                            })
-                            this.obstacles.add('greySection', greySection)
-                            break
-                            }
     
 
                         case 'redBox': {
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 
-                            .setFixedRotation();
+                            // .setFixedRotation();
     
                             this.redBox.push(new RedBoxController(this, redBox,  this.obstacles))
                             this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
@@ -176,7 +193,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                         case 'greenBox': {
                             const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
-                                .setFixedRotation();
+                                // .setFixedRotation();
                         
                             this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
                             this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
@@ -218,7 +235,7 @@ update(t: number, dt: number) {
     if (this.playerController) {
         this.playerController.update(dt)
     }
-
+    this.bqPower .forEach(bqPower => bqPower.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))

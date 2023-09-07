@@ -22,13 +22,21 @@ export default class GreenBoxController {
          this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
     
-            if (this.obstacles.is('greySection', body)) {
+            if (this.obstacles.is('greenSection', body)) {
 
-                this.stateMachine.setState('greySection-hit')
+                this.stateMachine.setState('greenSection-hit')
             
           
                 return
             }
+    
+            if (this.obstacles.is('greySection', body)) {
+    
+                this.stateMachine.setState('greenBox-idle')
+            
+                return
+            }
+    
         })    
 
          this.createAnimations()
@@ -52,10 +60,16 @@ export default class GreenBoxController {
 
     
 
-        .addState('greySection-hit', {
+         .addState('greySection-hit', {
             onEnter: this.greySectionHitOnEnter,
 
         })
+
+        .addState('greenSection-hit', {
+            onEnter: this.greenSectionHitOnEnter,
+
+        })
+
      
          
              .setState('greenBox-left')
@@ -126,10 +140,18 @@ export default class GreenBoxController {
         }
 }
 
+
+private greenSectionHitOnEnter() {
+
+    console.log('Caja-Pega-Verde-section-hit!')
+    this.stateMachine.setState('greenBox-idle');
+
+}
+ 
 private greySectionHitOnEnter() {
 
     console.log('BOOOOX-GREYYYYY-section-hit!')
-    // this.stateMachine.setState('idle');
+    this.stateMachine.setState('greenBox-idle');
 
 }
 }
