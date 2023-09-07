@@ -25,6 +25,8 @@ export default class CoOpLevel extends Phaser.Scene {
     private farmUi!: FarmUI;
     private redBox: RedBoxController [] = []
     private greenBox: GreenBoxController [] = []
+    private movingPlatforms: Phaser.Physics.Matter.Image[] = [];
+    private platformSpeed = 2;
 
 
     constructor() {
@@ -40,6 +42,7 @@ export default class CoOpLevel extends Phaser.Scene {
        this.redBox = []
        this.greenBox = []
        this.bqPower = []
+       this.movingPlatforms = [];
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -56,6 +59,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
         
         this.load.image('data', 'assets/data.png')
+        this.load.image('movingPlat', 'assets/movingPlat.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
 
@@ -137,6 +141,20 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         data.setData('type', 'data')
                         break
                     }
+
+
+                    case 'movingPlat': {
+                        const movingPlat = this.matter.add.sprite(x, y, 'movingPlat', undefined, {
+                            isStatic: true,
+                            isSensor: true
+                        });
+                        movingPlat.setData('type', 'movingPlat');
+                    
+                        // Add the platform to the movingPlatforms array
+                        this.movingPlatforms.push(movingPlat);
+                        break;
+                    }
+
 
                     case 'bqPower': {
                         const bqPower = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'bqPower', undefined, {
@@ -239,6 +257,15 @@ update(t: number, dt: number) {
     this.redBox .forEach(redBox => redBox.update(dt))
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))
+
+    this.movingPlatforms.forEach(platform => {
+        platform.x -= this.platformSpeed * dt;
+
+        // Reset the platform's position if it goes off-screen
+        if (platform.x + platform.width < 0) {
+            platform.x = this.cameras.main.width;
+        }
+    });
 }
 
 
