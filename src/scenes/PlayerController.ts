@@ -63,6 +63,11 @@ export default class PlayerController
   
             })
 
+            .addState('greySection-hit', {
+                onEnter: this.greySectionHitOnEnter,
+  
+            })
+
             .addState('greenSection-hit', {
                 onEnter: this.greenSectionHitOnEnter,
   
@@ -364,6 +369,13 @@ export default class PlayerController
     private greenSectionHitOnEnter() {
 
         console.log('green-section-hit!')
+        this.stateMachine.setState('idle');
+
+    }
+
+    private greySectionHitOnEnter() {
+
+        console.log('GREYYYYY-section-hit!')
         this.stateMachine.setState('idle');
 
     }

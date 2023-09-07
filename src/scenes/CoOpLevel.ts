@@ -153,6 +153,16 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         break
                         }
 
+                        case 'greySection':
+                            { const greySection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                                isStatic: true,
+                           
+                            })
+                            this.obstacles.add('greySection', greySection)
+                            break
+                            }
+    
+
                         case 'redBox': {
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 
                             .setFixedRotation();
@@ -164,14 +174,14 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     
                            
 
-                    case 'greenBox': {
-                        const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
-                        .setFixedRotation();
-
-                        this.greenBox.push(new GreenBoxController(this, greenBox))
-                        this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
-                        break 
-                    }
+                        case 'greenBox': {
+                            const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
+                                .setFixedRotation();
+                        
+                            this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
+                            this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
+                            break;
+                        }
 
              
     

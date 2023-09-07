@@ -37,6 +37,17 @@ export default class PlayerControllerCoOp extends PlayerController {
             return
         }
 
+        if (this.obstacles.is('greySection', body)) {
+
+            this.stateMachine.setState('greySection-hit')
+        
+      
+            return
+        }
+
+
+        
+
     // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa
 
         const gameObject = body.gameObject

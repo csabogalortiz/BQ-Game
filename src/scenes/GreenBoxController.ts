@@ -1,18 +1,35 @@
 import Phaser from "phaser";
 import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
+import ObstaclesController from "./ObstaclesController";
 
 export default class GreenBoxController {
     public scene: Phaser.Scene;
     public sprite: Phaser.Physics.Matter.Sprite;
     public stateMachine: StateMachine;
+    public obstacles: ObstaclesController
     private moveTime = 0;
     private transitionDelay = 1000; // Delay in milliseconds before transitioning to 'greenbox-left'
 
-    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
+    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController) {
+
+        
         this.scene = scene
          this.sprite = sprite
+         this.obstacles = obstacles
      
+
+         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
+            const body = data.bodyB as MatterJS.BodyType
+    
+            if (this.obstacles.is('greySection', body)) {
+    
+                this.sprite.setVelocityX(0); // Stop horizontal movement
+                this.sprite.setVelocityY(0); // Stop vertical movement
+                return;
+            }
+        })    
+
          this.createAnimations()
      
          this.stateMachine = new StateMachine(this, 'greenBox')
@@ -31,9 +48,17 @@ export default class GreenBoxController {
              onEnter: this.greenBoxRightOnEnter,
              onUpdate: this.greenBoxRightOnUpdate
          })
+
+         .addState('greySection-hit', {
+            onEnter: this.greenBoxLeftOnEnter,
+            onUpdate: this.greenBoxLeftOnUpdate
+        })
      
          
-             .setState('greenBox-idle')
+             .setState('greenBox-left')
+
+
+          
      
              // events.on('farmer-stomped', this.handleTrucksStomped, this)
      
@@ -61,6 +86,8 @@ export default class GreenBoxController {
 
 
     }
+
+    
 
     // States Handlers
     private idleOnEnter() {
