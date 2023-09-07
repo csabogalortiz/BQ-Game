@@ -26,7 +26,7 @@ export default class CoOpLevel extends Phaser.Scene {
     private redBox: RedBoxController [] = []
     private greenBox: GreenBoxController [] = []
     private movingPlatforms: Phaser.Physics.Matter.Image[] = [];
-    private platformSpeed = 2;
+    private platformSpeed = 1;
 
 
     constructor() {
@@ -149,6 +149,8 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             isSensor: true
                         });
                         movingPlat.setData('type', 'movingPlat');
+
+                        movingPlat.setData('initialX', x);
                     
                         // Add the platform to the movingPlatforms array
                         this.movingPlatforms.push(movingPlat);
@@ -261,9 +263,9 @@ update(t: number, dt: number) {
     this.movingPlatforms.forEach(platform => {
         platform.x -= this.platformSpeed * dt;
 
-        // Reset the platform's position if it goes off-screen
+        // Reset the platform's position based on its initial X position
         if (platform.x + platform.width < 0) {
-            platform.x = this.cameras.main.width;
+            platform.x = platform.getData('initialX') + this.cameras.main.width;
         }
     });
 }
