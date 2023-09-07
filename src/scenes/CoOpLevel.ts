@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import PlayerController from './PlayerController';
+import PlayerControllerCoOp from './PlayerControllerCoOp';
 import ObstaclesController from './ObstaclesController';
 import  WebFontFile from './WebFontFile';
-import FarmersController from './FarmersController';
 import PlayerControllerFarm from './PlayerControllerFarm';
 import BoxController from './BoxController';
 import FarmUI from './FarmUI';
@@ -10,6 +10,9 @@ import CryFarmerController from './CryFarmerController';
 import BQPowerController from './BqPower';
 import BlueBoxController from './BlueBoxController';
 import { sharedInstance as events } from "./EventCenter";
+import RedBoxController from './RedBoxController';
+import GreenBoxController from './GreenBoxController';
+
 
 
 
@@ -18,12 +21,11 @@ export default class CoOpLevel extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-    private farmers: FarmersController [] = []
-    private farmBox: BoxController [] = []
-    private blueBox: BlueBoxController [] = []
     private bqPower: BQPowerController[] = []
     private farmUi!: FarmUI;
-    private cryFarmer: CryFarmerController [] = []
+    private redBox: RedBoxController [] = []
+    private greenBox: GreenBoxController [] = []
+
 
     constructor() {
         // Desde donde llamo la escena con un boton- este es el nombre 
@@ -35,17 +37,21 @@ export default class CoOpLevel extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.bqPower = []
-    //    this.events.once(Phaser.Scenes.Events.DESTROY, () => {
-    //    this.destroy()
+       this.redBox = []
+       this.greenBox = []
+       this.events.once(Phaser.Scenes.Events.DESTROY, () => {
+       this.destroy()
 
-    // })
+    })
     }
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
+        this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
+        this.load.atlas('greenBox', 'assets/greenBox.png', 'assets/greenBox.json')
+        
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
         this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
-
         
         this.load.image('data', 'assets/data.png')
         this.load.image('coordinates', 'assets/coordinates.png');
@@ -88,29 +94,111 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                    
                   
 
-                        this.playerController = new PlayerControllerFarm (
+                        this.playerController = new PlayerControllerCoOp (
                             this,
                             this.player,
                             this.cursors,
                             this.obstacles
                             )
-
+                            const mapWidth = map.widthInPixels;
+                            const mapHeight = map.heightInPixels;
+                            
+                            // Set the camera bounds to cover the entire map and prevent the player from going beyond the left edge
+                            this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
+                            
+                            // Create a smaller dead zone to control camera follow
+                            const deadZoneWidth = this.cameras.main.width * 0.1; // Adjust as needed
+                            const deadZoneHeight = this.cameras.main.height * 0.1; // Adjust as needed
+                            this.cameras.main.setDeadzone(deadZoneWidth, deadZoneHeight);
+                            
+                            // Start following the player
+                            this.cameras.main.startFollow(this.player);
                             // this.cameras.main.pan(0, -10, 1000, 'Linear'); 
                             // this.cameras.main.scrollY= -10
                             // this.cameras.main.scrollX= 50
                             // this.cameras.main.setZoom(0.9);  
 
-                            const mapWidth = map.widthInPixels;
-                            const mapHeight = map.heightInPixels;
-                            this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
-                            this.cameras.main.centerToBounds(); 
+                            // const mapWidth = map.widthInPixels;
+                            // const mapHeight = map.heightInPixels;
+                            // this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
+                            // this.cameras.main.centerToBounds();
                         break
 
                     }
+
+                    case 'data': {
+                        const data = this.matter.add.sprite(x, y, 'data', undefined, {
+                            isStatic: true,
+                            isSensor: true
+    
+                        })
+                        data.setData('type', 'data')
+                        break
+                    }
+
+                    case 'redSection':
+                        { const redSection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                            isStatic: true,
+                       
+                        })
+                        this.obstacles.add('redSection', redSection)
+                        break
+                        }
+                    case 'greenSection':
+                        { const greenSection=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                            isStatic: true,
+                       
+                        })
+                        this.obstacles.add('greenSection', greenSection)
+                        break
+                        }
+
+                        case 'redBox': {
+                            const redBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'redBox', undefined, {
+                                isStatic: true,
+                                isSensor: true
+                            })
+                            
+                            .setFixedRotation();
+        
+                            this.redBox.push(new RedBoxController(this, redBox))
+                            this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
+                            break 
+        
+                           }
+
+                    case 'greenBox': {
+                        const greenBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'greenBox', undefined, {
+                            isStatic: true,
+                            isSensor: true
+                        })
+                        
+                        .setFixedRotation();
+    
+                        this.greenBox.push(new GreenBoxController(this, greenBox))
+                        this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
+                        break 
+    
+                       }
+    
+             
+    
+
                 }
 
     })
 
+
+    // this.greenBox.forEach((greenBox) => {
+    //     greenBox.sprite.setVelocityY(100); // Adjust the falling speed as needed
+    //     greenBox.sprite.setY(-50); // Set an initial position above the screen
+    // });
+
+    // // Create and spawn red boxes from above
+    // this.redBox.forEach((redBox) => {
+    //     redBox.sprite.setVelocityY(100); // Adjust the falling speed as needed
+    //     redBox.sprite.setY(-50); // Set an initial position above the screen
+    // });
 
     this.cameras.main.startFollow(this.player!, true);
     this.matter.world.convertTilemapLayer(groundCoOp);
@@ -128,6 +216,10 @@ update(t: number, dt: number) {
     if (this.playerController) {
         this.playerController.update(dt)
     }
+
+    this.redBox .forEach(redBox => redBox.update(dt))
+
+    this.greenBox .forEach(greenBox => greenBox.update(dt))
 }
 
 

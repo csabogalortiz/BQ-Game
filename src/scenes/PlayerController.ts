@@ -58,6 +58,15 @@ export default class PlayerController
                 onEnter: this.nonCompliantLandOnEnter,
   
             })
+            .addState('redSection-hit', {
+                onEnter: this.redSectionHitOnEnter,
+  
+            })
+
+            .addState('greenSection-hit', {
+                onEnter: this.greenSectionHitOnEnter,
+  
+            })
 
             .addState('trucks-hit',{
                 onEnter: this.trucksHitOnEnter,
@@ -337,10 +346,26 @@ export default class PlayerController
                 )
                 this.sprite.setTint(color)
             }
+
+            
         })
 
         this.stateMachine.setState('idle')
         this.setCompliance(this.compliance- 1)
+    }
+
+    private redSectionHitOnEnter() {
+
+        console.log('red-section-hit!')
+        this.stateMachine.setState('idle');
+
+    }
+
+    private greenSectionHitOnEnter() {
+
+        console.log('green-section-hit!')
+        this.stateMachine.setState('idle');
+
     }
 
 private trucksHitOnEnter() {
