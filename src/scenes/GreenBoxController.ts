@@ -50,10 +50,7 @@ export default class GreenBoxController {
              onUpdate: this.greenBoxRightOnUpdate
          })
 
-         .addState('greySection-hit', {
-            onEnter: this.greenBoxLeftOnEnter,
-            onUpdate: this.greenBoxLeftOnUpdate
-        })
+    
 
         .addState('greySection-hit', {
             onEnter: this.greySectionHitOnEnter,

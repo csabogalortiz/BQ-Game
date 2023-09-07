@@ -1,17 +1,34 @@
 import Phaser from "phaser";
 import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
+import ObstaclesController from "./ObstaclesController";
 
 export default class GreenBoxController {
     public scene: Phaser.Scene;
     public sprite: Phaser.Physics.Matter.Sprite;
     public stateMachine: StateMachine;
     private moveTime = 0;
+    public obstacles: ObstaclesController
     private transitionDelay = 1000; // Delay in milliseconds before transitioning to 'greenbox-left'
 
-    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
+    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite,  obstacles: ObstaclesController) {
         this.scene = scene
          this.sprite = sprite
+         this.obstacles = obstacles
+
+
+
+         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
+            const body = data.bodyB as MatterJS.BodyType
+    
+            if (this.obstacles.is('greySection', body)) {
+
+                this.stateMachine.setState('greySection-hit')
+            
+          
+                return
+            }
+        })    
      
          this.createAnimations()
      
@@ -31,6 +48,13 @@ export default class GreenBoxController {
              onEnter: this.redBoxRightOnEnter,
              onUpdate: this.redBoxRightOnUpdate
          })
+
+
+        .addState('greySection-hit', {
+            onEnter: this.greySectionHitOnEnter,
+
+        })
+     
      
          
              .setState('redBox-idle')
@@ -41,6 +65,8 @@ export default class GreenBoxController {
     update(dt: number) {
         this.stateMachine.update(dt);
     }
+
+    
 
     // Box Animations ---------------------------------------------
     private createAnimations() {
@@ -94,5 +120,13 @@ export default class GreenBoxController {
         //     this.stateMachine.setState('redBox-left')
 
         // }
+}
+
+
+private greySectionHitOnEnter() {
+
+    console.log('RED-GREYYYYY-section-hit!')
+    // this.stateMachine.setState('idle');
+
 }
 }

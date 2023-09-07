@@ -167,7 +167,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 
                             .setFixedRotation();
     
-                            this.redBox.push(new RedBoxController(this, redBox))
+                            this.redBox.push(new RedBoxController(this, redBox,  this.obstacles))
                             this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
                             break 
                         }
