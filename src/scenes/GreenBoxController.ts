@@ -6,63 +6,93 @@ export default class GreenBoxController {
     public scene: Phaser.Scene;
     public sprite: Phaser.Physics.Matter.Sprite;
     public stateMachine: StateMachine;
-    // private isOpen: boolean = false;
-    // private hasSpawnedItems: boolean = false;
+    private moveTime = 0;
+    private transitionDelay = 1000; // Delay in milliseconds before transitioning to 'greenbox-left'
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {
-        this.scene = scene;
-        this.sprite = sprite;
+        this.scene = scene
+         this.sprite = sprite
+     
+         this.createAnimations()
+     
+         this.stateMachine = new StateMachine(this, 'greenBox')
+     
+         // Adding States -------------------
+         this.stateMachine
+         .addState('greenBox-idle', {
+             onEnter: this.idleOnEnter,
+         })
+         .addState('greenBox-left', {
+             onEnter: this.greenBoxLeftOnEnter,
+             onUpdate: this.greenBoxLeftOnUpdate
+         })
+     
+         .addState('greenBox-right', {
+             onEnter: this.greenBoxRightOnEnter,
+             onUpdate: this.greenBoxRightOnUpdate
+         })
+     
+         
+             .setState('greenBox-idle')
+     
+             // events.on('farmer-stomped', this.handleTrucksStomped, this)
+     
+         }
+    update(dt: number) {
+        this.stateMachine.update(dt);
+    }
 
-       
-        this.createAnimations();
-
-        this.stateMachine = new StateMachine(this, 'greenBox');
-
-    // Adding States -------------------
-    this.stateMachine
-    .addState('greenBox-idle', {
-        onEnter: this.idleOnEnter,
-    })
-
-    .setState('greenBox-idle');
-
-// events.on('box-hit', this.handleBoxHit, this);
-}
-
-// destroy() {
-// events.off('box-hit', this.handleBoxHit, this);
-// }
-
-update(dt: number) {
-this.stateMachine.update(dt);
-}
-
-
-     // Box Animations ---------------------------------------------
-     private createAnimations() {
-
-
-
+    // Box Animations ---------------------------------------------
+    private createAnimations() {
         this.sprite.anims.create({
             key: 'greenBox-idle',
-            frames: [{
-                key: 'greenBox', frame: 'greenBox.png'
-            }]
+            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
         });
-    
+
+        this.sprite.anims.create({
+            key: 'greenBox-right',
+            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
+        });
+
+        this.sprite.anims.create({
+            key: 'greenBox-left',
+            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
+        });
+
+
     }
 
     // States Handlers
     private idleOnEnter() {
+        this.stateMachine.setState('greenBox-left');
+            }
 
 
-        this.sprite.play('greenBox-idle');
+    private greenBoxLeftOnEnter () { 
+        this.moveTime =0 
+        this.sprite.anims.play('greenBox-left')
     }
 
+    private greenBoxLeftOnUpdate (dt: number) { 
+      this.moveTime += dt 
+      this.sprite.setVelocityX(-1)
+
+    //   if (this.moveTime > 2000) {
+    //       this.stateMachine.setState('greenBox-right')
+    //   }
     }
 
-   
+    private greenBoxRightOnEnter () { 
+        this.moveTime =0 
+        this.sprite.anims.play('greenBox-right')
+    }
 
-   
-   
+    private greenBoxRightOnUpdate (dt: number) { 
+        this.moveTime += dt
+        this.sprite.setVelocityX(1)
+        if (this.moveTime > 2000) {
+            this.stateMachine.setState('greenBox-left')
 
+        }
+}
+}

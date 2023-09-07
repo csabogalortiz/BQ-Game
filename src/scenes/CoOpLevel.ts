@@ -154,33 +154,25 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
 
                         case 'redBox': {
-                            const redBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'redBox', undefined, {
-                                isStatic: true,
-                                isSensor: true
-                            })
-                            
+                            const redBox = this.matter.add.sprite(x, y, 'redBox') 
                             .setFixedRotation();
-        
+    
                             this.redBox.push(new RedBoxController(this, redBox))
                             this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
                             break 
-        
-                           }
+                        }
+    
+                           
 
                     case 'greenBox': {
-                        const greenBox = this.matter.add.sprite(x+ (width -39), y+ (height -38), 'greenBox', undefined, {
-                            isStatic: true,
-                            isSensor: true
-                        })
-                        
+                        const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
                         .setFixedRotation();
-    
+
                         this.greenBox.push(new GreenBoxController(this, greenBox))
                         this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
                         break 
-    
-                       }
-    
+                    }
+
              
     
 
