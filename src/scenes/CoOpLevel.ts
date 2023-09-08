@@ -189,12 +189,15 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
 
                         case 'platform': {
-                            const newPlatform = new PlatformsController(this, x, y, 'platform', {
-                                isStatic: true
-                            });
-                            newPlatform.moveHorizontally(); // You can apply the appropriate movement here
-                            this.platform.push(newPlatform);
-                            break;
+                            const leftMovingPlatform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
+    leftMovingPlatform.moveHorizontally(); // Apply leftward movement
+    this.platform.push(leftMovingPlatform);
+
+    // Create a right-moving platform
+    const rightMovingPlatform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "right");
+    rightMovingPlatform.moveHorizontally(); // Apply rightward movement
+    this.platform.push(rightMovingPlatform);
+    break;
                         } 
                         
     
