@@ -12,6 +12,7 @@ import BlueBoxController from './BlueBoxController';
 import { sharedInstance as events } from "./EventCenter";
 import RedBoxController from './RedBoxController';
 import GreenBoxController from './GreenBoxController';
+import PlatformsController from './PlatformsController';
 
 
 
@@ -25,7 +26,7 @@ export default class CoOpLevel extends Phaser.Scene {
     private farmUi!: FarmUI;
     private redBox: RedBoxController [] = []
     private greenBox: GreenBoxController [] = []
-    private movingPlatforms: Phaser.Physics.Matter.Image[] = [];
+    private platform: PlatformsController[] = [];
     private platformSpeed = 1;
 
 
@@ -42,7 +43,7 @@ export default class CoOpLevel extends Phaser.Scene {
        this.redBox = []
        this.greenBox = []
        this.bqPower = []
-       this.movingPlatforms = [];
+       this.platform = [];
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -59,7 +60,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
         
         this.load.image('data', 'assets/data.png')
-        this.load.image('movingPlat', 'assets/movingPlat.png')
+        this.load.image('platform', 'assets/platform.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
 
@@ -143,20 +144,9 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                     }
 
 
-                    case 'movingPlat': {
-                        const movingPlat = this.matter.add.sprite(x, y, 'movingPlat', undefined, {
-                            isStatic: true,
-                            isSensor: true
-                        });
-                        movingPlat.setData('type', 'movingPlat');
+                  
 
-                        movingPlat.setData('initialX', x);
                     
-                        // Add the platform to the movingPlatforms array
-                        this.movingPlatforms.push(movingPlat);
-                        break;
-                    }
-
 
                     case 'bqPower': {
                         const bqPower = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'bqPower', undefined, {
@@ -198,11 +188,20 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         break
                         }
 
+                        case 'platform': {
+                            const newPlatform = new PlatformsController(this, x, y, 'platform', {
+                                isStatic: true
+                            });
+                            newPlatform.moveHorizontally(); // You can apply the appropriate movement here
+                            this.platform.push(newPlatform);
+                            break;
+                        } 
+                        
     
 
                         case 'redBox': {
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 
-                            // .setFixedRotation();
+                            .setFixedRotation();
     
                             this.redBox.push(new RedBoxController(this, redBox,  this.obstacles))
                             this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
@@ -213,7 +212,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                         case 'greenBox': {
                             const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
-                                // .setFixedRotation();
+                                .setFixedRotation();
                         
                             this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
                             this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
@@ -259,15 +258,9 @@ update(t: number, dt: number) {
     this.redBox .forEach(redBox => redBox.update(dt))
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))
+    this.platform .forEach(platform => platform.update(dt))
 
-    this.movingPlatforms.forEach(platform => {
-        platform.x -= this.platformSpeed * dt;
-
-        // Reset the platform's position based on its initial X position
-        if (platform.x + platform.width < 0) {
-            platform.x = platform.getData('initialX') + this.cameras.main.width;
-        }
-    });
+   
 }
 
 

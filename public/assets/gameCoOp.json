@@ -184,6 +184,12 @@
                  "height":66.4452,
                  "id":20,
                  "name":"movingPlat",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -194,13 +200,24 @@
                 {
                  "height":66.4452,
                  "id":21,
+                 "name":"platform",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":69.1206374891017,
+                 "x":1548.84983055041,
+                 "y":842.939418117066
+                }, 
+                {
+                 "height":66.4452,
+                 "id":22,
                  "name":"movingPlat",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":63.8896,
-                 "x":2103.31679081242,
-                 "y":770.690628413441
+                 "width":145.842520662598,
+                 "x":975.381465252451,
+                 "y":839.396049350491
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -209,7 +226,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":22,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

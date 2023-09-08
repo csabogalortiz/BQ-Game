@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="4" nextobjectid="22">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="4" nextobjectid="23">
  <editorsettings>
   <export target="gameCoOp.json" format="json"/>
  </editorsettings>
@@ -376,7 +376,12 @@
   <object id="15" name="greenBox" x="2660.55" y="422.702" width="71.4875" height="63.2389"/>
   <object id="16" name="redBox" x="1142.03" y="420.232" width="71.4875" height="63.2389"/>
   <object id="17" name="redBox" x="70.4291" y="422.702" width="71.4875" height="63.2389"/>
-  <object id="20" name="movingPlat" x="1966.43" y="626.071" width="63.8896" height="66.4452"/>
-  <object id="21" name="movingPlat" x="2103.32" y="770.691" width="63.8896" height="66.4452"/>
+  <object id="20" name="movingPlat" x="1966.43" y="626.071" width="63.8896" height="66.4452">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="21" name="platform" x="1548.85" y="842.939" width="69.1206" height="66.4452"/>
+  <object id="22" name="movingPlat" x="975.381" y="839.396" width="145.843" height="66.4452"/>
  </objectgroup>
 </map>
