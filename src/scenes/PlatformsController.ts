@@ -22,7 +22,12 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
         this.startX = x
         this.startY = y
         this.moveDirection = moveDirection;
-        this.platform = this
+        this.platform = this;
+
+        if (moveDirection === "right") {
+            // If the moveDirection is "right," flip the platform horizontally
+            this.flipX = true;
+        }
     }
 
     moveHorizontally() {
@@ -42,25 +47,25 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
         });
     }
 
-moveVertically()
-{
-	this.scene.tweens.addCounter({
-		from: 0,
-		to: -300,
-		duration: 1500,
-		ease: Phaser.Math.Easing.Sine.InOut,
-		repeat: -1,
-		yoyo: true,
-		onUpdate: (tween, target) => {
-			const y = this.startY + target.value
-			const dy = y - this.y
-			this.y = y
-			this.setVelocityY(dy)
-		}
-	})
-}
+    moveVertically()
+    {
+        this.scene.tweens.addCounter({
+            from: 0,
+            to: -300,
+            duration: 1500,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            repeat: -1,
+            yoyo: true,
+            onUpdate: (tween, target) => {
+                const y = this.startY + target.value
+                const dy = y - this.y
+                this.y = y
+                this.setVelocityY(dy)
+            }
+        })
+    }
 
-getBody(): MatterJS.BodyType {
-    return this.platform.body as MatterJS.BodyType;
-}
+    getBody(): MatterJS.BodyType {
+        return this.platform.body as MatterJS.BodyType;
+    }
 }

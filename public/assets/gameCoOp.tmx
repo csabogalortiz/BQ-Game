@@ -383,7 +383,7 @@
   </object>
   <object id="21" name="platform" x="1609.88" y="844.683" width="69.1206" height="66.4452"/>
   <object id="22" name="movingPlat" x="975.381" y="839.396" width="145.843" height="66.4452"/>
-  <object id="23" name="platform" x="1332.48" y="699.123" width="69.1206" height="66.4452"/>
-  <object id="25" name="platform" x="1609.73" y="564.859" width="69.1206" height="66.4452"/>
+  <object id="23" name="platform" x="1465" y="695.636" width="69.1206" height="66.4452"/>
+  <object id="25" name="platform" x="1534.75" y="495.112" width="69.1206" height="66.4452"/>
  </objectgroup>
 </map>
