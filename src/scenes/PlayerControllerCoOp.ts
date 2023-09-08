@@ -47,6 +47,14 @@ export default class PlayerControllerCoOp extends PlayerController {
             return
         }
 
+        if (this.obstacles.is('powerCoOp', body)) {
+            // Emit an event to indicate that the player collected the BQPower
+            events.emit('layer-collect-powerCoOp', body.gameObject);
+            // Destroy the BQPower sprite
+            body.gameObject.destroy();
+            return;
+        }
+
 
 
 
@@ -97,6 +105,9 @@ export default class PlayerControllerCoOp extends PlayerController {
                         break;
                     }
 
+                   
+                        
+
                     
     
 
@@ -109,11 +120,12 @@ export default class PlayerControllerCoOp extends PlayerController {
             //         break
             //     }
         }
+        
 
         
     })
 
-
   }
+
 
 }

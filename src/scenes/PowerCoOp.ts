@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
 
-export default class BQPowerController {
+export default class PowerCoOp {
     private scene: Phaser.Scene;
     private sprite: Phaser.Physics.Matter.Sprite;
     private stateMachine: StateMachine;
@@ -16,23 +16,23 @@ export default class BQPowerController {
         // Create the sprite with the initial position
         this.createAnimations();
 
-        this.stateMachine = new StateMachine(this, 'bqPower');
+        this.stateMachine = new StateMachine(this, 'powerCoOp');
 
         // Adding States -------------------
         this.stateMachine
-            .addState('bq-power-idle', {
+            .addState('power-coOp-idle', {
                 onEnter: this.idleOnEnter,
             })
-            .addState('bq-power-collected', {
+            .addState('power-coOp-collected', {
                 onEnter: this.collectedOnEnter,
             })
-            .setState('bq-power-idle');
+            .setState('power-coOp-idle');
 
-        events.on('player-collect-bqpower', this.handleCollectBQPower, this);
+        events.on('player-collect-powerCoOp', this.handleCollectPowerCoOp, this);
     }
 
     destroy() {
-        events.off('player-collect-bqpower', this.handleCollectBQPower, this);
+        events.off('player-collect-powerCoOp', this.handleCollectPowerCoOp, this);
     }
 
     update(dt: number) {
@@ -42,8 +42,8 @@ export default class BQPowerController {
     // BQPower Animations ---------------------------------------------
     private createAnimations() {
         this.sprite.anims.create({
-            key: 'bqPower-up-down',
-            frames: [{ key: 'bqPower', frame: 'BQPowerup_1.png' }],
+            key: 'powerCoOp-up-down',
+            frames: [{ key: 'powerCoOp', frame: 'BQPowerup_1.png' }],
             frameRate: 1, // Adjust the frame rate as needed
             repeat: -1, // Repeat the animation indefinitely
         });
@@ -51,7 +51,7 @@ export default class BQPowerController {
 
     // States Handlers
     private idleOnEnter() {
-        this.sprite.play('bqPower-up-down');
+        this.sprite.play('powerCoOp-up-down');
         // Create a tween to move the sprite up and down.
         this.scene.tweens.add({
             targets: this.sprite,
@@ -67,14 +67,14 @@ export default class BQPowerController {
 
         // Trigger any actions you want when the BQPower is collected
         // For example, revealing the hidden box with ID and coordinates
-        events.emit('bqpower-collected', this.sprite.x, this.sprite.y);
+        events.emit('powerCoOp-collected', this.sprite.x, this.sprite.y);
     }
 
-    private handleCollectBQPower() {
+    private handleCollectPowerCoOp() {
         if (!this.isCollected) {
-            this.stateMachine.setState('bq-power-collected');
-            events.emit('bqpower-collected', this.sprite.x, this.sprite.y);
-
+            this.stateMachine.setState('powerCoOp-collected');
+            events.emit('powerCoOp-collected', this.sprite.x, this.sprite.y);
+            // events.emit('bqpower-collected-for-platforms')
         }
     }
 }

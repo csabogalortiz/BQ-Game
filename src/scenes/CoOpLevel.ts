@@ -7,12 +7,12 @@ import PlayerControllerFarm from './PlayerControllerFarm';
 import BoxController from './BoxController';
 import FarmUI from './FarmUI';
 import CryFarmerController from './CryFarmerController';
-import BQPowerController from './BqPower';
 import BlueBoxController from './BlueBoxController';
 import { sharedInstance as events } from "./EventCenter";
 import RedBoxController from './RedBoxController';
 import GreenBoxController from './GreenBoxController';
 import PlatformsController from './PlatformsController';
+import PowerCoOp from './PowerCoOp';
 
 
 
@@ -22,7 +22,7 @@ export default class CoOpLevel extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
-    private bqPower: BQPowerController[] = []
+    private powerCoOp: PowerCoOp[] = []
     private farmUi!: FarmUI;
     private redBox: RedBoxController [] = []
     private greenBox: GreenBoxController [] = []
@@ -39,10 +39,10 @@ export default class CoOpLevel extends Phaser.Scene {
     {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
-       this.bqPower = []
+       this.powerCoOp = []
        this.redBox = []
        this.greenBox = []
-       this.bqPower = []
+       this.powerCoOp = []
        this.platform = [];
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
@@ -54,7 +54,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
         this.load.atlas('greenBox', 'assets/greenBox.png', 'assets/greenBox.json')
-        this.load.atlas('bqPower', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
+        this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
         this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
@@ -148,14 +148,14 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                     
 
-                    case 'bqPower': {
-                        const bqPower = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'bqPower', undefined, {
+                    case 'powerCoOp': {
+                        const powerCoOp = this.matter.add.sprite(x + (width - 39), y + (height - 38), 'powerCoOp', undefined, {
                             isStatic: true,
                             isSensor: true,
                         }).setFixedRotation();
     
-                        this.bqPower.push(new BQPowerController(this, bqPower));
-                        this.obstacles.add('bqPower', bqPower.body as MatterJS.BodyType);
+                        this.powerCoOp.push(new PowerCoOp(this, powerCoOp));
+                        this.obstacles.add('powerCoOp', powerCoOp.body as MatterJS.BodyType);
     
                         break;
                     }
@@ -243,6 +243,12 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     this.cameras.main.startFollow(this.player!, true);
     this.matter.world.convertTilemapLayer(groundCoOp);
 
+    // events.on('bqpower-collected-for-platforms', () => {
+    //     // Loop through the platform array and destroy each platform
+    //     for (const platform of this.platform) {
+    //         platform.destroy();
+    //     }
+    // });
 
     
 }     
@@ -256,7 +262,7 @@ update(t: number, dt: number) {
     if (this.playerController) {
         this.playerController.update(dt)
     }
-    this.bqPower .forEach(bqPower => bqPower.update(dt))
+    this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))
