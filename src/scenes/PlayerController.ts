@@ -63,6 +63,11 @@ export default class PlayerController
   
             })
 
+            .addState('platform-hit', {
+                onEnter: this.platformHitOnEnter,
+  
+            })
+
             .addState('greySection-hit', {
                 onEnter: this.greySectionHitOnEnter,
   
@@ -129,6 +134,12 @@ export default class PlayerController
             this.scene.time.delayedCall(4000, () => {
                 sign.destroy();
             });
+        }
+
+        if (this.obstacles.is('platform', body)) {
+            // Change the state to 'idle' when colliding with a platform
+            this.stateMachine.setState('platform-hit');
+            return;
         }
         
 
@@ -313,6 +324,7 @@ export default class PlayerController
     private playerSurpriseOnEnter () {
         this.sprite.play('player-surprise')
 
+
     }
 
 
@@ -361,25 +373,30 @@ export default class PlayerController
 
     private redSectionHitOnEnter() {
 
-        console.log('red-section-hit!')
+        // console.log('red-section-hit!')
         this.stateMachine.setState('idle');
 
     }
 
     private greenSectionHitOnEnter() {
 
-        console.log('green-section-hit!')
+        // console.log('green-section-hit!')
         this.stateMachine.setState('idle');
 
     }
 
     private greySectionHitOnEnter() {
 
-        console.log('GREYYYYY-section-hit!')
+        // console.log('GREYYYYY-section-hit!')
         this.stateMachine.setState('idle');
 
     }
 
+    private platformHitOnEnter ()
+ {
+    console.log('platform-hit!')
+    this.stateMachine.setState('idle');
+ }
 private trucksHitOnEnter() {
 
 if(this.lastTrucks) {

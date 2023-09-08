@@ -190,16 +190,24 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                         case 'platform': {
                             const leftMovingPlatform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
-    leftMovingPlatform.moveHorizontally(); // Apply leftward movement
-    this.platform.push(leftMovingPlatform);
-
-    // Create a right-moving platform
-    const rightMovingPlatform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "right");
-    rightMovingPlatform.moveHorizontally(); // Apply rightward movement
-    this.platform.push(rightMovingPlatform);
-    break;
-                        } 
+                            leftMovingPlatform.moveHorizontally(); // Apply leftward movement
+                            leftMovingPlatform.setData('type', 'platform'); 
+                            this.platform.push(leftMovingPlatform);
                         
+                            // Use the getBody method to add the platform to obstacles
+                            this.obstacles.add('platform', leftMovingPlatform.getBody());
+                        
+                            // Create a right-moving platform
+                            const rightMovingPlatform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "right");
+                            rightMovingPlatform.moveHorizontally(); // Apply rightward movement
+                            rightMovingPlatform.setData('type', 'platform'); // Set the type of the platform
+                            this.platform.push(rightMovingPlatform);
+                        
+                            // Use the getBody method to add the platform to obstacles
+                            this.obstacles.add('platform', rightMovingPlatform.getBody());
+                        
+                            break;
+                        }
     
 
                         case 'redBox': {

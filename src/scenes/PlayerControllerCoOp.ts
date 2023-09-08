@@ -30,6 +30,7 @@ export default class PlayerControllerCoOp extends PlayerController {
         }
 
         if (this.obstacles.is('greenSection', body)) {
+            
 
             this.stateMachine.setState('greenSection-hit')
         
@@ -37,13 +38,16 @@ export default class PlayerControllerCoOp extends PlayerController {
             return
         }
 
-        if (this.obstacles.is('greySection', body)) {
+        if (this.obstacles.is('platform', body)) {
+            
 
-            this.stateMachine.setState('greySection-hit')
+            this.stateMachine.setState('idle')
         
       
             return
         }
+
+
 
 
         
@@ -92,6 +96,8 @@ export default class PlayerControllerCoOp extends PlayerController {
                         gameObject.destroy();
                         break;
                     }
+
+                    
     
 
             // case 'compliance':

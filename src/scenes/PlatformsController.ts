@@ -9,6 +9,7 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
     private startX: number;
     private startY: number;
     private moveDirection: MoveDirection;
+    private platform: Phaser.Physics.Matter.Image;
 
     constructor(scene, x, y, texture, options, moveDirection: MoveDirection = "left")
 	{
@@ -21,6 +22,7 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
         this.startX = x
         this.startY = y
         this.moveDirection = moveDirection;
+        this.platform = this
     }
 
     moveHorizontally() {
@@ -56,5 +58,9 @@ moveVertically()
 			this.setVelocityY(dy)
 		}
 	})
+}
+
+getBody(): MatterJS.BodyType {
+    return this.platform.body as MatterJS.BodyType;
 }
 }
