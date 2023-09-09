@@ -75,8 +75,16 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
         if (this.moveTween) {
             this.moveTween.stop();
         }
-        
-        // Destroy the platform
-        this.destroy();
+    
+        // Create a fade-out tween for the platform
+        this.scene.tweens.add({
+            targets: this,
+            alpha: 0, // Fade out by reducing alpha to 0
+            duration: 1000, // Adjust the duration as needed
+            onComplete: () => {
+                // Destroy the platform after it fades out
+                this.destroy();
+            }
+        });
     }
 }
