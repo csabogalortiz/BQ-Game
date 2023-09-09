@@ -20,13 +20,13 @@ export default class PowerCoOp {
 
         // Adding States -------------------
         this.stateMachine
-            .addState('power-coOp-idle', {
+            .addState('powerCoOp-idle', {
                 onEnter: this.idleOnEnter,
             })
-            .addState('power-coOp-collected', {
+            .addState('powerCoOp-collected', {
                 onEnter: this.collectedOnEnter,
             })
-            .setState('power-coOp-idle');
+            .setState('powerCoOp-idle');
 
         events.on('player-collect-powerCoOp', this.handleCollectPowerCoOp, this);
     }
@@ -72,9 +72,10 @@ export default class PowerCoOp {
 
     private handleCollectPowerCoOp() {
         if (!this.isCollected) {
+            console.log('powerCoopCollected')
             this.stateMachine.setState('powerCoOp-collected');
             events.emit('powerCoOp-collected', this.sprite.x, this.sprite.y);
-            // events.emit('bqpower-collected-for-platforms')
+
         }
     }
 }

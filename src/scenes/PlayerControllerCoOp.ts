@@ -49,16 +49,13 @@ export default class PlayerControllerCoOp extends PlayerController {
 
         if (this.obstacles.is('powerCoOp', body)) {
             // Emit an event to indicate that the player collected the BQPower
-            events.emit('layer-collect-powerCoOp', body.gameObject);
-            // Destroy the BQPower sprite
-            body.gameObject.destroy();
-            return;
-        }
+            events.emit('player-collect-powerCoOp');
+    
+    
+            // Destroy the BQPower  
 
-
-
-
-        
+                }
+     
 
     // Colison con un truck ojo: trucks hit no se va a usar - dejamos la colision  y la animacion pero no se usa
 

@@ -226,6 +226,13 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                 }
 
+                // events.on('powerCoOp-collected', () => {
+                //     // Loop through the platform array and destroy each platform
+                //     for (const platform of this.platform) {
+                //         platform.destroy();
+                //     }
+                // });
+
     })
 
 
