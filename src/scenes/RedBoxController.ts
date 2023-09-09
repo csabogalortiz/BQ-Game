@@ -3,7 +3,7 @@ import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
 import ObstaclesController from "./ObstaclesController";
 
-export default class GreenBoxController {
+export default class RedBoxController {
     public scene: Phaser.Scene;
     public sprite: Phaser.Physics.Matter.Sprite;
     public stateMachine: StateMachine;

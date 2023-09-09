@@ -67,8 +67,8 @@
                  "type":"",
                  "visible":true,
                  "width":64.5263,
-                 "x":1164.79153692615,
-                 "y":910.51749500998
+                 "x":1164.79,
+                 "y":910.517
                 }, 
                 {
                  "height":68.5946,
@@ -122,8 +122,8 @@
                  "type":"",
                  "visible":true,
                  "width":71.4875,
-                 "x":1413.52531579081,
-                 "y":897.754339265375
+                 "x":1413.53,
+                 "y":897.754
                 }, 
                 {
                  "height":63.2389,
@@ -133,7 +133,7 @@
                  "type":"",
                  "visible":true,
                  "width":71.4875,
-                 "x":1764.26,
+                 "x":2125.59,
                  "y":417.763
                 }, 
                 {
@@ -205,8 +205,8 @@
                  "type":"",
                  "visible":true,
                  "width":69.1206,
-                 "x":1464.99961639058,
-                 "y":695.635641673932
+                 "x":1465,
+                 "y":695.636
                 }, 
                 {
                  "height":66.4452,
@@ -216,8 +216,41 @@
                  "type":"",
                  "visible":true,
                  "width":69.1206,
-                 "x":1534.75179598954,
-                 "y":495.11183347864
+                 "x":1534.75,
+                 "y":495.112
+                }, 
+                {
+                 "height":63.2389,
+                 "id":26,
+                 "name":"brownBoxToRight",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":71.4875,
+                 "x":1031.19931220285,
+                 "y":422.446
+                }, 
+                {
+                 "height":63.2389,
+                 "id":27,
+                 "name":"brownBoxToRight",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":71.4875,
+                 "x":575.482,
+                 "y":420.327
+                }, 
+                {
+                 "height":63.2389,
+                 "id":29,
+                 "name":"brownBoxToLeft",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":71.4875,
+                 "x":1821.63,
+                 "y":421.629
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -226,7 +259,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":26,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

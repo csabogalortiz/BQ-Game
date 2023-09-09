@@ -13,6 +13,7 @@ import RedBoxController from './RedBoxController';
 import GreenBoxController from './GreenBoxController';
 import PlatformsController from './PlatformsController';
 import PowerCoOp from './PowerCoOp';
+import BrownBoxController from './BrownBox';
 
 
 
@@ -26,6 +27,7 @@ export default class CoOpLevel extends Phaser.Scene {
     private farmUi!: FarmUI;
     private redBox: RedBoxController [] = []
     private greenBox: GreenBoxController [] = []
+    private brownBox: BrownBoxController [] = []
     private platform: PlatformsController[] = [];
     private platformSpeed = 1;
     private platformGroup!: Phaser.GameObjects.Group;
@@ -43,6 +45,7 @@ export default class CoOpLevel extends Phaser.Scene {
        this.obstacles = new ObstaclesController()
        this.powerCoOp = []
        this.redBox = []
+       this.brownBox = []
        this.greenBox = []
        this.powerCoOp = []
        this.platform = [];
@@ -58,6 +61,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
         this.load.atlas('greenBox', 'assets/greenBox.png', 'assets/greenBox.json')
+        this.load.atlas('brownBox', 'assets/brownBox.png', 'assets/brownBox.json')
         this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
         this.load.image('tilesCoOp', 'assets/coOpworld.png');
@@ -201,11 +205,11 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
 
                         case 'platform': {
-                            // Modify the creation of the platform in your CoOpLevel class
-const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
-platform.moveHorizontally();
-platform.setData('type', 'platform');
-this.platformGroup.add(platform); // Add the platform to the group
+
+                            const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
+                            platform.moveHorizontally();
+                            platform.setData('type', 'platform');
+                            this.platformGroup.add(platform); // Add the platform to the group
 
                             // const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
                             // platform.moveHorizontally(); // Apply leftward movement
@@ -236,6 +240,37 @@ this.platformGroup.add(platform); // Add the platform to the group
                         
                             this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
                             this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
+                            break;
+                        }
+
+                        case 'brownBox': {
+                            const movingDirection = x < 800 ? 'left' : 'right'; // Adjust YOUR_X_COORDINATE as needed
+                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
+                                .setFixedRotation();
+            
+                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, movingDirection));
+                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
+                            break;
+                        }
+
+                        case 'brownBoxToRight': {
+                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
+                                // .setFixedRotation();
+                        
+                            // Create a brown box instance with the initial direction set to 'right'
+                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'right'));
+                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
+                            break;
+                        }
+                        
+
+                        case 'brownBoxToLeft': {
+                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
+                                // .setFixedRotation();
+                        
+                            // Create a brown box instance with the initial direction set to 'left'
+                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'left'));
+                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
                             break;
                         }
 
@@ -295,6 +330,7 @@ update(t: number, dt: number) {
     }
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
+    this.brownBox .forEach(brownBox => brownBox.update(dt))
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))
     this.platform .forEach(platform => platform.update(dt))
