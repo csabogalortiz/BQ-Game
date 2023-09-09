@@ -10,6 +10,7 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
     private startY: number;
     private moveDirection: MoveDirection;
     private platform: Phaser.Physics.Matter.Image;
+    private moveTween?: Phaser.Tweens.Tween;
 
     constructor(scene, x, y, texture, options, moveDirection: MoveDirection = "left")
 	{
@@ -31,7 +32,7 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
     }
 
     moveHorizontally() {
-        this.scene.tweens.addCounter({
+        this.moveTween = this.scene.tweens.addCounter({
             from: 0,
             to: this.moveDirection === "left" ? -300 : 300, // Adjust the speed and direction as needed
             duration: 1500,
@@ -67,5 +68,15 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
 
     getBody(): MatterJS.BodyType {
         return this.platform.body as MatterJS.BodyType;
+    }
+
+    handleBQPowerCollected() {
+        // Stop the platform's Tween if it exists
+        if (this.moveTween) {
+            this.moveTween.stop();
+        }
+        
+        // Destroy the platform
+        this.destroy();
     }
 }

@@ -28,11 +28,13 @@ export default class CoOpLevel extends Phaser.Scene {
     private greenBox: GreenBoxController [] = []
     private platform: PlatformsController[] = [];
     private platformSpeed = 1;
+    private platformGroup!: Phaser.GameObjects.Group;
 
 
     constructor() {
-        // Desde donde llamo la escena con un boton- este es el nombre 
+
         super('coOpLevel');
+
     }
 
     init () 
@@ -44,8 +46,10 @@ export default class CoOpLevel extends Phaser.Scene {
        this.greenBox = []
        this.powerCoOp = []
        this.platform = [];
+       this.platformGroup = this.add.group();
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
+
 
     })
     }
@@ -71,7 +75,15 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
     create() {
         this.scene.launch('ui');
+        this.platformGroup = this.add.group(); 
 
+        events.on('powerCoOp-collected', () => {
+            // Loop through the platformGroup and hide or destroy each platform
+            const platforms = this.platformGroup.getChildren() as PlatformsController[];
+            platforms.forEach((platform: PlatformsController) => {
+                platform.handleBQPowerCollected();
+            });
+        });
         
         const customFontStyle = {
             fontFamily: '"Press Start 2P"',
@@ -189,13 +201,19 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
 
                         case 'platform': {
-                            const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
-                            platform.moveHorizontally(); // Apply leftward movement
-                            platform.setData('type', 'platform');
-                            this.platform.push(platform);
+                            // Modify the creation of the platform in your CoOpLevel class
+const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
+platform.moveHorizontally();
+platform.setData('type', 'platform');
+this.platformGroup.add(platform); // Add the platform to the group
+
+                            // const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
+                            // platform.moveHorizontally(); // Apply leftward movement
+                            // platform.setData('type', 'platform');
+                            // this.platform.push(platform);
                         
-                            // Use the getBody method to add the platform to obstacles
-                            this.obstacles.add('platform', platform.getBody());
+                            // // Use the getBody method to add the platform to obstacles
+                            // this.obstacles.add('platform', platform.getBody());
                         
                             break;
                         }
