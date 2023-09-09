@@ -274,7 +274,13 @@ this.platformGroup.add(platform); // Add the platform to the group
     //         platform.destroy();
     //     }
     // });
+    
+    this.platformGroup.getChildren().forEach((platformObj: Phaser.GameObjects.GameObject) => {
+        const platform = platformObj as PlatformsController; // Cast to PlatformsController
+        this.obstacles.add('platform', platform.getBody());
+    });
 
+    
     
 }     
 destroy () {
