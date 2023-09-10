@@ -142,6 +142,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             
                             // Set the camera bounds to cover the entire map and prevent the player from going beyond the left edge
                             this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
+                            this.cameras.main.setZoom(0.7);
                             
                             // Create a smaller dead zone to control camera follow
                             const deadZoneWidth = this.cameras.main.width * 0.1; // Adjust as needed
