@@ -34,6 +34,8 @@ export default class CoOpLevel extends Phaser.Scene {
     private brownBoxGroup!: Phaser.GameObjects.Group;
     private brownBoxToRightGroup!: Phaser.GameObjects.Group;
     private brownBoxToLeftGroup!: Phaser.GameObjects.Group;
+    private isPowerCoOpCollected = false;
+    private greenBoxGroup!: Phaser.GameObjects.Group;
 
     constructor() {
 
@@ -82,12 +84,17 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 		this.load.addFile(fonts)
     }
 
+
+
     create() {
         this.scene.launch('ui');
         this.platformGroup = this.add.group(); 
         this.brownBoxGroup = this.add.group();
+        this.greenBoxGroup = this.add.group();
 
         events.on('powerCoOp-collected', () => {
+            this.isPowerCoOpCollected = true;
+            console.log('PowerCoOp collected');
             // Loop through the platformGroup and hide or destroy each platform
             const platforms = this.platformGroup.getChildren() as PlatformsController[];
             platforms.forEach((platform: PlatformsController) => {
@@ -98,9 +105,9 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     brownBoxes.forEach((brownBox: BrownBoxController) => {
         brownBox.handleBQPowerCollected();
     });
-    
-    
-            
+  
+    console.log('Is PowerCoOp collected?', this.isPowerCoOpCollected); 
+     
         });
         
         const customFontStyle = {
@@ -263,7 +270,22 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     
                            
 
+
+                        // case 'greenBox': {
+                        //     console.log('Before creating greenBox: Is PowerCoOp collected?', this.isPowerCoOpCollected);
+                        //     if (this.isPowerCoOpCollected) {
+                        //         const greenBox = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
+                        //         this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles));
+                        //         this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType);
+                        //     } else {
+                        //         console.log('Skipping greenBox creation because PowerCoOp is not collected.');
+                        //     }
+                        //     break;
+                        // }
+                 
+                        
                         case 'greenBox': {
+                            
                             const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
                                 .setFixedRotation();
                         
@@ -272,24 +294,8 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             break;
                         }
 
-                        // case 'brownBoxToRight': {
-                        //     const brownBox = this.matter.add.sprite(x, y, 'brownBox');
-                        //     this.brownBoxGroup.add(brownBox); // Add to the brown box group
-                        //     this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'right'));
-                        //     this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
-                        //     break;
-                        // }
-                        
-                        // case 'brownBoxToLeft': {
-                        //     const brownBox = this.matter.add.sprite(x, y, 'brownBox');
-                        //     this.brownBoxGroup.add(brownBox); // Add to the brown box group
-                        //     this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'left'));
-                        //     this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
-                        //     break;
-                        // }
 
-             
-    
+        
 
                 }
           
@@ -341,7 +347,9 @@ update(t: number, dt: number) {
     this.redBox .forEach(redBox => redBox.update(dt))
     this.brownBox .forEach(brownBox => brownBox.update(dt))
 
-    this.greenBox .forEach(greenBox => greenBox.update(dt))
+    if (this.isPowerCoOpCollected) {
+        this.greenBox.forEach((greenBox) => greenBox.update(dt));
+    }
     this.platform .forEach(platform => platform.update(dt))
     
 

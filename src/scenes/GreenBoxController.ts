@@ -10,6 +10,8 @@ export default class GreenBoxController {
     public obstacles: ObstaclesController
     private moveTime = 0;
     private transitionDelay = 1000; // Delay in milliseconds before transitioning to 'greenbox-left'
+    private hasPowerCoOpCollected = false;
+    // private isVisible = false;
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController) {
 
@@ -17,6 +19,7 @@ export default class GreenBoxController {
         this.scene = scene
          this.sprite = sprite
          this.obstacles = obstacles
+         this.sprite.setVisible(false); 
      
 
          this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
@@ -40,6 +43,7 @@ export default class GreenBoxController {
         })    
 
          this.createAnimations()
+
      
          this.stateMachine = new StateMachine(this, 'greenBox')
      
@@ -73,15 +77,21 @@ export default class GreenBoxController {
      
          
              .setState('greenBox-left')
-
-
-          
-     
-             // events.on('farmer-stomped', this.handleTrucksStomped, this)
+             events.on('powerCoOp-collected', this.handlePowerCoOpCollected, this);
      
          }
+
+         
+    // update(dt: number) {
+    //     this.stateMachine.update(dt);
+    // }
+
     update(dt: number) {
-        this.stateMachine.update(dt);
+      
+        // Only create the green box sprite if the event has been triggered
+        if (this.hasPowerCoOpCollected) {
+            this.stateMachine.update(dt);
+        }
     }
 
     // Box Animations ---------------------------------------------
@@ -153,5 +163,12 @@ private greySectionHitOnEnter() {
     console.log('BOOOOX-GREYYYYY-section-hit!')
     this.stateMachine.setState('greenBox-idle');
 
+}
+
+
+public handlePowerCoOpCollected() {
+    // Set the flag to true when powerCoOp is collected
+    this.hasPowerCoOpCollected = true;
+    this.sprite.setVisible(true);
 }
 }
