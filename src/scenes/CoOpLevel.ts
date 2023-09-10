@@ -237,15 +237,16 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
 
     break;
-
-
-                            // const brownBoxToRight = new BrownBoxController(this, x, y, 'brownBox', { isStatic: false }, "right");
-                            // brownBoxToRight.moveHorizontally();
-                            // brownBoxToRight.setData('type', 'brownBox');
-                            // this.brownBoxGroup.add(brownBoxToRight); // Add the platform to the group
-
-                            // break
                             }
+                            case 'brownBoxToLeft':
+                                {
+                                    const brownBoxToRight = new BrownBoxController(this, x, y, 'brownBox', { isStatic: false }, "left");
+            brownBoxToRight.moveHorizontallyLeft();
+            brownBoxToRight.setData('type', 'brownBox');
+            this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
+        
+            break;
+                                    }
 
                         case 'redBox': {
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 

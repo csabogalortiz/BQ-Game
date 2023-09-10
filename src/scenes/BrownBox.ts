@@ -37,7 +37,7 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
         this.moveTween = this.scene.tweens.addCounter({
             from: 0,
             to: 800, // Adjust the speed as needed
-            duration: 1500,
+            duration: 3500,
             ease: Phaser.Math.Easing.Sine.InOut,
             onUpdate: (tween, target) => {
                 const x = this.startX + target.value;
@@ -47,6 +47,41 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
             },
         });
     }
+
+    moveHorizontallyLeft() {
+        // Move to the left only
+        this.moveTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: -800, // Adjust the speed as needed, use a negative value to move left
+            duration: 3500,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: (tween, target) => {
+                const x = this.startX + target.value;
+                const dx = x - this.x;
+                this.x = x;
+                this.setVelocityX(dx);
+            },
+        });
+    }
+    
+    // moveHorizontally() {
+    //     const speed = 2; // Adjust the speed as needed
+    
+    //     this.moveTween = this.scene.tweens.addCounter({
+    //         from: 0,
+    //         to: 1,
+    //         duration: speed,
+    //         ease: Phaser.Math.Easing.Linear,
+    //         onUpdate: (tween, target) => {
+    //             const dx = speed * target.value;
+    //             this.setVelocityX(dx);
+    //         },
+    //         onComplete: () => {
+    //             // When the tween completes, restart it
+    //             this.moveHorizontally();
+    //         },
+    //     });
+    // }
     
 
     
