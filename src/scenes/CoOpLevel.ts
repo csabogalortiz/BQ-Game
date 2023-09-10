@@ -31,7 +31,9 @@ export default class CoOpLevel extends Phaser.Scene {
     private platform: PlatformsController[] = [];
     private platformSpeed = 1;
     private platformGroup!: Phaser.GameObjects.Group;
-
+    private brownBoxGroup!: Phaser.GameObjects.Group;
+    private brownBoxToRightGroup!: Phaser.GameObjects.Group;
+    private brownBoxToLeftGroup!: Phaser.GameObjects.Group;
 
     constructor() {
 
@@ -50,6 +52,9 @@ export default class CoOpLevel extends Phaser.Scene {
        this.powerCoOp = []
        this.platform = [];
        this.platformGroup = this.add.group();
+       this.brownBoxGroup = this.add.group();
+       this.brownBoxToRightGroup = this.add.group();
+       this.brownBoxToLeftGroup = this.add.group();
        this.events.once(Phaser.Scenes.Events.DESTROY, () => {
        this.destroy()
 
@@ -80,6 +85,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     create() {
         this.scene.launch('ui');
         this.platformGroup = this.add.group(); 
+        this.brownBoxGroup = this.add.group();
 
         events.on('powerCoOp-collected', () => {
             // Loop through the platformGroup and hide or destroy each platform
@@ -87,6 +93,14 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
             platforms.forEach((platform: PlatformsController) => {
                 platform.handleBQPowerCollected();
             });
+
+            const brownBoxes = this.brownBoxGroup.getChildren() as BrownBoxController[];
+    brownBoxes.forEach((brownBox: BrownBoxController) => {
+        brownBox.handleBQPowerCollected();
+    });
+    
+    
+            
         });
         
         const customFontStyle = {
@@ -211,17 +225,27 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             platform.setData('type', 'platform');
                             this.platformGroup.add(platform); // Add the platform to the group
 
-                            // const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
-                            // platform.moveHorizontally(); // Apply leftward movement
-                            // platform.setData('type', 'platform');
-                            // this.platform.push(platform);
-                        
-                            // // Use the getBody method to add the platform to obstacles
-                            // this.obstacles.add('platform', platform.getBody());
                         
                             break;
                         }
-    
+
+                        case 'brownBoxToRight':
+                        {
+                            const brownBoxToRight = new BrownBoxController(this, x, y, 'brownBox', { isStatic: false }, "right");
+    brownBoxToRight.moveHorizontally();
+    brownBoxToRight.setData('type', 'brownBox');
+    this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
+
+    break;
+
+
+                            // const brownBoxToRight = new BrownBoxController(this, x, y, 'brownBox', { isStatic: false }, "right");
+                            // brownBoxToRight.moveHorizontally();
+                            // brownBoxToRight.setData('type', 'brownBox');
+                            // this.brownBoxGroup.add(brownBoxToRight); // Add the platform to the group
+
+                            // break
+                            }
 
                         case 'redBox': {
                             const redBox = this.matter.add.sprite(x, y, 'redBox') 
@@ -243,48 +267,28 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             break;
                         }
 
-                        case 'brownBox': {
-                            const movingDirection = x < 800 ? 'left' : 'right'; // Adjust YOUR_X_COORDINATE as needed
-                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
-                                .setFixedRotation();
-            
-                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, movingDirection));
-                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
-                            break;
-                        }
-
-                        case 'brownBoxToRight': {
-                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
-                                // .setFixedRotation();
+                        // case 'brownBoxToRight': {
+                        //     const brownBox = this.matter.add.sprite(x, y, 'brownBox');
+                        //     this.brownBoxGroup.add(brownBox); // Add to the brown box group
+                        //     this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'right'));
+                        //     this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
+                        //     break;
+                        // }
                         
-                            // Create a brown box instance with the initial direction set to 'right'
-                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'right'));
-                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
-                            break;
-                        }
-                        
-
-                        case 'brownBoxToLeft': {
-                            const brownBox = this.matter.add.sprite(x, y, 'brownBox')
-                                // .setFixedRotation();
-                        
-                            // Create a brown box instance with the initial direction set to 'left'
-                            this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'left'));
-                            this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
-                            break;
-                        }
+                        // case 'brownBoxToLeft': {
+                        //     const brownBox = this.matter.add.sprite(x, y, 'brownBox');
+                        //     this.brownBoxGroup.add(brownBox); // Add to the brown box group
+                        //     this.brownBox.push(new BrownBoxController(this, brownBox, this.obstacles, 'left'));
+                        //     this.obstacles.add('brownBox', brownBox.body as MatterJS.BodyType);
+                        //     break;
+                        // }
 
              
     
 
                 }
+          
 
-                // events.on('powerCoOp-collected', () => {
-                //     // Loop through the platform array and destroy each platform
-                //     for (const platform of this.platform) {
-                //         platform.destroy();
-                //     }
-                // });
 
     })
 
@@ -334,6 +338,7 @@ update(t: number, dt: number) {
 
     this.greenBox .forEach(greenBox => greenBox.update(dt))
     this.platform .forEach(platform => platform.update(dt))
+    
 
    
 }
