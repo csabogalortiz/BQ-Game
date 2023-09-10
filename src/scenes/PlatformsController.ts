@@ -48,6 +48,24 @@ export default class PlatformsController extends Phaser.Physics.Matter.Image {
         });
     }
 
+    moveHorizontallyLeft() {
+        // Invert the direction by changing the `to` value
+        this.moveTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: this.moveDirection === "right" ? 300 : -300, // Invert the direction
+            duration: 1500,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            repeat: -1,
+            yoyo: true,
+            onUpdate: (tween, target) => {
+                const x = this.startX + target.value;
+                const dx = x - this.x;
+                this.x = x;
+                this.setVelocityX(dx);
+            },
+        });
+    }
+
     moveVertically()
     {
         this.scene.tweens.addCounter({

@@ -142,24 +142,16 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             
                             // Set the camera bounds to cover the entire map and prevent the player from going beyond the left edge
                             this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
-                            this.cameras.main.setZoom(0.7);
+                            this.cameras.main.setZoom(0.75);
                             
                             // Create a smaller dead zone to control camera follow
                             const deadZoneWidth = this.cameras.main.width * 0.1; // Adjust as needed
                             const deadZoneHeight = this.cameras.main.height * 0.1; // Adjust as needed
                             this.cameras.main.setDeadzone(deadZoneWidth, deadZoneHeight);
-                            
-                            // Start following the player
                             this.cameras.main.startFollow(this.player);
-                            // this.cameras.main.pan(0, -10, 1000, 'Linear'); 
-                            // this.cameras.main.scrollY= -10
-                            // this.cameras.main.scrollX= 50
-                            // this.cameras.main.setZoom(0.9);  
-
-                            // const mapWidth = map.widthInPixels;
-                            // const mapHeight = map.heightInPixels;
-                            // this.cameras.main.setBounds(0, 0, mapWidth, mapHeight);
-                            // this.cameras.main.centerToBounds();
+                            
+    
+                            
                         break
 
                     }
@@ -223,6 +215,17 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                             const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
                             platform.moveHorizontally();
+                            platform.setData('type', 'platform');
+                            this.platformGroup.add(platform); // Add the platform to the group
+
+                        
+                            break;
+                        }
+
+                        case 'platformLeft': {
+
+                            const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "right");
+                            platform.moveHorizontallyLeft();
                             platform.setData('type', 'platform');
                             this.platformGroup.add(platform); // Add the platform to the group
 
