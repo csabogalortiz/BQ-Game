@@ -71,6 +71,7 @@ private dataImage!: Phaser.GameObjects.Image;
 
         events.on('data-collected', this.handleDataCollected, this)
         events.on('compliance-changed', this.handleComplianceChanged, this)
+        events.on('greenBox-greenSection-collided', this.handleGreenBoxGreenSectionCollided, this);
 
         // hay que revisar esto
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -104,6 +105,14 @@ private dataImage!: Phaser.GameObjects.Image;
 
 this.dataCollected += 1
 this.dataLabel.text =`Data:${this.dataCollected}`
+}
+
+private handleGreenBoxGreenSectionCollided() {
+    // Increase compliance by 33% (adjust the value as needed)
+    const newCompliance = Math.min(100, this.lastCompliance + 4);
+
+    // Emit an event to update compliance in the game scene
+    events.emit('compliance-changed', newCompliance);
 }
 
 handleComplianceChanged (value: number) {

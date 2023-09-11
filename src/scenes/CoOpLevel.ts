@@ -10,15 +10,17 @@ import CryFarmerController from './CryFarmerController';
 import BlueBoxController from './BlueBoxController';
 import { sharedInstance as events } from "./EventCenter";
 import RedBoxController from './RedBoxController';
-import GreenBoxController from './GreenBoxController';
 import PlatformsController from './PlatformsController';
 import PowerCoOp from './PowerCoOp';
 import BrownBoxController from './BrownBox';
+import GreenBoxController from './GreenBoxController';
 
 
 
 
 export default class CoOpLevel extends Phaser.Scene {
+    private greenBox: GreenBoxController [] = []
+
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     private player?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
@@ -26,7 +28,6 @@ export default class CoOpLevel extends Phaser.Scene {
     private powerCoOp: PowerCoOp[] = []
     private farmUi!: FarmUI;
     private redBox: RedBoxController [] = []
-    private greenBox: GreenBoxController [] = []
     private brownBox: BrownBoxController [] = []
     private platform: PlatformsController[] = [];
     private platformSpeed = 1;
@@ -125,14 +126,22 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
         map.createLayer('obstacles', tilesetCoOp);
         // map.createLayer('background', tilesetCoOp);
         const objectsLayer = map.getObjectLayer('objects');
-
+        
         objectsLayer.objects.forEach(objData => {
-
+            
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
             switch (name) {
+
+                
+                case 'greenBox': {
+                    const greenBox = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
+                    this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles));
+                    this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType);
+                    break;
+                }
                 case 'player-spawn':
                     {
-                       
+                        
                         this.player = this.matter.add.sprite(x, y- (height + 0.5), 'player')
                             .setFixedRotation();
                    
@@ -269,30 +278,17 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
     
                            
-
+                 
 
                         // case 'greenBox': {
-                        //     console.log('Before creating greenBox: Is PowerCoOp collected?', this.isPowerCoOpCollected);
-                        //     if (this.isPowerCoOpCollected) {
-                        //         const greenBox = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
-                        //         this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles));
-                        //         this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType);
-                        //     } else {
-                        //         console.log('Skipping greenBox creation because PowerCoOp is not collected.');
-                        //     }
+                            
+                        //     const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
+                        //         .setFixedRotation();
+                        
+                        //     this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
+                        //     this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
                         //     break;
                         // }
-                 
-                        
-                        case 'greenBox': {
-                            
-                            const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
-                                .setFixedRotation();
-                        
-                            this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
-                            this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
-                            break;
-                        }
 
 
         

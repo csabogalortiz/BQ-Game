@@ -47,6 +47,7 @@ export default class Game extends Phaser.Scene {
         this.load.image('sign', 'assets/citySign.png')
         this.load.image('ohno', 'assets/ohno.png')
         this.load.image('aggregator_signBubble', 'assets/info_bubble_aggregator_1.png')
+   
 
         
 // Inside your game scene's preload() method
@@ -79,6 +80,7 @@ this.carbonBar = new CarbonBar(this, customFontStyle);
         const map = this.make.tilemap({ key: 'tilemap' });
         const tileset = map.addTilesetImage('bqworld', 'tiles');
         const ground = map.createLayer('ground', tileset);
+        const background = map.createLayer('backgroundCity', tileset);
         ground.setCollisionByProperty({ collides: true });
         map.createLayer('obstacles', tileset);
         map.createLayer('background', tileset);
