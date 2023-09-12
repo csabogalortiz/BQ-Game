@@ -21,21 +21,21 @@ export default class RedBoxController {
 
 
 
-         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
-            const body = data.bodyB as MatterJS.BodyType
+        //  this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
+        //     const body = data.bodyB as MatterJS.BodyType
     
-            if (this.obstacles.is('greySection', body)) {
-                console.log('Grey section hit by green box:', this.sprite.name);
-                this.stateMachine.setState('greySection-hit');
-                return;
-            }
+        //     if (this.obstacles.is('greySection', body)) {
+        //         console.log('Grey section hit by green box:', this.sprite.name);
+        //         this.stateMachine.setState('greySection-hit');
+        //         return;
+        //     }
         
-            if (this.obstacles.is('greenSection', body)) {
-                console.log('Green section hit by green box:', this.sprite.name);
-                this.stateMachine.setState('greenSection-hit');
-                return;
-            }
-        })    
+        //     if (this.obstacles.is('greenSection', body)) {
+        //         console.log('Green section hit by green box:', this.sprite.name);
+        //         this.stateMachine.setState('greenSection-hit');
+        //         return;
+        //     }
+        // })    
      
          this.createAnimations()
      

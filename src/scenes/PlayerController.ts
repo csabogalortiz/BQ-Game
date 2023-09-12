@@ -380,14 +380,14 @@ export default class PlayerController
 
     private greenSectionHitOnEnter() {
 
-        // console.log('green-section-hit!')
+        console.log('player-green-section-hit!')
         this.stateMachine.setState('idle');
 
     }
 
     private greySectionHitOnEnter() {
 
-        // console.log('GREYYYYY-section-hit!')
+        console.log('player-section-hit!')
         this.stateMachine.setState('idle');
 
     }

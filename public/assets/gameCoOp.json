@@ -199,8 +199,8 @@
                  "type":"",
                  "visible":true,
                  "width":1053.36,
-                 "x":5.25606,
-                 "y":979.863
+                 "x":13.0991972549019,
+                 "y":615.157117647059
                 }, 
                 {
                  "height":63.2389,
@@ -210,8 +210,8 @@
                  "type":"",
                  "visible":true,
                  "width":71.4875,
-                 "x":1681.89725490196,
-                 "y":421.753215686275
+                 "x":1254.4462745098,
+                 "y":627.635568627451
                 }, 
                 {
                  "height":63.2389,
@@ -267,6 +267,28 @@
                  "width":71.4875,
                  "x":907.113,
                  "y":277.904
+                }, 
+                {
+                 "height":143.137254901961,
+                 "id":53,
+                 "name":"verde",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":66.6666666666666,
+                 "x":1096.07843137255,
+                 "y":45.0980392156864
+                }, 
+                {
+                 "height":68.6274509803922,
+                 "id":54,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1036.77146203045,
+                 "x":4.40500855778771,
+                 "y":978.43137254902
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -275,7 +297,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":53,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
@@ -862,6 +884,15 @@
                 }, 
                 {
                  "id":105,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":107,
                  "properties":[
                         {
                          "name":"collides",

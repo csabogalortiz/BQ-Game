@@ -14,6 +14,7 @@ import PlatformsController from './PlatformsController';
 import PowerCoOp from './PowerCoOp';
 import BrownBoxController from './BrownBox';
 import GreenBoxController from './GreenBoxController';
+import GreenBoxController2 from './GreenBoxController2';
 
 
 
@@ -25,15 +26,13 @@ export default class CoOpLevel extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite;
     private greenBox1?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
+    private greenBoxController2?: GreenBoxController2
 
     private obstacles!: ObstaclesController
 
     private powerCoOp: PowerCoOp[] = []
 
     private redBox: RedBoxController [] = []
-    private greenBoxController1?: GreenBoxController 
-    private greenBoxController2?: GreenBoxController 
-    private greenBoxController3?: GreenBoxController 
 
 
     private brownBox: BrownBoxController [] = []
@@ -78,7 +77,7 @@ export default class CoOpLevel extends Phaser.Scene {
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
-        this.load.atlas('greenBoxes', 'assets/greenBox.png', 'assets/greenBox.json')
+        this.load.atlas('greenBox1', 'assets/greenBox.png', 'assets/greenBox.json')
         this.load.atlas('brownBox', 'assets/brownBox.png', 'assets/brownBox.json')
         this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
@@ -143,23 +142,39 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
             switch (name) {
 
 
-                case 'greenBox1':{
-                     this.greenBox1= this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
-                    .setFixedRotation();
-                    this.greenBoxController1 = new GreenBoxController(
-                        this, 
-                        this.greenBox1, 
-                        this.obstacles)
-                        // this.obstacles.add('greenBox1', this.greenBox1.body as MatterJS.BodyType);
-                        break;
-                }
+
+
+                case 'greenBox1':
+                    {
+                        
+                        this.greenBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBox1')
+                            .setFixedRotation();
                 
-                // case 'greenBox1': {
-                //     const greenBox1 = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
-                //     this.greenBox1.push(new GreenBoxController(this, greenBox1, this.obstacles));
-                //     this.obstacles.add('greenBox1', greenBox1.body as MatterJS.BodyType);
-                //     break;
+                        this.greenBoxController2 = new GreenBoxController2 (
+                            this,
+                            this.greenBox1,
+                            this.cursors,
+                            this.obstacles
+                            )
+
+    
+                            
+                        break
+
+                    }
+
+                // case 'greenBox1':{
+                //      this.greenBox1= this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
+                //     .setFixedRotation();
+                //     this.greenBoxController1 = new GreenBoxController(
+                //         this, 
+                //         this.greenBox1, 
+                //         this.obstacles)
+                //         // this.obstacles.add('greenBox1', this.greenBox1.body as MatterJS.BodyType);
+                //         break;
                 // }
+                
+
 
                 case 'player-spawn':
                     {
@@ -248,6 +263,18 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         this.obstacles.add('greenSection', greenSection)
                         break
                         }
+
+
+
+
+                        case 'spikes':
+                            { const spikes=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                                isStatic: true,
+                           
+                            })
+                            this.obstacles.add('spikes', spikes)
+                            break
+                            }
 
                         case 'platform': {
 
@@ -362,8 +389,8 @@ update(t: number, dt: number) {
         this.playerController.update(dt)
     }
 
-    if (this.isPowerCoOpCollected&&this.greenBoxController1) {
-        this.greenBoxController1.update(dt)
+    if (this.greenBoxController2) {
+        this.greenBoxController2.update(dt)
     }
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
