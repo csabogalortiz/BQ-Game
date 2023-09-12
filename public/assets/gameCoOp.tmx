@@ -380,7 +380,7 @@
   <object id="26" name="brownBoxToRight" x="860.042" y="422.446" width="71.4875" height="63.2389"/>
   <object id="29" name="brownBoxToLeft" x="1810.44" y="418.454" width="71.4875" height="63.2389"/>
   <object id="31" name="brownBoxToLeft" x="2031.85" y="422.183" width="71.4875" height="63.2389"/>
-  <object id="40" name="greenBox1" x="1690.78" y="419.747" width="71.4875" height="63.2389"/>
+  <object id="40" name="greenBox1" x="1885.29" y="419.747" width="71.4875" height="63.2389"/>
   <object id="41" name="greenBox2" x="2380.52" y="420.976" width="71.4875" height="63.2389"/>
   <object id="44" name="brownBoxToLeft" x="2100.49" y="144.478" width="71.4875" height="63.2389"/>
   <object id="45" name="brownBoxToRight" x="705.079" y="273.333" width="71.4875" height="63.2389"/>

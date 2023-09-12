@@ -9,8 +9,8 @@ export default class GreenBoxController2 {
     private scene: Phaser.Scene
     private sprite: Phaser.Physics.Matter.Sprite
     private moveTime = 0
-
     private obstacles: ObstaclesController
+    private hasPowerCoOpCollected = false;
 
 
     private stateMachine: StateMachine
@@ -22,6 +22,7 @@ export default class GreenBoxController2 {
         this.sprite = sprite
 
         this.obstacles = obstacles
+        this.sprite.setVisible(false);
 
         this.createAnimations()
         this.stateMachine = new StateMachine(this, 'greenBox1')
@@ -60,6 +61,8 @@ export default class GreenBoxController2 {
 
             .setState('idle')
 
+            events.on('powerCoOp-collected', this.handlePowerCoOpCollected, this);
+
         // el set state to set the initial state of the state machine.
 
         // *********** Collisions ***********************************
@@ -97,7 +100,9 @@ export default class GreenBoxController2 {
 
 
     update(dt: number) {
-        this.stateMachine.update(dt)
+        if (this.hasPowerCoOpCollected) {
+            this.stateMachine.update(dt);
+        }
     }
     private idleOnEnter() {
         this.sprite.play('idle')
@@ -191,7 +196,7 @@ export default class GreenBoxController2 {
 
         console.log('winn-hit')
 
-        const startColor = Phaser.Display.Color.ValueToColor(0x345EC7)
+        const startColor = Phaser.Display.Color.ValueToColor(0xFFF800)
         const endColor = Phaser.Display.Color.ValueToColor(0x36C636)
         this.scene.tweens.addCounter({
             from: 0,
@@ -238,6 +243,12 @@ export default class GreenBoxController2 {
         });
 
        
+    }
+
+    public handlePowerCoOpCollected() {
+        // Set the flag to true when powerCoOp is collected
+        this.hasPowerCoOpCollected = true;
+        this.sprite.setVisible(true);
     }
 }
 

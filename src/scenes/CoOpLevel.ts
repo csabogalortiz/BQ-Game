@@ -398,7 +398,7 @@ update(t: number, dt: number) {
         this.playerController.update(dt)
     }
 
-    if (this.greenBoxController2) {
+    if (this.isPowerCoOpCollected&&this.greenBoxController2) {
         this.greenBoxController2.update(dt)
     }
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
