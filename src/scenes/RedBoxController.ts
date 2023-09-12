@@ -10,11 +10,14 @@ export default class RedBoxController {
     private moveTime = 0;
     public obstacles: ObstaclesController
     private transitionDelay = 1000; // Delay in milliseconds before transitioning to 'greenbox-left'
+    private hasPowerCoOpCollected = false;
+    private greenSectionCollided = false;
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite,  obstacles: ObstaclesController) {
         this.scene = scene
          this.sprite = sprite
          this.obstacles = obstacles
+         this.sprite.setVisible(false); 
 
 
 
@@ -22,11 +25,15 @@ export default class RedBoxController {
             const body = data.bodyB as MatterJS.BodyType
     
             if (this.obstacles.is('greySection', body)) {
-
-                this.stateMachine.setState('greySection-hit')
-            
-          
-                return
+                console.log('Grey section hit by green box:', this.sprite.name);
+                this.stateMachine.setState('greySection-hit');
+                return;
+            }
+        
+            if (this.obstacles.is('greenSection', body)) {
+                console.log('Green section hit by green box:', this.sprite.name);
+                this.stateMachine.setState('greenSection-hit');
+                return;
             }
         })    
      
@@ -55,15 +62,17 @@ export default class RedBoxController {
 
         })
      
+             .setState('redBox-right')
+             events.on('powerCoOp-collected', this.handlePowerCoOpCollected, this);
      
-         
-             .setState('redBox-idle')
      
              // events.on('farmer-stomped', this.handleTrucksStomped, this)
      
          }
     update(dt: number) {
-        this.stateMachine.update(dt);
+        if (this.hasPowerCoOpCollected) {
+            this.stateMachine.update(dt);
+        }
     }
 
     
@@ -128,5 +137,11 @@ private greySectionHitOnEnter() {
     console.log('ROJO-GREYYYYY-section-hit!')
     this.stateMachine.setState('redBox-right');
 
+}
+
+public handlePowerCoOpCollected() {
+    // Set the flag to true when powerCoOp is collected
+    this.hasPowerCoOpCollected = true;
+    this.sprite.setVisible(true);
 }
 }

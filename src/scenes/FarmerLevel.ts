@@ -10,6 +10,7 @@ import CryFarmerController from './CryFarmerController';
 import BQPowerController from './BqPower';
 import BlueBoxController from './BlueBoxController';
 import { sharedInstance as events } from "./EventCenter";
+import FertilizerFarmerController from './FertilizerFarmerController';
 
 
 
@@ -19,6 +20,10 @@ export default class FarmerLevel extends Phaser.Scene {
     private playerController?: PlayerController
     private obstacles!: ObstaclesController
     private farmers: FarmersController [] = []
+    private fertilizerFarmer: FertilizerFarmerController [] = []
+
+    
+
     private farmBox: BoxController [] = []
     private blueBox: BlueBoxController [] = []
     private bqPower: BQPowerController[] = []
@@ -42,6 +47,7 @@ export default class FarmerLevel extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.farmers = []
+       this.fertilizerFarmer = []
        this.cryFarmer = []
        this.farmBox = []
        this.blueBox = []
@@ -59,6 +65,7 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.atlas('bqPower', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         this.load.atlas('cryFarmer', 'assets/cry_farmer_sprite_sheet.png', 'assets/cry_farmer_sprite_sheet.json')
         this.load.atlas('blueBox', 'assets/blueBox_sprite_sheet.png', 'assets/blueBox_sprite_sheet.json')
+        this.load.atlas('fertilizerFarmer', 'assets/fertilizer_farmer_sprite_sheet.png', 'assets/fertilizer_farmer_sprite_sheet.json')
 
         this.load.image('tilesFarm', 'assets/farmworld.png');
         this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
@@ -77,6 +84,7 @@ export default class FarmerLevel extends Phaser.Scene {
         this.load.image('stump', 'assets/stump.png')
         this.load.image('coordinates', 'assets/coordinates.png');
         this.load.image('id', 'assets/id.png');
+
 
 
 const fonts = new WebFontFile(this.load, "Press Start 2P")
@@ -144,6 +152,17 @@ this.farmUi = new FarmUI(this, customFontStyle);
                         this.obstacles.add('farmers', farmers.body as MatterJS.BodyType)
                         break 
                     }
+
+                    case 'fertilizerFarmer': {
+
+                        const fertilizerFarmer = this.matter.add.sprite(x, y, 'fertilizerFarmer') 
+                           .setFixedRotation();
+   
+                           this.fertilizerFarmer.push(new FertilizerFarmerController(this, fertilizerFarmer))
+                           this.obstacles.add('fertilizerFarmer', fertilizerFarmer.body as MatterJS.BodyType)
+                           break 
+                       }
+   
 
                     case 'cryFarmer': {
 
@@ -338,6 +357,7 @@ this.farmUi = new FarmUI(this, customFontStyle);
             this.playerController.update(dt)
         }
         this.farmers .forEach(farmers => farmers.update(dt))
+        this.fertilizerFarmer .forEach(fertilizerFarmer => fertilizerFarmer.update(dt))
         this.cryFarmer .forEach(cryFarmer => cryFarmer.update(dt))
         this.farmBox .forEach(farmBox => farmBox.update(dt))
         this.bqPower .forEach(bqPower => bqPower.update(dt))
