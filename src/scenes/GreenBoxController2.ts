@@ -49,6 +49,14 @@ export default class GreenBoxController2 {
                 onEnter: this.spikeHitOnEnter,
             })
 
+            .addState('winn-hit', {
+                onEnter: this.winnHitOnEnter,
+            })
+
+            .addState('still', {
+                onEnter: this.stillOnEnter,
+            })
+
 
             .setState('idle')
 
@@ -61,6 +69,11 @@ export default class GreenBoxController2 {
 
             if (this, obstacles.is('spikes', body)) {
                 this.stateMachine.setState('spike-hit')
+                return
+            }
+
+            if (this, obstacles.is('winn', body)) {
+                this.stateMachine.setState('winn-hit')
                 return
             }
 
@@ -89,7 +102,7 @@ export default class GreenBoxController2 {
     private idleOnEnter() {
         this.sprite.play('idle')
         const r = Phaser.Math.Between(1, 1000)
-        if (r < 80) {
+        if (r < 50) {
             this.stateMachine.setState('move-left')
         } else {
             this.stateMachine.setState('move-right')
@@ -104,8 +117,8 @@ export default class GreenBoxController2 {
 
     private moveLeftOnUpdate(dt: number) {
         this.moveTime += dt
-        this.sprite.setVelocityX(-3)
-        if (this.moveTime > 2000) {
+        this.sprite.setVelocityX(-2)
+        if (this.moveTime > 4000) {
             this.stateMachine.setState('move-right')
 
         }
@@ -120,12 +133,16 @@ export default class GreenBoxController2 {
 
     private moveRightOnUpdate(dt: number) {
         this.moveTime += dt
-        this.sprite.setVelocityX(3)
-        if (this.moveTime > 2000) {
+        this.sprite.setVelocityX(2)
+        if (this.moveTime > 1000) {
             this.stateMachine.setState('move-left')
 
         }
 
+    }
+
+    private stillOnEnter() {
+        this.sprite.setVelocityX(0); // Stop horizontal movement
     }
    
  
@@ -169,8 +186,39 @@ export default class GreenBoxController2 {
     }
 
 
-    // *** Snowman
+    private winnHitOnEnter() {
+        this.sprite.setVelocityY(-12);
 
+        console.log('winn-hit')
+
+        const startColor = Phaser.Display.Color.ValueToColor(0x345EC7)
+        const endColor = Phaser.Display.Color.ValueToColor(0x36C636)
+        this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: 2,
+            yoyo: true,
+            ease: Phaser.Math.Easing.Sine.InOut,
+            onUpdate: tween => {
+                const value = tween.getValue()
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    startColor,
+                    endColor,
+                    100,
+                    value
+                )
+                const color = Phaser.Display.Color.GetColor(
+                    colorObject.r,
+                    colorObject.g,
+                    colorObject.b,
+
+                )
+                this.sprite.setTint(color)
+            }
+        })
+        this.stateMachine.setState('idle')
+    }
 
 
     private createAnimations() {

@@ -275,6 +275,16 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             break
                             }
 
+
+                            case 'winn':
+                                { const winn=  this.matter.add.rectangle(x+ (width*0.5), y +(height*0.5), width, height, {
+                                    isStatic: true,
+                               
+                                })
+                                this.obstacles.add('winn', winn)
+                                break
+                                }
+
                         case 'platform': {
 
                             const platform = new PlatformsController(this, x, y, 'platform', { isStatic: true }, "left");
