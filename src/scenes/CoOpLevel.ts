@@ -19,18 +19,29 @@ import GreenBoxController from './GreenBoxController';
 
 
 export default class CoOpLevel extends Phaser.Scene {
-    private greenBox: GreenBoxController [] = []
 
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+
     private player?: Phaser.Physics.Matter.Sprite;
+    private greenBox1?: Phaser.Physics.Matter.Sprite;
     private playerController?: PlayerController
+
     private obstacles!: ObstaclesController
+
     private powerCoOp: PowerCoOp[] = []
-    private farmUi!: FarmUI;
+
     private redBox: RedBoxController [] = []
+    private greenBoxController1?: GreenBoxController 
+    private greenBoxController2?: GreenBoxController 
+    private greenBoxController3?: GreenBoxController 
+
+
     private brownBox: BrownBoxController [] = []
+
     private platform: PlatformsController[] = [];
+
     private platformSpeed = 1;
+
     private platformGroup!: Phaser.GameObjects.Group;
     private brownBoxGroup!: Phaser.GameObjects.Group;
     private brownBoxToRightGroup!: Phaser.GameObjects.Group;
@@ -51,7 +62,6 @@ export default class CoOpLevel extends Phaser.Scene {
        this.powerCoOp = []
        this.redBox = []
        this.brownBox = []
-       this.greenBox = []
        this.powerCoOp = []
        this.platform = [];
        this.platformGroup = this.add.group();
@@ -68,7 +78,7 @@ export default class CoOpLevel extends Phaser.Scene {
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
         this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
-        this.load.atlas('greenBox', 'assets/greenBox.png', 'assets/greenBox.json')
+        this.load.atlas('greenBoxes', 'assets/greenBox.png', 'assets/greenBox.json')
         this.load.atlas('brownBox', 'assets/brownBox.png', 'assets/brownBox.json')
         this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
@@ -132,13 +142,25 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
             const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
             switch (name) {
 
-                
-                case 'greenBox': {
-                    const greenBox = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
-                    this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles));
-                    this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType);
-                    break;
+
+                case 'greenBox1':{
+                     this.greenBox1= this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
+                    .setFixedRotation();
+                    this.greenBoxController1 = new GreenBoxController(
+                        this, 
+                        this.greenBox1, 
+                        this.obstacles)
+                        // this.obstacles.add('greenBox1', this.greenBox1.body as MatterJS.BodyType);
+                        break;
                 }
+                
+                // case 'greenBox1': {
+                //     const greenBox1 = this.matter.add.sprite(x, y, 'greenBox').setFixedRotation();
+                //     this.greenBox1.push(new GreenBoxController(this, greenBox1, this.obstacles));
+                //     this.obstacles.add('greenBox1', greenBox1.body as MatterJS.BodyType);
+                //     break;
+                // }
+
                 case 'player-spawn':
                     {
                         
@@ -339,13 +361,19 @@ update(t: number, dt: number) {
     if (this.playerController) {
         this.playerController.update(dt)
     }
+
+    if (this.isPowerCoOpCollected&&this.greenBoxController1) {
+        this.greenBoxController1.update(dt)
+    }
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
     this.brownBox .forEach(brownBox => brownBox.update(dt))
 
-    if (this.isPowerCoOpCollected) {
-        this.greenBox.forEach((greenBox) => greenBox.update(dt));
-    }
+    // if (this.isPowerCoOpCollected) {
+    //     this.greenBox1.forEach((greenBox1) => greenBox1.update(dt));
+    //     this.greenBox2.forEach((greenBox2) => greenBox2.update(dt));
+    //     this.greenBox3.forEach((greenBox3) => greenBox3.update(dt));
+    // }
     this.platform .forEach(platform => platform.update(dt))
     
 

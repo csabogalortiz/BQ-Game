@@ -1,6 +1,5 @@
 
 
-
 import Phaser from "phaser";
 import StateMachine from "../statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
@@ -41,19 +40,6 @@ export default class GreenBoxController {
                 this.stateMachine.setState('greenSection-hit');
                 return;
             }
-            // if (this.obstacles.is('greySection', body)) {
-    
-            //     this.stateMachine.setState('greySection-hit')
-            
-            //     return
-            // }
-            // if (this.obstacles.is('greenSection', body)) {
-
-            //     this.stateMachine.setState('greenSection-hit')
-            
-          
-            //     return
-            // }
     
     
         })    
@@ -61,7 +47,7 @@ export default class GreenBoxController {
          this.createAnimations()
 
      
-         this.stateMachine = new StateMachine(this, 'greenBox')
+         this.stateMachine = new StateMachine(this, 'greenBoxes')
      
          // Adding States -------------------
          this.stateMachine
@@ -114,17 +100,17 @@ export default class GreenBoxController {
     private createAnimations() {
         this.sprite.anims.create({
             key: 'greenBox-idle',
-            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
         this.sprite.anims.create({
             key: 'greenBox-right',
-            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
         this.sprite.anims.create({
             key: 'greenBox-left',
-            frames: [{ key: 'greenBox', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
 
