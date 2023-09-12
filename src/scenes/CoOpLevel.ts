@@ -153,7 +153,6 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         this.greenBoxController2 = new GreenBoxController2 (
                             this,
                             this.greenBox1,
-                            this.cursors,
                             this.obstacles
                             )
 
