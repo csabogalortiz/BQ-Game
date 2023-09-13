@@ -13,7 +13,6 @@ import RedBoxController from './RedBoxController';
 import PlatformsController from './PlatformsController';
 import PowerCoOp from './PowerCoOp';
 import BrownBoxController from './BrownBox';
-import GreenBoxController from './GreenBoxController';
 import GreenBoxController2 from './GreenBoxController2';
 
 
@@ -25,8 +24,14 @@ export default class CoOpLevel extends Phaser.Scene {
 
     private player?: Phaser.Physics.Matter.Sprite;
     private greenBox1?: Phaser.Physics.Matter.Sprite;
+    private greenBox2?: Phaser.Physics.Matter.Sprite;
+
+
     private playerController?: PlayerController
+    private greenBoxController1?: GreenBoxController2
     private greenBoxController2?: GreenBoxController2
+
+
 
     private obstacles!: ObstaclesController
 
@@ -150,7 +155,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         this.greenBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBox1')
                             .setFixedRotation();
                 
-                        this.greenBoxController2 = new GreenBoxController2 (
+                        this.greenBoxController1 = new GreenBoxController2 (
                             this,
                             this.greenBox1,
                             this.obstacles
@@ -162,18 +167,26 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
 
                     }
 
-                // case 'greenBox1':{
-                //      this.greenBox1= this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
-                //     .setFixedRotation();
-                //     this.greenBoxController1 = new GreenBoxController(
-                //         this, 
-                //         this.greenBox1, 
-                //         this.obstacles)
-                //         // this.obstacles.add('greenBox1', this.greenBox1.body as MatterJS.BodyType);
-                //         break;
-                // }
-                
+                    case 'greenBox2':
+                        {
+                            
+                            this.greenBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBox1')
+                                .setFixedRotation();
+                    
+                            this.greenBoxController2 = new GreenBoxController2 (
+                                this,
+                                this.greenBox2,
+                                this.obstacles
+                                )
+    
+        
+                                
+                            break
+    
+                        }
+    
 
+  
 
                 case 'player-spawn':
                     {
@@ -398,18 +411,19 @@ update(t: number, dt: number) {
         this.playerController.update(dt)
     }
 
+    if (this.isPowerCoOpCollected&&this.greenBoxController1) {
+        this.greenBoxController1.update(dt)
+    }
+
     if (this.isPowerCoOpCollected&&this.greenBoxController2) {
         this.greenBoxController2.update(dt)
     }
+
+    
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
     this.redBox .forEach(redBox => redBox.update(dt))
     this.brownBox .forEach(brownBox => brownBox.update(dt))
 
-    // if (this.isPowerCoOpCollected) {
-    //     this.greenBox1.forEach((greenBox1) => greenBox1.update(dt));
-    //     this.greenBox2.forEach((greenBox2) => greenBox2.update(dt));
-    //     this.greenBox3.forEach((greenBox3) => greenBox3.update(dt));
-    // }
     this.platform .forEach(platform => platform.update(dt))
     
 

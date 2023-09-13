@@ -11,6 +11,7 @@ export default class GreenBoxController2 {
     private moveTime = 0
     private obstacles: ObstaclesController
     private hasPowerCoOpCollected = false;
+    private hasCollidedWithWinn = false; 
 
 
     private stateMachine: StateMachine
@@ -75,9 +76,10 @@ export default class GreenBoxController2 {
                 return
             }
 
-            if (this, obstacles.is('winn', body)) {
-                this.stateMachine.setState('winn-hit')
-                return
+            if (!this.hasCollidedWithWinn && this.obstacles.is('winn', body)) {
+                this.stateMachine.setState('winn-hit');
+                this.hasCollidedWithWinn = true; // Set the flag to true
+                return;
             }
 
         
@@ -192,7 +194,8 @@ export default class GreenBoxController2 {
 
 
     private winnHitOnEnter() {
-        this.sprite.setVelocityY(-12);
+        this.sprite.setVelocityY(-4);
+
 
         console.log('winn-hit')
 
@@ -202,7 +205,7 @@ export default class GreenBoxController2 {
             from: 0,
             to: 100,
             duration: 100,
-            repeat: 2,
+            repeat: 1,
             yoyo: true,
             ease: Phaser.Math.Easing.Sine.InOut,
             onUpdate: tween => {
@@ -222,7 +225,8 @@ export default class GreenBoxController2 {
                 this.sprite.setTint(color)
             }
         })
-        this.stateMachine.setState('idle')
+        this.stateMachine.setState('still')
+        return
     }
 
 
