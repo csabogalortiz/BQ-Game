@@ -10,9 +10,9 @@ export default class LevelComplete extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('phase_complete', '/assets/phase_complete.png');
-        this.load.image('phaase_button', '/assets/phase_button.png'); 
-        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
+        this.load.image('phase_complete', './assets/phase_complete.png');
+        this.load.image('phaase_button', './assets/phase_button.png'); 
+        this.load.atlas('player', './assets/player_sprite_sheet.png', './assets/player_sprite_sheet.json');
     }
 
     create() {
