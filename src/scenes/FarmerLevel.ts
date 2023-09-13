@@ -59,31 +59,31 @@ export default class FarmerLevel extends Phaser.Scene {
     }
 
     preload() {
-        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');
-        this.load.atlas('farmBox', 'assets/farmBox_sprite_sheet.png', 'assets/farmBox_sprite_sheet.json');
-        this.load.atlas('farmers', 'assets/happy_farmer_sprite_sheet.png', 'assets/happy_farmer_sprite_sheet.json')
-        this.load.atlas('bqPower', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
-        this.load.atlas('cryFarmer', 'assets/cry_farmer_sprite_sheet.png', 'assets/cry_farmer_sprite_sheet.json')
-        this.load.atlas('blueBox', 'assets/blueBox_sprite_sheet.png', 'assets/blueBox_sprite_sheet.json')
-        this.load.atlas('fertilizerFarmer', 'assets/fertilizer_farmer_sprite_sheet.png', 'assets/fertilizer_farmer_sprite_sheet.json')
+        this.load.atlas('player', './assets/player_sprite_sheet.png', './assets/player_sprite_sheet.json');
+        this.load.atlas('farmBox', './assets/farmBox_sprite_sheet.png', './assets/farmBox_sprite_sheet.json');
+        this.load.atlas('farmers', './assets/happy_farmer_sprite_sheet.png', './assets/happy_farmer_sprite_sheet.json')
+        this.load.atlas('bqPower', './assets/bqPower_sprite_sheet.png', './assets/bqPower_sprite_sheet.json')
+        this.load.atlas('cryFarmer', './assets/cry_farmer_sprite_sheet.png', './assets/cry_farmer_sprite_sheet.json')
+        this.load.atlas('blueBox', './assets/blueBox_sprite_sheet.png', './assets/blueBox_sprite_sheet.json')
+        this.load.atlas('fertilizerFarmer', './assets/fertilizer_farmer_sprite_sheet.png', './assets/fertilizer_farmer_sprite_sheet.json')
 
-        this.load.image('tilesFarm', 'assets/farmworld.png');
-        this.load.tilemapTiledJSON('tilemapFarm', 'assets/gameFarm.json')
+        this.load.image('tilesFarm', './assets/farmworld.png');
+        this.load.tilemapTiledJSON('tilemapFarm', './assets/gameFarm.json')
 
         
-        this.load.image('data', 'assets/data.png')
-        this.load.image('bqButton', 'assets/bqButton.png')
-        this.load.image('farmSign', 'assets/farmSign.png')
-        this.load.image('ohnoFarm', 'assets/ohnoFarm.png')
-        this.load.image('ohnoDeforest', 'assets/ohnoDeforest.png')
-        this.load.image('ohnoWater', 'assets/ohnoWater.png')
-        this.load.image('ohnoRadio', 'assets/ohnoRadio.png')
-        this.load.image('farm_signBubble', 'assets/info_bubble_farm_1-08.png')
-        this.load.image('bqPowerSign', 'assets/farmSign.png')
-        this.load.image('info_bubble_bqPower', 'assets/info_bubble_bqPower.png')
-        this.load.image('stump', 'assets/stump.png')
-        this.load.image('coordinates', 'assets/coordinates.png');
-        this.load.image('id', 'assets/id.png');
+        this.load.image('data', './assets/data.png')
+        this.load.image('bqButton', './assets/bqButton.png')
+        this.load.image('farmSign', './assets/farmSign.png')
+        this.load.image('ohnoFarm', './assets/ohnoFarm.png')
+        this.load.image('ohnoDeforest', './assets/ohnoDeforest.png')
+        this.load.image('ohnoWater', './assets/ohnoWater.png')
+        this.load.image('ohnoRadio', './assets/ohnoRadio.png')
+        this.load.image('farm_signBubble', './assets/info_bubble_farm_1-08.png')
+        this.load.image('bqPowerSign', './assets/farmSign.png')
+        this.load.image('info_bubble_bqPower', './assets/info_bubble_bqPower.png')
+        this.load.image('stump', './assets/stump.png')
+        this.load.image('coordinates', './assets/coordinates.png');
+        this.load.image('id', './assets/id.png');
 
 
 
