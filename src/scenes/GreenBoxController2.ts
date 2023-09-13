@@ -234,7 +234,7 @@ export default class GreenBoxController2 {
 
     private createAnimations() {
         this.sprite.anims.create({
-            key: 'box-idle',
+            key: 'idle',
             frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 

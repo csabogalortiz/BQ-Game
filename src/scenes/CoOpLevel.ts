@@ -27,17 +27,14 @@ export default class CoOpLevel extends Phaser.Scene {
 
     private greenBox1?: Phaser.Physics.Matter.Sprite;
     private greenBox2?: Phaser.Physics.Matter.Sprite;
-    private greenBox3?: Phaser.Physics.Matter.Sprite;
+
 
 
     private greenBoxController1?: GreenBoxController2
     private greenBoxController2?: GreenBoxController2
-    private greenBoxController3?: GreenBoxController2
 
 
-    private redBox1?: Phaser.Physics.Matter.Sprite;
-    private redBox2?: Phaser.Physics.Matter.Sprite;
-    private redBox3?: Phaser.Physics.Matter.Sprite;
+
 
 
     private redBoxController1?: RedBoxController
@@ -200,75 +197,58 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         }
 
 
-                    case 'greenBox3':
-                        {
-                            
-                            this.greenBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
-                                .setFixedRotation();
-                    
-                            this.greenBoxController3 = new GreenBoxController2 (
-                                this,
-                                this.greenBox3,
-                                this.obstacles
-                                )
-    
-        
-                                
-                            break
-    
-                        }
+                   
 
-
-                        case 'redBox1':
-                            {
+                        // case 'redBox1':
+                        //     {
                                 
-                                this.redBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
-                                    .setFixedRotation();
+                        //         this.redBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                        //             .setFixedRotation();
                         
-                                this.redBoxController1 = new RedBoxController (
-                                    this,
-                                    this.redBox1,
-                                    this.obstacles
-                                    )
+                        //         this.redBoxController1 = new RedBoxController (
+                        //             this,
+                        //             this.redBox1,
+                        //             this.obstacles
+                        //             )
         
             
                                     
-                                break
+                        //         break
         
-                            }
+                        //     }
 
-                            case 'redBox2':
-                                {
+                        //     case 'redBox2':
+                        //         {
                                     
-                                    this.redBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
-                                        .setFixedRotation();
+                        //             this.redBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                        //                 .setFixedRotation();
                             
-                                    this.redBoxController2 = new RedBoxController (
-                                        this,
-                                        this.redBox2,
-                                        this.obstacles
-                                        )
+                        //             this.redBoxController2 = new RedBoxController (
+                        //                 this,
+                        //                 this.redBox2,
+                        //                 this.obstacles
+                        //                 )
             
                 
                                         
-                                    break
+                        //             break
             
-                                }
+                        //         }
 
-                                case 'redBox3':
-                                    {
+                        //         case 'redBox3':
+                        //             {
                                         
-                                        this.redBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
-                                            .setFixedRotation();
+                        //                 this.redBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                        //                     .setFixedRotation();
                                 
-                                        this.redBoxController3 = new RedBoxController (
-                                            this,
-                                            this.redBox3,
-                                            this.obstacles
-                                            )         
-                                        break
+                        //                 this.redBoxController3 = new RedBoxController (
+                        //                     this,
+                        //                     this.redBox3,
+                        //                     this.obstacles
+                        //                     )         
+                        //                 break
                 
-                                    }
+                        //             }
         
     
 
@@ -478,9 +458,6 @@ update(t: number, dt: number) {
         this.greenBoxController2.update(dt)
     }
 
-    if (this.isPowerCoOpCollected&&this.greenBoxController3) {
-        this.greenBoxController3.update(dt)
-    }
 
 
     if (this.isPowerCoOpCollected&&this.redBoxController1) {
