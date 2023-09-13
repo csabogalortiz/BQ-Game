@@ -378,7 +378,7 @@
   <object id="25" name="platform" x="1470" y="350" width="69.1206" height="66.4452"/>
   <object id="26" name="brownBoxToRight" x="860.042" y="422.446" width="71.4875" height="63.2389"/>
   <object id="29" name="brownBoxToLeft" x="1810.44" y="418.454" width="71.4875" height="63.2389"/>
-  <object id="31" name="brownBoxToLeft" x="2338.54" y="420.324" width="71.4875" height="63.2389"/>
+  <object id="31" name="brownBoxToLeft" x="2412.98" y="420.324" width="71.4875" height="63.2389"/>
   <object id="40" name="greenBox1" x="2017.26" y="421.606" width="71.4875" height="63.2389"/>
   <object id="41" name="greenBox2" x="2163.05" y="420.976" width="71.4875" height="63.2389"/>
   <object id="44" name="brownBoxToLeft" x="2100.49" y="144.478" width="71.4875" height="63.2389"/>
@@ -388,7 +388,7 @@
   <object id="53" name="verde" x="1096.08" y="45.098" width="66.6667" height="143.137"/>
   <object id="54" name="spikes" x="1812.96" y="978.431" width="1036.77" height="68.6275"/>
   <object id="57" name="winn" x="423.245" y="978.916" width="624.221" height="68.6275"/>
-  <object id="58" name="greenBox3" x="2516.3" y="423.771" width="71.4875" height="63.2389"/>
+  <object id="58" name="greenBox3" x="2288.84" y="419.635" width="71.4875" height="63.2389"/>
   <object id="59" name="redBox2" x="990.279" y="427.488" width="71.4875" height="63.2389"/>
   <object id="60" name="redBox3" x="761.654" y="423.771" width="71.4875" height="63.2389"/>
  </objectgroup>
