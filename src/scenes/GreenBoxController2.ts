@@ -26,7 +26,7 @@ export default class GreenBoxController2 {
         this.sprite.setVisible(false);
 
         this.createAnimations()
-        this.stateMachine = new StateMachine(this, 'greenBox1')
+        this.stateMachine = new StateMachine(this, 'greenBoxes')
 
         // The this keyword refers to the current instance of the Hero class. 
         // By passing this as the first argument to the StateMachine constructor, 
@@ -106,6 +106,8 @@ export default class GreenBoxController2 {
             this.stateMachine.update(dt);
         }
     }
+
+
     private idleOnEnter() {
         this.sprite.play('idle')
         const r = Phaser.Math.Between(1, 1000)
@@ -124,7 +126,7 @@ export default class GreenBoxController2 {
 
     private moveLeftOnUpdate(dt: number) {
         this.moveTime += dt
-        this.sprite.setVelocityX(-2)
+        this.sprite.setVelocityX(-1)
         if (this.moveTime > 4000) {
             this.stateMachine.setState('move-right')
 
@@ -140,7 +142,7 @@ export default class GreenBoxController2 {
 
     private moveRightOnUpdate(dt: number) {
         this.moveTime += dt
-        this.sprite.setVelocityX(2)
+        this.sprite.setVelocityX(1)
         if (this.moveTime > 1000) {
             this.stateMachine.setState('move-left')
 
@@ -233,17 +235,17 @@ export default class GreenBoxController2 {
     private createAnimations() {
         this.sprite.anims.create({
             key: 'box-idle',
-            frames: [{ key: 'greenBox1', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
         this.sprite.anims.create({
             key: 'move-left',
-            frames: [{ key: 'greenBox1', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
         this.sprite.anims.create({
             key: 'move-right',
-            frames: [{ key: 'greenBox1', frame: 'greenBox.png' }],
+            frames: [{ key: 'greenBoxes', frame: 'greenBox.png' }],
         });
 
        

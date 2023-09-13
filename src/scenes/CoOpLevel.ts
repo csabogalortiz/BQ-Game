@@ -23,21 +23,36 @@ export default class CoOpLevel extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
 
     private player?: Phaser.Physics.Matter.Sprite;
+    private playerController?: PlayerController
+
     private greenBox1?: Phaser.Physics.Matter.Sprite;
     private greenBox2?: Phaser.Physics.Matter.Sprite;
+    private greenBox3?: Phaser.Physics.Matter.Sprite;
 
 
-    private playerController?: PlayerController
     private greenBoxController1?: GreenBoxController2
     private greenBoxController2?: GreenBoxController2
+    private greenBoxController3?: GreenBoxController2
+
+
+    private redBox1?: Phaser.Physics.Matter.Sprite;
+    private redBox2?: Phaser.Physics.Matter.Sprite;
+    private redBox3?: Phaser.Physics.Matter.Sprite;
+
+
+    private redBoxController1?: RedBoxController
+    private redBoxController2?: RedBoxController
+    private redBoxController3?: RedBoxController
+
+
+    
+
 
 
 
     private obstacles!: ObstaclesController
 
     private powerCoOp: PowerCoOp[] = []
-
-    private redBox: RedBoxController [] = []
 
 
     private brownBox: BrownBoxController [] = []
@@ -64,7 +79,6 @@ export default class CoOpLevel extends Phaser.Scene {
        this.cursors = this.input.keyboard.createCursorKeys()
        this.obstacles = new ObstaclesController()
        this.powerCoOp = []
-       this.redBox = []
        this.brownBox = []
        this.powerCoOp = []
        this.platform = [];
@@ -81,8 +95,8 @@ export default class CoOpLevel extends Phaser.Scene {
 
     preload() {
         this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
-        this.load.atlas('redBox', 'assets/redBox.png', 'assets/redBox.json')
-        this.load.atlas('greenBox1', 'assets/greenBox.png', 'assets/greenBox.json')
+        this.load.atlas('redBoxes', 'assets/redBox.png', 'assets/redBox.json')
+        this.load.atlas('greenBoxes', 'assets/greenBox.png', 'assets/greenBox.json')
         this.load.atlas('brownBox', 'assets/brownBox.png', 'assets/brownBox.json')
         this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
         
@@ -152,7 +166,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                 case 'greenBox1':
                     {
                         
-                        this.greenBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBox1')
+                        this.greenBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
                             .setFixedRotation();
                 
                         this.greenBoxController1 = new GreenBoxController2 (
@@ -170,7 +184,7 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                     case 'greenBox2':
                         {
                             
-                            this.greenBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBox1')
+                            this.greenBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
                                 .setFixedRotation();
                     
                             this.greenBoxController2 = new GreenBoxController2 (
@@ -184,6 +198,78 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             break
     
                         }
+
+
+                    case 'greenBox3':
+                        {
+                            
+                            this.greenBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
+                                .setFixedRotation();
+                    
+                            this.greenBoxController3 = new GreenBoxController2 (
+                                this,
+                                this.greenBox3,
+                                this.obstacles
+                                )
+    
+        
+                                
+                            break
+    
+                        }
+
+
+                        case 'redBox1':
+                            {
+                                
+                                this.redBox1 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                                    .setFixedRotation();
+                        
+                                this.redBoxController1 = new RedBoxController (
+                                    this,
+                                    this.redBox1,
+                                    this.obstacles
+                                    )
+        
+            
+                                    
+                                break
+        
+                            }
+
+                            case 'redBox2':
+                                {
+                                    
+                                    this.redBox2 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                                        .setFixedRotation();
+                            
+                                    this.redBoxController2 = new RedBoxController (
+                                        this,
+                                        this.redBox2,
+                                        this.obstacles
+                                        )
+            
+                
+                                        
+                                    break
+            
+                                }
+
+                                case 'redBox3':
+                                    {
+                                        
+                                        this.redBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'redBoxes')
+                                            .setFixedRotation();
+                                
+                                        this.redBoxController3 = new RedBoxController (
+                                            this,
+                                            this.redBox3,
+                                            this.obstacles
+                                            )         
+                                        break
+                
+                                    }
+        
     
 
   
@@ -339,28 +425,11 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
             break;
                                     }
 
-                        case 'redBox': {
-                            const redBox = this.matter.add.sprite(x, y, 'redBox') 
-                            .setFixedRotation();
+        
     
-                            this.redBox.push(new RedBoxController(this, redBox,  this.obstacles))
-                            this.obstacles.add('redBox', redBox.body as MatterJS.BodyType)
-                            break 
-                        }
-    
-                           
-                 
 
-                        // case 'greenBox': {
-                            
-                        //     const greenBox = this.matter.add.sprite(x, y, 'greenBox') 
-                        //         .setFixedRotation();
-                        
-                        //     this.greenBox.push(new GreenBoxController(this, greenBox, this.obstacles)) // Provide 'this.obstacles' as the third argument
-                        //     this.obstacles.add('greenBox', greenBox.body as MatterJS.BodyType)
-                        //     break;
-                        // }
 
+                
 
         
 
@@ -371,16 +440,6 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
     })
 
 
-    // this.greenBox.forEach((greenBox) => {
-    //     greenBox.sprite.setVelocityY(100); // Adjust the falling speed as needed
-    //     greenBox.sprite.setY(-50); // Set an initial position above the screen
-    // });
-
-    // // Create and spawn red boxes from above
-    // this.redBox.forEach((redBox) => {
-    //     redBox.sprite.setVelocityY(100); // Adjust the falling speed as needed
-    //     redBox.sprite.setY(-50); // Set an initial position above the screen
-    // });
 
     this.cameras.main.startFollow(this.player!, true);
     this.matter.world.convertTilemapLayer(groundCoOp);
@@ -419,9 +478,29 @@ update(t: number, dt: number) {
         this.greenBoxController2.update(dt)
     }
 
+    if (this.isPowerCoOpCollected&&this.greenBoxController3) {
+        this.greenBoxController3.update(dt)
+    }
+
+
+    if (this.isPowerCoOpCollected&&this.redBoxController1) {
+        this.redBoxController1.update(dt)
+    }
+
+    if (this.isPowerCoOpCollected&&this.redBoxController2) {
+        this.redBoxController2.update(dt)
+    }
+
+    if (this.isPowerCoOpCollected&&this.redBoxController3) {
+        this.redBoxController3.update(dt)
+    }
+
+
+
+
     
     this.powerCoOp .forEach(powerCoOp => powerCoOp.update(dt))
-    this.redBox .forEach(redBox => redBox.update(dt))
+
     this.brownBox .forEach(brownBox => brownBox.update(dt))
 
     this.platform .forEach(platform => platform.update(dt))

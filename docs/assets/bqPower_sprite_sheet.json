@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "BQPowerup_1.png",
+	"frame": {"x":0,"y":0,"w":81,"h":245},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":245},
+	"sourceSize": {"w":81,"h":245}
+},
+{
+	"filename": "BQPowerup_2.png",
+	"frame": {"x":81,"y":0,"w":81,"h":245},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":245},
+	"sourceSize": {"w":81,"h":245}
+},
+{
+	"filename": "BQPowerup_3.png",
+	"frame": {"x":162,"y":0,"w":81,"h":245},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":245},
+	"sourceSize": {"w":81,"h":245}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "bqPower.png",
+	"format": "RGBA8888",
+	"size": {"w":243,"h":245},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:bc1fd32d0c10c3ab1133295466682d1e:1478a87549c0843f08fa0468f0fae7d9:b93fa061fff0178ba4a8536afdbb3470$"
+}
+}
