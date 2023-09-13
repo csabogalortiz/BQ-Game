@@ -94,19 +94,19 @@ export default class CoOpLevel extends Phaser.Scene {
     }
 
     preload() {
-        this.load.atlas('player', 'assets/player_sprite_sheet.png', 'assets/player_sprite_sheet.json');   
-        this.load.atlas('redBoxes', 'assets/redBox.png', 'assets/redBox.json')
-        this.load.atlas('greenBoxes', 'assets/greenBox.png', 'assets/greenBox.json')
-        this.load.atlas('brownBox', 'assets/brownBox.png', 'assets/brownBox.json')
-        this.load.atlas('powerCoOp', 'assets/bqPower_sprite_sheet.png', 'assets/bqPower_sprite_sheet.json')
+        this.load.atlas('player', './assets/player_sprite_sheet.png', './assets/player_sprite_sheet.json');   
+        this.load.atlas('redBoxes', './assets/redBox.png', './assets/redBox.json')
+        this.load.atlas('greenBoxes', './assets/greenBox.png', './assets/greenBox.json')
+        this.load.atlas('brownBox', './assets/brownBox.png', './assets/brownBox.json')
+        this.load.atlas('powerCoOp', './assets/bqPower_sprite_sheet.png', './assets/bqPower_sprite_sheet.json')
         
-        this.load.image('tilesCoOp', 'assets/coOpworld.png');
-        this.load.tilemapTiledJSON('tilemapCoOp', 'assets/gameCoOp.json')
+        this.load.image('tilesCoOp', './assets/coOpworld.png');
+        this.load.tilemapTiledJSON('tilemapCoOp', './assets/gameCoOp.json')
         
-        this.load.image('data', 'assets/data.png')
-        this.load.image('platform', 'assets/platform.png')
-        this.load.image('coordinates', 'assets/coordinates.png');
-        this.load.image('id', 'assets/id.png');
+        this.load.image('data', './assets/data.png')
+        this.load.image('platform', './assets/platform.png')
+        this.load.image('coordinates', './assets/coordinates.png');
+        this.load.image('id', './assets/id.png');
 
 // Inside your game scene's preload() method
 const fonts = new WebFontFile(this.load, "Press Start 2P")

@@ -31,7 +31,7 @@ private dataImage!: Phaser.GameObjects.Image;
 	{
 		const fonts = new WebFontFile(this.load, "Press Start 2P")
 		this.load.addFile(fonts)
-        this.load.image('dataImage', '/assets/data.png');
+        this.load.image('dataImage', './assets/data.png');
 	}
 
 
