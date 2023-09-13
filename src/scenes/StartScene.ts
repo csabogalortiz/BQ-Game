@@ -10,8 +10,8 @@ export default class StartScene extends Phaser.Scene {
     }
     
     preload() {
-        this.load.image('button', '/assets/button.png');
-        this.load.image('background', '/assets/background2.png');
+        this.load.image('button', 'assets/button.png');
+        this.load.image('background', 'assets/background2.png');
     }
 
     create () {
