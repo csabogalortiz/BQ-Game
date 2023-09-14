@@ -12,21 +12,24 @@ export default class GreenBoxController2 {
     private obstacles: ObstaclesController
     private hasPowerCoOpCollected = false;
     private hasCollidedWithWinn = false; 
+    private id: string;
 
 
     private stateMachine: StateMachine
 
 
 
-    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController) {
+    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController, id: string) {
         this.scene = scene
         this.sprite = sprite
 
         this.obstacles = obstacles
+
+        this.id = id
         this.sprite.setVisible(false);
 
         this.createAnimations()
-        this.stateMachine = new StateMachine(this, 'greenBoxes')
+        this.stateMachine = new StateMachine(this, this.id);
 
         // The this keyword refers to the current instance of the Hero class. 
         // By passing this as the first argument to the StateMachine constructor, 
@@ -80,7 +83,7 @@ export default class GreenBoxController2 {
                 return this.sprite.x < 1050 && this.sprite.y > 900
                 }
 
-                
+
                 if (!this.hasCollidedWithWinn && hackIsInWinnableArea ( )) {
                     this.stateMachine.setState('winn-hit');
                     this.hasCollidedWithWinn = true; // Set the flag to true

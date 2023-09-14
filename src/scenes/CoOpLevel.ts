@@ -171,7 +171,8 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                         this.greenBoxController1 = new GreenBoxController2 (
                             this,
                             this.greenBox1,
-                            this.obstacles
+                            this.obstacles,
+                            'greenBox1'
                             )
 
     
@@ -189,7 +190,8 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             this.greenBoxController2 = new GreenBoxController2 (
                                 this,
                                 this.greenBox2,
-                                this.obstacles
+                                this.obstacles,
+                                'greenBox2'
                                 )
     
         
@@ -208,7 +210,8 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             this.greenBoxController3 = new GreenBoxController2 (
                                 this,
                                 this.greenBox3,
-                                this.obstacles
+                                this.obstacles,
+                                'greenBox3'
                                 )
     
         
