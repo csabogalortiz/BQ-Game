@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "greenBox.png",
+	"frame": {"x":0,"y":0,"w":83,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":70},
+	"sourceSize": {"w":83,"h":70}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "greenBox.png",
+	"format": "RGBA8888",
+	"size": {"w":83,"h":70},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1e8c3a704d5923449a9be364a99073b5:cbea65b662de80bea65e3e16cd87004e:b54d685957a30280a94a28dee8a21249$"
+}
+}

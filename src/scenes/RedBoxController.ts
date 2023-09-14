@@ -11,22 +11,25 @@ export default class RedBoxController2 {
     private moveTime = 0
     private obstacles: ObstaclesController
     private hasPowerCoOpCollected = false;
-    private hasCollidedWithSpikes = false; 
+    private hasCollidedWithWinn = false; 
+    private id: string;
 
 
     private stateMachine: StateMachine
 
 
 
-    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController) {
+    constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, obstacles: ObstaclesController, id: string) {
         this.scene = scene
         this.sprite = sprite
 
         this.obstacles = obstacles
+
+        this.id = id
         this.sprite.setVisible(false);
 
         this.createAnimations()
-        this.stateMachine = new StateMachine(this, 'redBoxes')
+        this.stateMachine = new StateMachine(this, this.id);
 
         // The this keyword refers to the current instance of the Hero class. 
         // By passing this as the first argument to the StateMachine constructor, 
@@ -71,16 +74,20 @@ export default class RedBoxController2 {
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
             const body = data.bodyB as MatterJS.BodyType
 
-
-            if (this, obstacles.is('winn', body)) {
-                this.stateMachine.setState('winn-hit')
+            if (this, obstacles.is('spikes', body)) {
+                this.stateMachine.setState('spike-hit')
                 return
             }
 
-            if (!this.hasCollidedWithSpikes && this.obstacles.is('spikes', body)) {
-                this.stateMachine.setState('spikes-hit');
-                this.hasCollidedWithSpikes = true; // Set the flag to true
-                return;
+            const hackIsInWinnableArea = () =>{
+                return this.sprite.x < 1050 && this.sprite.y > 900
+                }
+
+
+                if (!this.hasCollidedWithWinn && hackIsInWinnableArea ( )) {
+                    this.stateMachine.setState('winn-hit');
+                    this.hasCollidedWithWinn = true; // Set the flag to true
+                    return
             }
 
         
@@ -113,9 +120,9 @@ export default class RedBoxController2 {
         this.sprite.play('idle')
         const r = Phaser.Math.Between(1, 1000)
         if (r < 50) {
-            this.stateMachine.setState('move-right')
-        } else {
             this.stateMachine.setState('move-left')
+        } else {
+            this.stateMachine.setState('move-right')
         }
     }
 
@@ -158,10 +165,10 @@ export default class RedBoxController2 {
  
 
     // **** Spike
-    private winnHitOnEnter() {
+    private spikeHitOnEnter() {
         this.sprite.setVelocityY(-12);
 
-        console.log('winnn-hit')
+        console.log('spike-hit')
 
         const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
         const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
@@ -196,11 +203,11 @@ export default class RedBoxController2 {
     }
 
 
-    private spikeHitOnEnter() {
+    private winnHitOnEnter() {
         this.sprite.setVelocityY(-4);
 
 
-        console.log('spike-hit')
+        console.log('winn-hit')
 
         const startColor = Phaser.Display.Color.ValueToColor(0xFFF800)
         const endColor = Phaser.Display.Color.ValueToColor(0x36C636)
@@ -235,7 +242,7 @@ export default class RedBoxController2 {
 
     private createAnimations() {
         this.sprite.anims.create({
-            key: 'box-idle',
+            key: 'idle',
             frames: [{ key: 'redBoxes', frame: 'redBox.png' }],
         });
 
