@@ -8,28 +8,23 @@ export default class GreenBoxController2 {
   private sprite: Phaser.Physics.Matter.Sprite;
   private moveTime = 0;
   private obstacles: ObstaclesController;
-  private hasPowerCoOpCollected = false;
+  private hasPowerCoOpCollected = true;
   private hasCollidedWithWinn = false;
-  private id: string;
 
   private stateMachine: StateMachine;
 
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
-    obstacles: ObstaclesController,
-    id: string
+    obstacles: ObstaclesController
   ) {
     this.scene = scene;
     this.sprite = sprite;
 
     this.obstacles = obstacles;
 
-    this.id = id;
-    this.sprite.setVisible(false);
-
     this.createAnimations();
-    this.stateMachine = new StateMachine(this, this.id);
+    this.stateMachine = new StateMachine(this, "greenBox");
 
     this.stateMachine
       .addState("idle", {
@@ -68,16 +63,14 @@ export default class GreenBoxController2 {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
-      if ((this, obstacles.is("spikes", body))) {
+      if (this.obstacles.is("spikes", body)) {
         this.stateMachine.setState("spike-hit");
         return;
       }
 
-      const hackIsInWinnableArea = () => {
-        return this.sprite.x < 1050 && this.sprite.y > 900;
-      };
+      const hackIsInWinnableArea = this.sprite.x < 1050 && this.sprite.y > 900;
 
-      if (!this.hasCollidedWithWinn && hackIsInWinnableArea()) {
+      if (!this.hasCollidedWithWinn && hackIsInWinnableArea) {
         this.stateMachine.setState("winn-hit");
         this.hasCollidedWithWinn = true; // Set the flag to true
         return;
@@ -94,9 +87,7 @@ export default class GreenBoxController2 {
   }
 
   update(dt: number) {
-    if (this.hasPowerCoOpCollected) {
-      this.stateMachine.update(dt);
-    }
+    this.stateMachine.update(dt);
   }
 
   private idleOnEnter() {
@@ -117,7 +108,7 @@ export default class GreenBoxController2 {
   private moveLeftOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(-1);
-    if (this.moveTime > 4000) {
+    if (this.moveTime > 1000) {
       this.stateMachine.setState("move-right");
     }
   }
@@ -130,7 +121,7 @@ export default class GreenBoxController2 {
   private moveRightOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(1);
-    if (this.moveTime > 1000) {
+    if (this.moveTime > 6000) {
       this.stateMachine.setState("move-left");
     }
   }

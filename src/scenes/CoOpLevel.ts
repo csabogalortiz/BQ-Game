@@ -16,21 +16,11 @@ export default class CoOpLevel extends Phaser.Scene {
   private player?: Phaser.Physics.Matter.Sprite;
   private playerController?: PlayerController;
 
-  private greenBox1?: Phaser.Physics.Matter.Sprite;
-  private greenBox2?: Phaser.Physics.Matter.Sprite;
-  private greenBox3?: Phaser.Physics.Matter.Sprite;
+  private greenBoxes: GreenBoxController2[] = [];
 
-  private greenBoxController1?: GreenBoxController2;
-  private greenBoxController2?: GreenBoxController2;
-  private greenBoxController3?: GreenBoxController2;
+  private redBoxes: GreenBoxController2[] = [];
 
-  private redBox1?: Phaser.Physics.Matter.Sprite;
-  private redBox2?: Phaser.Physics.Matter.Sprite;
-  private redBox3?: Phaser.Physics.Matter.Sprite;
-
-  private redBoxController1?: RedBoxController;
-  private redBoxController2?: RedBoxController;
-  private redBoxController3?: RedBoxController;
+  private redBoxController?: RedBoxController;
 
   private obstacles!: ObstaclesController;
 
@@ -119,22 +109,30 @@ export default class CoOpLevel extends Phaser.Scene {
     brownBoxToRight.moveHorizontally();
     brownBoxToRight.setData("type", "brownBox");
     this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
+  }
 
-    // case "brownBoxToLeft": {
-    //   const brownBoxToRight = new BrownBoxController(
-    //     this,
-    //     x,
-    //     y,
-    //     "brownBox",
-    //     { isStatic: false },
-    //     "left"
-    //   );
-    //   brownBoxToRight.moveHorizontallyLeft();
-    //   brownBoxToRight.setData("type", "brownBox");
-    //   this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
+  private createBrownBoxLeft() {
+    const brownBoxToLeft = new BrownBoxController(
+      this,
+      1930,
+      40,
+      "brownBox",
+      { isStatic: false },
+      "left"
+    );
+    brownBoxToLeft.moveHorizontallyLeft();
+    brownBoxToLeft.setData("type", "brownBox");
+    this.brownBoxGroup.add(brownBoxToLeft);
+  }
 
-    //   break;
-    // }
+  private createGreenBox() {
+    const greenBox = this.matter.add
+      .sprite(759, 40, "greenBoxes")
+      .setFixedRotation();
+
+    this.greenBoxes.push(
+      new GreenBoxController2(this, greenBox, this.obstacles)
+    );
   }
 
   create() {
@@ -142,8 +140,6 @@ export default class CoOpLevel extends Phaser.Scene {
     this.platformGroup = this.add.group();
     this.brownBoxGroup = this.add.group();
     this.greenBoxGroup = this.add.group();
-
-    this.createBrownBox();
 
     events.on("powerCoOp-collected", () => {
       this.isPowerCoOpCollected = true;
@@ -182,95 +178,20 @@ export default class CoOpLevel extends Phaser.Scene {
     objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
       switch (name) {
-        case "greenBox1": {
-          this.greenBox1 = this.matter.add
-            .sprite(x, y - (height + 0.5), "greenBoxes")
-            .setFixedRotation();
+        // case "redBox3": {
+        //   this.redBox3 = this.matter.add
+        //     .sprite(x, y - (height + 0.5), "redBoxes")
+        //     .setFixedRotation();
 
-          this.greenBoxController1 = new GreenBoxController2(
-            this,
-            this.greenBox1,
-            this.obstacles,
-            "greenBox1"
-          );
+        //   this.redBoxController3 = new RedBoxController(
+        //     this,
+        //     this.redBox3,
+        //     this.obstacles,
+        //     "redBox3"
+        //   );
 
-          break;
-        }
-
-        case "greenBox2": {
-          this.greenBox2 = this.matter.add
-            .sprite(x, y - (height + 0.5), "greenBoxes")
-            .setFixedRotation();
-
-          this.greenBoxController2 = new GreenBoxController2(
-            this,
-            this.greenBox2,
-            this.obstacles,
-            "greenBox2"
-          );
-
-          break;
-        }
-
-        case "greenBox3": {
-          this.greenBox3 = this.matter.add
-            .sprite(x, y - (height + 0.5), "greenBoxes")
-            .setFixedRotation();
-
-          this.greenBoxController3 = new GreenBoxController2(
-            this,
-            this.greenBox3,
-            this.obstacles,
-            "greenBox3"
-          );
-
-          break;
-        }
-
-        case "redBox1": {
-          this.redBox1 = this.matter.add
-            .sprite(x, y - (height + 0.5), "redBoxes")
-            .setFixedRotation();
-
-          this.redBoxController1 = new RedBoxController(
-            this,
-            this.redBox1,
-            this.obstacles,
-            "redBox1"
-          );
-
-          break;
-        }
-
-        case "redBox2": {
-          this.redBox2 = this.matter.add
-            .sprite(x, y - (height + 0.5), "redBoxes")
-            .setFixedRotation();
-
-          this.redBoxController2 = new RedBoxController(
-            this,
-            this.redBox2,
-            this.obstacles,
-            "redBox2"
-          );
-
-          break;
-        }
-
-        case "redBox3": {
-          this.redBox3 = this.matter.add
-            .sprite(x, y - (height + 0.5), "redBoxes")
-            .setFixedRotation();
-
-          this.redBoxController3 = new RedBoxController(
-            this,
-            this.redBox3,
-            this.obstacles,
-            "redBox3"
-          );
-
-          break;
-        }
+        //   break;
+        // }
 
         case "player-spawn": {
           this.player = this.matter.add
@@ -410,35 +331,18 @@ export default class CoOpLevel extends Phaser.Scene {
 
     if (!this.isPowerCoOpCollected && this.frame % 100 == 0) {
       this.createBrownBox();
+      this.createBrownBoxLeft();
     }
-    console.log({ frame: this.frame });
+    if (this.isPowerCoOpCollected && this.frame % 500 == 0) {
+      this.createGreenBox();
+    }
 
     if (this.playerController) {
       this.playerController.update(dt);
     }
 
-    if (this.isPowerCoOpCollected && this.greenBoxController1) {
-      this.greenBoxController1.update(dt);
-    }
-
-    if (this.isPowerCoOpCollected && this.greenBoxController2) {
-      this.greenBoxController2.update(dt);
-    }
-
-    if (this.isPowerCoOpCollected && this.greenBoxController3) {
-      this.greenBoxController3.update(dt);
-    }
-
-    if (this.isPowerCoOpCollected && this.redBoxController1) {
-      this.redBoxController1.update(dt);
-    }
-
-    if (this.isPowerCoOpCollected && this.redBoxController2) {
-      this.redBoxController2.update(dt);
-    }
-
-    if (this.isPowerCoOpCollected && this.redBoxController3) {
-      this.redBoxController3.update(dt);
+    if (true) {
+      this.greenBoxes.forEach((greenBox) => greenBox.update(dt));
     }
 
     this.powerCoOp.forEach((powerCoOp) => powerCoOp.update(dt));
