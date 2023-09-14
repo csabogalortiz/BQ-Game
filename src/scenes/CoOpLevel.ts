@@ -27,11 +27,13 @@ export default class CoOpLevel extends Phaser.Scene {
 
     private greenBox1?: Phaser.Physics.Matter.Sprite;
     private greenBox2?: Phaser.Physics.Matter.Sprite;
+    private greenBox3?: Phaser.Physics.Matter.Sprite;
 
 
 
     private greenBoxController1?: GreenBoxController2
     private greenBoxController2?: GreenBoxController2
+    private greenBoxController3?: GreenBoxController2
 
 
 
@@ -187,6 +189,25 @@ const fonts = new WebFontFile(this.load, "Press Start 2P")
                             this.greenBoxController2 = new GreenBoxController2 (
                                 this,
                                 this.greenBox2,
+                                this.obstacles
+                                )
+    
+        
+                                
+                            break
+    
+                        }
+
+
+                    case 'greenBox3':
+                        {
+                            
+                            this.greenBox3 = this.matter.add.sprite(x, y- (height + 0.5), 'greenBoxes')
+                                .setFixedRotation();
+                    
+                            this.greenBoxController3 = new GreenBoxController2 (
+                                this,
+                                this.greenBox3,
                                 this.obstacles
                                 )
     
@@ -459,18 +480,10 @@ update(t: number, dt: number) {
     }
 
 
-
-    if (this.isPowerCoOpCollected&&this.redBoxController1) {
-        this.redBoxController1.update(dt)
+    if (this.isPowerCoOpCollected&&this.greenBoxController3) {
+        this.greenBoxController3.update(dt)
     }
 
-    if (this.isPowerCoOpCollected&&this.redBoxController2) {
-        this.redBoxController2.update(dt)
-    }
-
-    if (this.isPowerCoOpCollected&&this.redBoxController3) {
-        this.redBoxController3.update(dt)
-    }
 
 
 

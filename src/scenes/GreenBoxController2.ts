@@ -76,10 +76,15 @@ export default class GreenBoxController2 {
                 return
             }
 
-            if (!this.hasCollidedWithWinn && this.obstacles.is('winn', body)) {
-                this.stateMachine.setState('winn-hit');
-                this.hasCollidedWithWinn = true; // Set the flag to true
-                return;
+            const hackIsInWinnableArea = () =>{
+                return this.sprite.x < 1050 && this.sprite.y > 900
+                }
+
+                
+                if (!this.hasCollidedWithWinn && hackIsInWinnableArea ( )) {
+                    this.stateMachine.setState('winn-hit');
+                    this.hasCollidedWithWinn = true; // Set the flag to true
+                    return
             }
 
         
