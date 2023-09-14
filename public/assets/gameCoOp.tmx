@@ -385,7 +385,6 @@
   <object id="45" name="brownBoxToRight" x="705.079" y="273.333" width="71.4875" height="63.2389"/>
   <object id="48" name="brownBoxToRight" x="1111.88" y="355.682" width="71.4875" height="63.2389"/>
   <object id="49" name="brownBoxToRight" x="907.113" y="277.904" width="71.4875" height="63.2389"/>
-  <object id="53" name="verde" x="1096.08" y="45.098" width="66.6667" height="143.137"/>
   <object id="54" name="spikes" x="1812.96" y="978.431" width="1036.77" height="68.6275"/>
   <object id="57" name="winn" x="423.245" y="978.916" width="624.221" height="68.6275"/>
   <object id="58" name="greenBox3" x="2035.5" y="423.105" width="71.4875" height="63.2389"/>

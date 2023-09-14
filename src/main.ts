@@ -13,10 +13,15 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT, // Use the FIT scale mode
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
+
+  // fps:{
+  //   target:60,
+  // },
   physics: {
     default: 'matter',
     matter: {
       debug:false,
+      
       // este hay que quitarlo es el que muestra las cajas
     },
   },

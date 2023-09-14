@@ -1,7 +1,3 @@
-# 🚨 NOTE 🚨
-**October 2022**
-
-This template has been deprecated in favor of a more modern version using Vite. You can find it here: https://github.com/ourcade/phaser3-typescript-vite-template
 
 ---
 
