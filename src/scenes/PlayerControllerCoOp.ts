@@ -19,6 +19,12 @@ export default class PlayerControllerCoOp extends PlayerController {
     events.emit("compliance-changed", this.compliance);
   }
 
+  private decreaseCompliance(amount: number) {
+    this.compliance = Math.max(0, this.compliance - amount);
+    // You can also update any UI elements related to compliance here
+    events.emit("compliance-changed", this.compliance);
+  }
+
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
@@ -29,6 +35,10 @@ export default class PlayerControllerCoOp extends PlayerController {
 
     events.on("increase-compliance", (amount: number) => {
       this.increaseCompliance(amount);
+    });
+
+    events.on("decrease-compliance", (amount: number) => {
+      this.decreaseCompliance(amount);
     });
 
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
