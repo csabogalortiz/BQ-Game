@@ -10,6 +10,7 @@ export default class GreenBoxController2 {
   private obstacles: ObstaclesController;
   private hasPowerCoOpCollected = true;
   private hasCollidedWithWinn = false;
+  private hasCollidedWithLoose = false;
 
   private stateMachine: StateMachine;
 
@@ -63,14 +64,17 @@ export default class GreenBoxController2 {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
-      if (this.obstacles.is("spikes", body)) {
+      const looseArea = this.sprite.x > 1685 && this.sprite.y > 900;
+
+      if (!this.hasCollidedWithLoose && looseArea) {
         this.stateMachine.setState("spike-hit");
+        this.hasCollidedWithLoose = true; // Set the flag to true
         return;
       }
 
-      const hackIsInWinnableArea = this.sprite.x < 1050 && this.sprite.y > 900;
+      const winnableArea = this.sprite.x < 1050 && this.sprite.y > 900;
 
-      if (!this.hasCollidedWithWinn && hackIsInWinnableArea) {
+      if (!this.hasCollidedWithWinn && winnableArea) {
         this.stateMachine.setState("winn-hit");
         this.hasCollidedWithWinn = true; // Set the flag to true
         return;

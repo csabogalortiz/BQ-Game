@@ -124,10 +124,10 @@ export default class CoOpLevel extends Phaser.Scene {
     brownBoxToLeft.setData("type", "brownBox");
     this.brownBoxGroup.add(brownBoxToLeft);
   }
-
   private createGreenBox() {
+    const randomX = Phaser.Math.RND.pick([759, 1700]); // Randomly choose between 759 and 1400
     const greenBox = this.matter.add
-      .sprite(759, 40, "greenBoxes")
+      .sprite(randomX, 40, "greenBoxes")
       .setFixedRotation();
 
     this.greenBoxes.push(
@@ -333,7 +333,7 @@ export default class CoOpLevel extends Phaser.Scene {
       this.createBrownBox();
       this.createBrownBoxLeft();
     }
-    if (this.isPowerCoOpCollected && this.frame % 500 == 0) {
+    if (this.isPowerCoOpCollected && this.frame % 200 == 0) {
       this.createGreenBox();
     }
 
