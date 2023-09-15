@@ -197,8 +197,13 @@ export default class GreenBoxController2 {
         );
         this.sprite.setTint(color);
       },
+
+      onComplete: () => {
+        // Increase compliance by 5%
+        events.emit("increase-compliance", 5); // Notify the player controller to increase compliance
+        this.stateMachine.setState("still");
+      },
     });
-    this.stateMachine.setState("still");
     return;
   }
 

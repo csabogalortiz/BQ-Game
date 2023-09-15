@@ -13,6 +13,11 @@ export default class PlayerControllerCoOp extends PlayerController {
   public obstacles!: ObstaclesController;
   public compliance = 10;
   public carbon = 99;
+  private increaseCompliance(amount: number) {
+    this.compliance = Math.min(100, this.compliance + amount);
+    // You can also update any UI elements related to compliance here
+    events.emit("compliance-changed", this.compliance);
+  }
 
   constructor(
     scene: Phaser.Scene,
@@ -21,6 +26,10 @@ export default class PlayerControllerCoOp extends PlayerController {
     obstacles: ObstaclesController
   ) {
     super(scene, sprite, cursors, obstacles);
+
+    events.on("increase-compliance", (amount: number) => {
+      this.increaseCompliance(amount);
+    });
 
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
