@@ -78,7 +78,6 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
       alpha: 0, // Fade out by reducing alpha to 0
       duration: 1000, // Adjust the duration as needed
       onComplete: () => {
-        // Destroy the box after it fades out
         this.destroy();
       },
     });

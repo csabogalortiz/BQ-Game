@@ -365,37 +365,8 @@ export default class PlayerController {
       this.sprite.setVelocityY(-20);
     }
 
-    // this.compliance = Phaser.Math.Clamp(this.compliance + 10, 0, 100)
-    // events.emit('compliance-changed', this.compliance)
-
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0x454cff);
-
-    // ---------------------------------------------TWEENS DE REVISION ---------------------------------------------------
-    // this.scene.tweens.addCounter({
-    //     from: 0,
-    //     to: 100,
-    //     duration: 100,
-    //     repeat: 2,
-    //     yoyo: true,
-    //     ease: Phaser.Math.Easing.Sine.InOut,
-    //     onUpdate: tween => {
-    //         const value = tween.getValue()
-    //         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-    //             startColor,
-    //             endColor,
-    //             100,
-    //             value
-    //         )
-    //         const color = Phaser.Display.Color.GetColor(
-    //             colorObject.r,
-    //             colorObject.g,
-    //             colorObject.b,
-
-    //         )
-    //         this.sprite.setTint(color)
-    //     }
-    // })
 
     this.stateMachine.setState("idle");
   }
@@ -408,15 +379,11 @@ export default class PlayerController {
           events.removeListener("trucks-stomped", onTrucksStomped);
         }
       };
-
       // Add the event listener
       events.addListener("trucks-stomped", onTrucksStomped);
-
       this.sprite.setVelocityY(-12);
-
       const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
       const endColor = Phaser.Display.Color.ValueToColor(0x58e21e);
-
       // Add the tweens
       this.scene.tweens.addCounter({
         from: 0,
@@ -444,13 +411,11 @@ export default class PlayerController {
 
       // Emit the event
       events.emit("trucks-stomped", this.lastTrucks);
-
       // Change the state and update compliance and carbon
       this.stateMachine.setState("idle");
       this.setCompliance(this.compliance + 23);
-      const carbonDecreaseAmount = 23; // Decrease the carbon by 23 units
+      const carbonDecreaseAmount = 23; //
       this.setCarbon(this.carbon - carbonDecreaseAmount);
-
       // Clean up the lastTrucks reference
       this.lastTrucks = undefined;
     } else {

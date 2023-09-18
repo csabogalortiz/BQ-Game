@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import StateMachine from "~/statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
 import ObstaclesController from "./ObstaclesController";
+type MoveDirection = "left" | "right";
 
 export default class GreenBoxController2 {
   private scene: Phaser.Scene;
@@ -20,7 +21,8 @@ export default class GreenBoxController2 {
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
-    obstacles: ObstaclesController
+    obstacles: ObstaclesController,
+    moveDirection: MoveDirection = "left"
   ) {
     this.body = sprite.body as MatterJS.BodyType;
     this.scene = scene;
@@ -32,9 +34,6 @@ export default class GreenBoxController2 {
     this.stateMachine = new StateMachine(this, "greenBox");
 
     this.stateMachine
-      .addState("idle", {
-        onEnter: this.idleOnEnter,
-      })
       .addState("move-left", {
         onEnter: this.moveLeftOnEnter,
         onUpdate: this.moveLeftOnUpdate,
@@ -55,10 +54,13 @@ export default class GreenBoxController2 {
 
       .addState("still", {
         onEnter: this.stillOnEnter,
-      })
+      });
 
-      .setState("idle");
-
+    if (moveDirection == "left") {
+      this.stateMachine.setState("move-left");
+    } else {
+      this.stateMachine.setState("move-right");
+    }
     events.on("powerCoOp-collected", this.handlePowerCoOpCollected, this);
 
     // el set state to set the initial state of the state machine.
@@ -111,16 +113,6 @@ export default class GreenBoxController2 {
     }
   }
 
-  private idleOnEnter() {
-    this.sprite.play("idle");
-    const r = Phaser.Math.Between(1, 1000);
-    if (r < 50) {
-      this.stateMachine.setState("move-left");
-    } else {
-      this.stateMachine.setState("move-right");
-    }
-  }
-
   private moveLeftOnEnter() {
     this.moveTime = 0;
     this.sprite.play("move-left");
@@ -148,7 +140,11 @@ export default class GreenBoxController2 {
   }
 
   private stillOnEnter() {
-    this.sprite.setVelocityX(0); // Stop horizontal movement
+    this.sprite.setVelocityX(0);
+
+    setTimeout(() => {
+      this.sprite.setY(3000);
+    }, 5000);
   }
 
   // **** Spike
@@ -230,11 +226,6 @@ export default class GreenBoxController2 {
   }
 
   private createAnimations() {
-    this.sprite.anims.create({
-      key: "idle",
-      frames: [{ key: "greenBoxes", frame: "greenBox.png" }],
-    });
-
     this.sprite.anims.create({
       key: "move-left",
       frames: [{ key: "greenBoxes", frame: "greenBox.png" }],

@@ -13,7 +13,7 @@ export default class CarbonBar {
   }
 
   private graphics: Phaser.GameObjects.Graphics;
-  private lastCarbon: number = 0;
+  private lastCarbon: number = 99;
   private scene: Phaser.Scene;
   private carbonText?: Phaser.GameObjects.Text;
 
@@ -62,7 +62,7 @@ export default class CarbonBar {
     tweens.addCounter({
       from: this.lastCarbon,
       to: value,
-      duration: 200,
+      duration: 10,
       ease: Phaser.Math.Easing.Sine.InOut,
       onUpdate: (tween) => {
         const updatedValue = tween.getValue();

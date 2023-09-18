@@ -41,6 +41,8 @@ export default class CoOpLevel extends Phaser.Scene {
 
   private frame = 0;
 
+  private greenBoxCounter = 0;
+
   constructor() {
     super("coOpLevel");
   }
@@ -125,16 +127,15 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBoxGroup.add(brownBoxToLeft);
   }
   private createGreenBox() {
-    if (this.greenBoxes.length >= 10) {
-      return; // Don't create more green boxes
-    }
-    const randomX = Phaser.Math.RND.pick([759, 1700]); // Randomly choose between 759 and 1400
+    const randomX = Phaser.Math.RND.pick([900, 1600]); // Randomly choose between 759 and 1400
     const greenBox = this.matter.add
       .sprite(randomX, 40, "greenBoxes")
       .setFixedRotation();
 
+    const moveDirection = randomX > 1550 ? "left" : "right";
+
     this.greenBoxes.push(
-      new GreenBoxController2(this, greenBox, this.obstacles)
+      new GreenBoxController2(this, greenBox, this.obstacles, moveDirection)
     );
   }
 
@@ -322,7 +323,11 @@ export default class CoOpLevel extends Phaser.Scene {
       this.createBrownBoxLeft();
     }
     if (this.isPowerCoOpCollected && this.frame % 200 == 0) {
-      this.createGreenBox();
+      if (this.greenBoxCounter < 10) {
+        this.createGreenBox();
+
+        this.greenBoxCounter++;
+      }
     }
 
     if (this.playerController) {

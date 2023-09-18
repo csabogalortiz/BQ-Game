@@ -30,20 +30,14 @@ export default class StartScene extends Phaser.Scene {
 
     // Send the background image to the back layer
     backgroundImage.setDepth(-1);
-    //     this.add.text(width * 0.5, height * 0.3, 'Ready? Press Start', {
-    //         font: '900 54px Press Start 2P',
-    //         color: '#FFFFFF'  // Dark blue color
-    // })
-
-    // .setOrigin (0.5)
 
     const button = this.add
       .image(width * 0.5, height * 0.5, "button")
       .setInteractive({ useHandCursor: true }) // Enable the hand cursor on hover
       .on("pointerup", () => {
-        // this.scene.start('farmLevel');
-        // this.scene.start('game');
-        this.scene.start("coOpLevel");
+        this.scene.start("farmLevel");
+        // this.scene.start("game");
+        // this.scene.start("coOpLevel");
       });
   }
 }

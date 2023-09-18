@@ -87,7 +87,6 @@ export default class Game extends Phaser.Scene {
 
     //  The objects property within this layer is an array that holds various objects placed on the map.
     // The forEach method is used to iterate over each object within this array and execute a callback function for each object.
-
     objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
       switch (name) {
@@ -183,6 +182,7 @@ export default class Game extends Phaser.Scene {
     if (this.playerController) {
       this.playerController.update(dt);
     }
+
     this.trucks.forEach((trucks) => trucks.update(dt));
   }
 }
