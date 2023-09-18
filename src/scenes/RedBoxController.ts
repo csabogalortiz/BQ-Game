@@ -5,35 +5,31 @@ import ObstaclesController from "./ObstaclesController";
 
 export default class RedBoxController2 {
   private scene: Phaser.Scene;
-  private sprite: Phaser.Physics.Matter.Sprite;
+  public sprite: Phaser.Physics.Matter.Sprite;
   private moveTime = 0;
   private obstacles: ObstaclesController;
-  private hasPowerCoOpCollected = false;
+  private hasPowerCoOpCollected = true;
   private hasCollidedWithWinn = false;
-  private id: string;
+  private hasCollidedWithLoose = false;
+  private isInContactWithGreenBox = false;
+  public hasCollided: boolean = false;
 
   private stateMachine: StateMachine;
+  private body: MatterJS.BodyType;
 
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
-    obstacles: ObstaclesController,
-    id: string
+    obstacles: ObstaclesController
   ) {
+    this.body = sprite.body as MatterJS.BodyType;
     this.scene = scene;
     this.sprite = sprite;
-
     this.obstacles = obstacles;
-
-    this.id = id;
-    this.sprite.setVisible(false);
+    this.isInContactWithGreenBox = false;
 
     this.createAnimations();
-    this.stateMachine = new StateMachine(this, this.id);
-
-    // The this keyword refers to the current instance of the Hero class.
-    // By passing this as the first argument to the StateMachine constructor,
-    // you are providing the current instance of the Hero class as the context object.
+    this.stateMachine = new StateMachine(this, "redBox");
 
     this.stateMachine
       .addState("idle", {
@@ -72,16 +68,17 @@ export default class RedBoxController2 {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
-      if ((this, obstacles.is("spikes", body))) {
+      const looseArea = this.sprite.x > 1685 && this.sprite.y > 800;
+
+      if (!this.hasCollidedWithLoose && looseArea) {
         this.stateMachine.setState("spike-hit");
+        this.hasCollidedWithLoose = true; // Set the flag to true
         return;
       }
 
-      const hackIsInWinnableArea = () => {
-        return this.sprite.x < 1050 && this.sprite.y > 900;
-      };
+      const winnableArea = this.sprite.x < 1050 && this.sprite.y > 800;
 
-      if (!this.hasCollidedWithWinn && hackIsInWinnableArea()) {
+      if (!this.hasCollidedWithWinn && winnableArea) {
         this.stateMachine.setState("winn-hit");
         this.hasCollidedWithWinn = true; // Set the flag to true
         return;
@@ -98,8 +95,19 @@ export default class RedBoxController2 {
   }
 
   update(dt: number) {
-    if (this.hasPowerCoOpCollected) {
-      this.stateMachine.update(dt);
+    this.stateMachine.update(dt);
+  }
+  getBody(): MatterJS.BodyType {
+    return this.body;
+  }
+
+  public invertDirection() {
+    if (this.stateMachine.isCurrentState("move-left")) {
+      this.stateMachine.setState("move-right");
+      this.sprite.setX(this.sprite.x + 10);
+    } else if (this.stateMachine.isCurrentState("move-right")) {
+      this.stateMachine.setState("move-left");
+      this.sprite.setX(this.sprite.x - 10);
     }
   }
 
@@ -121,7 +129,7 @@ export default class RedBoxController2 {
   private moveLeftOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(-1);
-    if (this.moveTime > 1000) {
+    if (this.moveTime > 5000) {
       this.stateMachine.setState("move-right");
     }
   }
@@ -134,7 +142,7 @@ export default class RedBoxController2 {
   private moveRightOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(1);
-    if (this.moveTime > 4000) {
+    if (this.moveTime > 5000) {
       this.stateMachine.setState("move-left");
     }
   }
@@ -173,8 +181,13 @@ export default class RedBoxController2 {
         );
         this.sprite.setTint(color);
       },
+
+      onComplete: () => {
+        // Decrease compliance by 2%
+        events.emit("decrease-compliance", 2); // Notify the player controller to decrease compliance
+        this.stateMachine.setState("still");
+      },
     });
-    this.stateMachine.setState("idle");
   }
 
   private winnHitOnEnter() {
@@ -206,8 +219,13 @@ export default class RedBoxController2 {
         );
         this.sprite.setTint(color);
       },
+
+      onComplete: () => {
+        // Increase compliance by 5%
+        events.emit("increase-compliance", 5); // Notify the player controller to increase compliance
+        this.stateMachine.setState("still");
+      },
     });
-    this.stateMachine.setState("still");
     return;
   }
 

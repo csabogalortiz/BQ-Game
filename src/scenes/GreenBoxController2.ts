@@ -5,24 +5,28 @@ import ObstaclesController from "./ObstaclesController";
 
 export default class GreenBoxController2 {
   private scene: Phaser.Scene;
-  private sprite: Phaser.Physics.Matter.Sprite;
+  public sprite: Phaser.Physics.Matter.Sprite;
   private moveTime = 0;
   private obstacles: ObstaclesController;
   private hasPowerCoOpCollected = true;
   private hasCollidedWithWinn = false;
   private hasCollidedWithLoose = false;
+  private isInContactWithGreenBox = false;
+  public hasCollided: boolean = false;
 
   private stateMachine: StateMachine;
+  private body: MatterJS.BodyType;
 
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
     obstacles: ObstaclesController
   ) {
+    this.body = sprite.body as MatterJS.BodyType;
     this.scene = scene;
     this.sprite = sprite;
-
     this.obstacles = obstacles;
+    this.isInContactWithGreenBox = false;
 
     this.createAnimations();
     this.stateMachine = new StateMachine(this, "greenBox");
@@ -64,7 +68,7 @@ export default class GreenBoxController2 {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
-      const looseArea = this.sprite.x > 1685 && this.sprite.y > 900;
+      const looseArea = this.sprite.x > 1685 && this.sprite.y > 800;
 
       if (!this.hasCollidedWithLoose && looseArea) {
         this.stateMachine.setState("spike-hit");
@@ -72,7 +76,7 @@ export default class GreenBoxController2 {
         return;
       }
 
-      const winnableArea = this.sprite.x < 1050 && this.sprite.y > 900;
+      const winnableArea = this.sprite.x < 1050 && this.sprite.y > 800;
 
       if (!this.hasCollidedWithWinn && winnableArea) {
         this.stateMachine.setState("winn-hit");
@@ -93,6 +97,19 @@ export default class GreenBoxController2 {
   update(dt: number) {
     this.stateMachine.update(dt);
   }
+  getBody(): MatterJS.BodyType {
+    return this.body;
+  }
+
+  public invertDirection() {
+    if (this.stateMachine.isCurrentState("move-left")) {
+      this.stateMachine.setState("move-right");
+      this.sprite.setX(this.sprite.x + 10);
+    } else if (this.stateMachine.isCurrentState("move-right")) {
+      this.stateMachine.setState("move-left");
+      this.sprite.setX(this.sprite.x - 10);
+    }
+  }
 
   private idleOnEnter() {
     this.sprite.play("idle");
@@ -112,7 +129,7 @@ export default class GreenBoxController2 {
   private moveLeftOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(-1);
-    if (this.moveTime > 1000) {
+    if (this.moveTime > 5000) {
       this.stateMachine.setState("move-right");
     }
   }
@@ -125,7 +142,7 @@ export default class GreenBoxController2 {
   private moveRightOnUpdate(dt: number) {
     this.moveTime += dt;
     this.sprite.setVelocityX(1);
-    if (this.moveTime > 6000) {
+    if (this.moveTime > 5000) {
       this.stateMachine.setState("move-left");
     }
   }

@@ -125,6 +125,9 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBoxGroup.add(brownBoxToLeft);
   }
   private createGreenBox() {
+    if (this.greenBoxes.length >= 10) {
+      return; // Don't create more green boxes
+    }
     const randomX = Phaser.Math.RND.pick([759, 1700]); // Randomly choose between 759 and 1400
     const greenBox = this.matter.add
       .sprite(randomX, 40, "greenBoxes")
@@ -178,21 +181,6 @@ export default class CoOpLevel extends Phaser.Scene {
     objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
       switch (name) {
-        // case "redBox3": {
-        //   this.redBox3 = this.matter.add
-        //     .sprite(x, y - (height + 0.5), "redBoxes")
-        //     .setFixedRotation();
-
-        //   this.redBoxController3 = new RedBoxController(
-        //     this,
-        //     this.redBox3,
-        //     this.obstacles,
-        //     "redBox3"
-        //   );
-
-        //   break;
-        // }
-
         case "player-spawn": {
           this.player = this.matter.add
             .sprite(x, y - (height + 0.5), "player")
@@ -344,6 +332,22 @@ export default class CoOpLevel extends Phaser.Scene {
     if (true) {
       this.greenBoxes.forEach((greenBox) => greenBox.update(dt));
     }
+
+    this.greenBoxes.forEach((greenBox) => {
+      this.greenBoxes.forEach((otherGreenBox) => {
+        if (greenBox !== otherGreenBox) {
+          if (
+            Phaser.Geom.Intersects.RectangleToRectangle(
+              greenBox.sprite.getBounds(),
+              otherGreenBox.sprite.getBounds()
+            )
+          ) {
+            greenBox.invertDirection();
+            otherGreenBox.invertDirection();
+          }
+        }
+      });
+    });
 
     this.powerCoOp.forEach((powerCoOp) => powerCoOp.update(dt));
 
