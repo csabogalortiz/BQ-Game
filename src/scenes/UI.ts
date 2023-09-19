@@ -46,7 +46,7 @@ export default class UI extends Phaser.Scene {
     // Graphics
 
     this.graphics = this.add.graphics();
-    this.setComplianceBar(10);
+    this.setComplianceBar(0);
 
     this.dataImage = this.add.image(300, 55, "dataImage");
 
@@ -92,7 +92,8 @@ export default class UI extends Phaser.Scene {
 
     // Display the percentage value
     if (this.complianceLabel) {
-      this.complianceLabel.text = `Compliance: ${percent}%`;
+      console.log(percent);
+      // this.complianceLabel.text = `Compliance:  ${parseInt(percent)}%`;
     }
   }
 

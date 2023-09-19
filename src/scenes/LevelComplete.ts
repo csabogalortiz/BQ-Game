@@ -59,7 +59,7 @@ export default class LevelComplete extends Phaser.Scene {
       .sprite(width * 0.55, height * 0.5, "phaase_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start("coOpLevel");
+        this.scene.start("victoryScreen");
       });
   }
 }
