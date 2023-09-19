@@ -36,8 +36,8 @@ export default class StartScene extends Phaser.Scene {
       .setInteractive({ useHandCursor: true }) // Enable the hand cursor on hover
       .on("pointerup", () => {
         // this.scene.start("farmLevel");
-        // this.scene.start("game");
-        this.scene.start("coOpLevel");
+        this.scene.start("game");
+        // this.scene.start("coOpLevel");
       });
   }
 }

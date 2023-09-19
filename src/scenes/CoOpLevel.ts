@@ -376,6 +376,6 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBox.forEach((brownBox) => brownBox.update(dt));
 
     this.platform.forEach((platform) => platform.update(dt));
-    console.log(this.game.config.levelData[1]);
+    // console.log(this.game.config.levelData[1]);
   }
 }

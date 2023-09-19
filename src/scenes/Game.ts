@@ -100,7 +100,8 @@ export default class Game extends Phaser.Scene {
             this,
             this.player,
             this.cursors,
-            this.obstacles
+            this.obstacles,
+            this.game.config
           );
 
           this.cameras.main.scrollY = 50;
@@ -184,5 +185,6 @@ export default class Game extends Phaser.Scene {
     }
 
     this.trucks.forEach((trucks) => trucks.update(dt));
+    // console.log(this.game.config.levelData[2]);
   }
 }

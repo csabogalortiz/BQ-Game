@@ -12,10 +12,6 @@ export default class TrucksController {
 
   private isStomped: boolean = false;
 
-  //   private obstacles: ObstaclesController
-  //   private cursors: CursorKeys
-  //   private player: PlayerController
-
   //   Constructor -----
 
   constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite) {

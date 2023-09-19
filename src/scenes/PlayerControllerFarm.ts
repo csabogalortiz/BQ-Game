@@ -16,7 +16,6 @@ export default class PlayerControllerFarm extends PlayerController {
   public lastTrucks?: Phaser.Physics.Matter.Sprite;
   public stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> = new Map();
   private isSurprised = false;
-  private config: any;
 
   constructor(
     scene: Phaser.Scene,
@@ -25,9 +24,7 @@ export default class PlayerControllerFarm extends PlayerController {
     obstacles: ObstaclesController,
     config: any
   ) {
-    super(scene, sprite, cursors, obstacles);
-
-    this.config = config;
+    super(scene, sprite, cursors, obstacles, config);
 
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;

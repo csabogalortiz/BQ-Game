@@ -178,6 +178,7 @@ export default class PlayerController {
       switch (type) {
         case "data": {
           events.emit("data-collected");
+          this.config.levelData[2].dataCollected++;
           sprite.destroy();
           break;
         }
@@ -187,15 +188,6 @@ export default class PlayerController {
           sprite.destroy();
           break;
         }
-
-        // case 'compliance':
-        //     {
-        //         const value = sprite.getData('compliancePoints') ?? 10
-        //         this.compliance += value
-        //         events.emit('compliance-changed', this.compliance)
-        //         sprite.destroy()
-        //         break
-        //     }
       }
     });
   }
@@ -417,6 +409,7 @@ export default class PlayerController {
       // Change the state and update compliance and carbon
       this.stateMachine.setState("idle");
       this.setCompliance(this.compliance + 23);
+      this.config.levelData[2].compliance += 23;
       const carbonDecreaseAmount = 23; //
       this.setCarbon(this.carbon - carbonDecreaseAmount);
       // Clean up the lastTrucks reference
