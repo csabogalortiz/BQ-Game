@@ -11,7 +11,7 @@ export default class PlayerControllerFarm extends PlayerController {
   public cursors!: CursorKeys;
   public stateMachine!: StateMachine;
   public obstacles!: ObstaclesController;
-  public compliance = 10;
+  public compliance = 0;
   public carbon = 99;
   public lastTrucks?: Phaser.Physics.Matter.Sprite;
   public stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> = new Map();
@@ -258,15 +258,6 @@ export default class PlayerControllerFarm extends PlayerController {
           gameObject.destroy();
           break;
         }
-
-        // case 'compliance':
-        //     {
-        //         const value = sprite.getData('compliancePoints') ?? 10
-        //         this.compliance += value
-        //         events.emit('compliance-changed', this.compliance)
-        //         sprite.destroy()
-        //         break
-        //     }
       }
     });
   }

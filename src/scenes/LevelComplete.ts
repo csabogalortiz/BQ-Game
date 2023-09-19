@@ -9,7 +9,7 @@ export default class LevelComplete extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("phase_complete", "./assets/phase_complete.png");
+    this.load.image("farm_complete", "./assets/farm_complete.png");
     this.load.image("phaase_button", "./assets/phase_button.png");
     this.load.atlas(
       "player",
@@ -25,7 +25,7 @@ export default class LevelComplete extends Phaser.Scene {
     const backgroundImage = this.add.sprite(
       width * 0.5,
       height * 0.5,
-      "phase_complete"
+      "farm_complete"
     );
 
     // Set the size of the background image to cover the entire camera viewport
@@ -56,10 +56,10 @@ export default class LevelComplete extends Phaser.Scene {
     // Boton!
 
     const phaseButton = this.add
-      .sprite(width * 0.55, height * 0.5, "phaase_button")
+      .sprite(width * 0.55, height * 0.55, "phaase_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start("victoryScreen");
+        this.scene.start("coOpLevel");
       });
   }
 }

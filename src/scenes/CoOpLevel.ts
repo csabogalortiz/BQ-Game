@@ -18,9 +18,7 @@ export default class CoOpLevel extends Phaser.Scene {
 
   private greenBoxes: GreenBoxController2[] = [];
 
-  private redBoxes: GreenBoxController2[] = [];
-
-  private redBoxController?: RedBoxController;
+  private redBoxes: RedBoxController[] = [];
 
   private obstacles!: ObstaclesController;
 
@@ -38,13 +36,16 @@ export default class CoOpLevel extends Phaser.Scene {
   private brownBoxToLeftGroup!: Phaser.GameObjects.Group;
   private isPowerCoOpCollected = false;
   private greenBoxGroup!: Phaser.GameObjects.Group;
-
+  private redBoxGroup!: Phaser.GameObjects.Group;
+  public config: any;
   private frame = 0;
 
   private greenBoxCounter = 0;
+  private redBoxCounter = 0;
 
   constructor() {
     super("coOpLevel");
+    this.config = this.config;
   }
 
   init() {
@@ -58,6 +59,7 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBoxGroup = this.add.group();
     this.brownBoxToRightGroup = this.add.group();
     this.brownBoxToLeftGroup = this.add.group();
+
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.destroy();
     });
@@ -145,11 +147,31 @@ export default class CoOpLevel extends Phaser.Scene {
     );
   }
 
+  private createRedBox() {
+    const randomX = Phaser.Math.RND.pick([900, 1800]); // Randomly choose between 759 and 1400
+    const redBox = this.matter.add
+      .sprite(randomX, 40, "redBoxes")
+      .setFixedRotation();
+
+    const moveDirection = randomX > 1550 ? "left" : "right";
+
+    this.redBoxes.push(
+      new RedBoxController(
+        this,
+        redBox,
+        this.obstacles,
+        moveDirection,
+        this.game.config
+      )
+    );
+  }
+
   create() {
     this.scene.launch("ui");
     this.platformGroup = this.add.group();
     this.brownBoxGroup = this.add.group();
     this.greenBoxGroup = this.add.group();
+    this.redBoxGroup = this.add.group();
 
     // events.on("increase-compliance", (data) => {
     //   console.warn("data del coOp", data);
@@ -339,11 +361,15 @@ export default class CoOpLevel extends Phaser.Scene {
       this.createBrownBox();
       this.createBrownBoxLeft();
     }
-    if (this.isPowerCoOpCollected && this.frame % 200 == 0) {
-      if (this.greenBoxCounter < 10) {
+    if (this.isPowerCoOpCollected && this.frame % 380 == 0) {
+      if (this.greenBoxCounter < 20) {
         this.createGreenBox();
 
         this.greenBoxCounter++;
+      }
+      if (this.redBoxCounter < 15) {
+        this.createRedBox();
+        this.redBoxCounter++;
       }
     }
 
@@ -353,6 +379,7 @@ export default class CoOpLevel extends Phaser.Scene {
 
     if (true) {
       this.greenBoxes.forEach((greenBox) => greenBox.update(dt));
+      this.redBoxes.forEach((redBox) => redBox.update(dt));
     }
 
     this.greenBoxes.forEach((greenBox) => {
@@ -370,12 +397,26 @@ export default class CoOpLevel extends Phaser.Scene {
         }
       });
     });
+    this.redBoxes.forEach((redBox) => {
+      this.redBoxes.forEach((otherRedBox) => {
+        if (redBox !== otherRedBox) {
+          if (
+            Phaser.Geom.Intersects.RectangleToRectangle(
+              redBox.sprite.getBounds(),
+              otherRedBox.sprite.getBounds()
+            )
+          ) {
+            redBox.invertDirection();
+            otherRedBox.invertDirection();
+          }
+        }
+      });
+    });
 
     this.powerCoOp.forEach((powerCoOp) => powerCoOp.update(dt));
 
     this.brownBox.forEach((brownBox) => brownBox.update(dt));
 
     this.platform.forEach((platform) => platform.update(dt));
-    // console.log(this.game.config.levelData[1]);
   }
 }

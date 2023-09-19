@@ -18,6 +18,10 @@ export default class PlayerControllerCoOp extends PlayerController {
     this.compliance = Math.min(100, this.compliance + amount);
     // You can also update any UI elements related to compliance here
     events.emit("compliance-changed", this.compliance);
+    if (this.compliance >= 99) {
+      // Emit the "player-celebrate" event when compliance is 99 or more
+      events.emit("player-celebrate");
+    }
   }
 
   private decreaseCompliance(amount: number) {

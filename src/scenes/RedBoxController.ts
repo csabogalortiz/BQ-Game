@@ -2,8 +2,9 @@ import Phaser from "phaser";
 import StateMachine from "~/statemachine/StateMachine";
 import { sharedInstance as events } from "./EventCenter";
 import ObstaclesController from "./ObstaclesController";
+type MoveDirection = "left" | "right";
 
-export default class RedBoxController2 {
+export default class RedBoxController {
   private scene: Phaser.Scene;
   public sprite: Phaser.Physics.Matter.Sprite;
   private moveTime = 0;
@@ -13,6 +14,7 @@ export default class RedBoxController2 {
   private hasCollidedWithLoose = false;
   private isInContactWithGreenBox = false;
   public hasCollided: boolean = false;
+  public config: any;
 
   private stateMachine: StateMachine;
   private body: MatterJS.BodyType;
@@ -20,21 +22,21 @@ export default class RedBoxController2 {
   constructor(
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
-    obstacles: ObstaclesController
+    obstacles: ObstaclesController,
+    moveDirection: MoveDirection = "left",
+    config: any
   ) {
     this.body = sprite.body as MatterJS.BodyType;
     this.scene = scene;
     this.sprite = sprite;
     this.obstacles = obstacles;
     this.isInContactWithGreenBox = false;
+    this.config = config;
 
     this.createAnimations();
     this.stateMachine = new StateMachine(this, "redBox");
 
     this.stateMachine
-      .addState("idle", {
-        onEnter: this.idleOnEnter,
-      })
       .addState("move-left", {
         onEnter: this.moveLeftOnEnter,
         onUpdate: this.moveLeftOnUpdate,
@@ -55,10 +57,13 @@ export default class RedBoxController2 {
 
       .addState("still", {
         onEnter: this.stillOnEnter,
-      })
+      });
 
-      .setState("idle");
-
+    if (moveDirection == "left") {
+      this.stateMachine.setState("move-left");
+    } else {
+      this.stateMachine.setState("move-right");
+    }
     events.on("powerCoOp-collected", this.handlePowerCoOpCollected, this);
 
     // el set state to set the initial state of the state machine.
@@ -111,16 +116,6 @@ export default class RedBoxController2 {
     }
   }
 
-  private idleOnEnter() {
-    this.sprite.play("idle");
-    const r = Phaser.Math.Between(1, 1000);
-    if (r < 50) {
-      this.stateMachine.setState("move-left");
-    } else {
-      this.stateMachine.setState("move-right");
-    }
-  }
-
   private moveLeftOnEnter() {
     this.moveTime = 0;
     this.sprite.play("move-left");
@@ -148,14 +143,18 @@ export default class RedBoxController2 {
   }
 
   private stillOnEnter() {
-    this.sprite.setVelocityX(0); // Stop horizontal movement
+    this.sprite.setVelocityX(0);
+
+    setTimeout(() => {
+      this.sprite.setY(3000);
+    }, 5000);
   }
 
   // **** Spike
-  private spikeHitOnEnter() {
+  private winnHitOnEnter() {
     this.sprite.setVelocityY(-12);
 
-    console.log("spike-hit");
+    console.log("red-win-hit");
 
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
@@ -184,16 +183,17 @@ export default class RedBoxController2 {
 
       onComplete: () => {
         // Decrease compliance by 2%
-        events.emit("decrease-compliance", 2); // Notify the player controller to decrease compliance
+        events.emit("decrease-compliance", 0);
+        this.config.levelData[1].compliance -= 0; // Notify the player controller to decrease compliance
         this.stateMachine.setState("still");
       },
     });
   }
 
-  private winnHitOnEnter() {
+  private spikeHitOnEnter() {
     this.sprite.setVelocityY(-4);
 
-    console.log("winn-hit");
+    console.log("red-spike-hit");
 
     const startColor = Phaser.Display.Color.ValueToColor(0xfff800);
     const endColor = Phaser.Display.Color.ValueToColor(0x36c636);
@@ -222,7 +222,9 @@ export default class RedBoxController2 {
 
       onComplete: () => {
         // Increase compliance by 5%
-        events.emit("increase-compliance", 5); // Notify the player controller to increase compliance
+        events.emit("increase-compliance", 10);
+        this.config.levelData[1].compliance += 10;
+
         this.stateMachine.setState("still");
       },
     });
@@ -230,11 +232,6 @@ export default class RedBoxController2 {
   }
 
   private createAnimations() {
-    this.sprite.anims.create({
-      key: "idle",
-      frames: [{ key: "redBoxes", frame: "redBox.png" }],
-    });
-
     this.sprite.anims.create({
       key: "move-left",
       frames: [{ key: "redBoxes", frame: "redBox.png" }],

@@ -37,7 +37,7 @@ export default class PlayerController {
     this.cursors = cursors;
     this.obstacles = obstacles;
     this.config = config;
-
+    events.on("player-celebrate", this.handlePlayerCelebrate, this);
     this.createAnimations();
 
     this.stateMachine = new StateMachine(this, "player");
@@ -221,6 +221,12 @@ export default class PlayerController {
     }
 
     // to do- check for death
+  }
+
+  private handlePlayerCelebrate() {
+    // Handle the 'player-celebrate' event here
+    // For example, you can trigger a celebration animation for the player
+    this.stateMachine.setState("player-celebrate");
   }
 
   private idleOnEnter() {
