@@ -61,6 +61,8 @@ export default class CoOpLevel extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.destroy();
     });
+
+    console.log(this.game.config);
   }
 
   preload() {

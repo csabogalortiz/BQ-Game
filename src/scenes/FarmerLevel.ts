@@ -15,7 +15,7 @@ import FertilizerFarmerController from "./FertilizerFarmerController";
 export default class FarmerLevel extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player?: Phaser.Physics.Matter.Sprite;
-  private playerController?: PlayerController;
+  private playerController?: PlayerControllerFarm;
   private obstacles!: ObstaclesController;
   private farmers: FarmersController[] = [];
   private fertilizerFarmer: FertilizerFarmerController[] = [];
@@ -142,7 +142,8 @@ export default class FarmerLevel extends Phaser.Scene {
             this,
             this.player,
             this.cursors,
-            this.obstacles
+            this.obstacles,
+            this.game.config
           );
 
           this.cameras.main.scrollY = 50;

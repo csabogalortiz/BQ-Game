@@ -6,6 +6,7 @@ import StartScene from "./scenes/StartScene";
 import Carbon from "./scenes/CarbonBar";
 import FarmerLevel from "./scenes/FarmerLevel";
 import CoOpLevel from "./scenes/CoOpLevel";
+import { levelData } from "./scenes/GameData";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -31,3 +32,4 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 const game = new Phaser.Game(config);
+(game.config as any).levelData = levelData;
