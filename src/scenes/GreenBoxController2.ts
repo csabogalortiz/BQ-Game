@@ -14,6 +14,7 @@ export default class GreenBoxController2 {
   private hasCollidedWithLoose = false;
   private isInContactWithGreenBox = false;
   public hasCollided: boolean = false;
+  public config: any;
 
   private stateMachine: StateMachine;
   private body: MatterJS.BodyType;
@@ -22,13 +23,15 @@ export default class GreenBoxController2 {
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
     obstacles: ObstaclesController,
-    moveDirection: MoveDirection = "left"
+    moveDirection: MoveDirection = "left",
+    config: any
   ) {
     this.body = sprite.body as MatterJS.BodyType;
     this.scene = scene;
     this.sprite = sprite;
     this.obstacles = obstacles;
     this.isInContactWithGreenBox = false;
+    this.config = config;
 
     this.createAnimations();
     this.stateMachine = new StateMachine(this, "greenBox");
@@ -180,7 +183,8 @@ export default class GreenBoxController2 {
 
       onComplete: () => {
         // Decrease compliance by 2%
-        events.emit("decrease-compliance", 2); // Notify the player controller to decrease compliance
+        events.emit("decrease-compliance", 2);
+        this.config.levelData[1].compliance -= 2; // Notify the player controller to decrease compliance
         this.stateMachine.setState("still");
       },
     });
@@ -218,7 +222,9 @@ export default class GreenBoxController2 {
 
       onComplete: () => {
         // Increase compliance by 5%
-        events.emit("increase-compliance", 5); // Notify the player controller to increase compliance
+        events.emit("increase-compliance", 5);
+        this.config.levelData[1].compliance += 5;
+
         this.stateMachine.setState("still");
       },
     });

@@ -14,7 +14,7 @@ export default class CoOpLevel extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
 
   private player?: Phaser.Physics.Matter.Sprite;
-  private playerController?: PlayerController;
+  private playerController?: PlayerControllerCoOp;
 
   private greenBoxes: GreenBoxController2[] = [];
 
@@ -61,8 +61,6 @@ export default class CoOpLevel extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.destroy();
     });
-
-    console.log(this.game.config);
   }
 
   preload() {
@@ -137,7 +135,13 @@ export default class CoOpLevel extends Phaser.Scene {
     const moveDirection = randomX > 1550 ? "left" : "right";
 
     this.greenBoxes.push(
-      new GreenBoxController2(this, greenBox, this.obstacles, moveDirection)
+      new GreenBoxController2(
+        this,
+        greenBox,
+        this.obstacles,
+        moveDirection,
+        this.game.config
+      )
     );
   }
 
@@ -146,6 +150,16 @@ export default class CoOpLevel extends Phaser.Scene {
     this.platformGroup = this.add.group();
     this.brownBoxGroup = this.add.group();
     this.greenBoxGroup = this.add.group();
+
+    // events.on("increase-compliance", (data) => {
+    //   console.warn("data del coOp", data);
+    //   (this.game.config as any).levelData[1].compliance += data;
+    // });
+
+    // events.on("decrease-compliance", (data) => {
+    //   console.warn("data del coOp", data);
+    //   (this.game.config as any).levelData[1].compliance -= data;
+    // });
 
     events.on("powerCoOp-collected", () => {
       this.isPowerCoOpCollected = true;
@@ -193,7 +207,8 @@ export default class CoOpLevel extends Phaser.Scene {
             this,
             this.player,
             this.cursors,
-            this.obstacles
+            this.obstacles,
+            this.game.config
           );
           const mapWidth = map.widthInPixels;
           const mapHeight = map.heightInPixels;
@@ -361,5 +376,6 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBox.forEach((brownBox) => brownBox.update(dt));
 
     this.platform.forEach((platform) => platform.update(dt));
+    console.log(this.game.config.levelData[1]);
   }
 }

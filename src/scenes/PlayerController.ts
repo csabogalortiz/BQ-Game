@@ -16,8 +16,9 @@ export default class PlayerController {
   protected cursors: CursorKeys;
   protected stateMachine: StateMachine;
   protected obstacles: ObstaclesController;
-  protected compliance = 10;
+  protected compliance = 0;
   protected carbon = 99;
+  public config: any;
   protected lastTrucks?: Phaser.Physics.Matter.Sprite;
   protected stompedTrucks: Map<Phaser.Physics.Matter.Sprite, boolean> =
     new Map();
@@ -28,12 +29,14 @@ export default class PlayerController {
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
     cursors: CursorKeys,
-    obstacles: ObstaclesController
+    obstacles: ObstaclesController,
+    config: any
   ) {
     this.scene = scene;
     this.sprite = sprite;
     this.cursors = cursors;
     this.obstacles = obstacles;
+    this.config = config;
 
     this.createAnimations();
 

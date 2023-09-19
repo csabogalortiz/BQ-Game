@@ -11,8 +11,9 @@ export default class PlayerControllerCoOp extends PlayerController {
   public cursors!: CursorKeys;
   public stateMachine!: StateMachine;
   public obstacles!: ObstaclesController;
-  public compliance = 10;
+  public compliance = 0;
   public carbon = 99;
+
   private increaseCompliance(amount: number) {
     this.compliance = Math.min(100, this.compliance + amount);
     // You can also update any UI elements related to compliance here
@@ -29,9 +30,10 @@ export default class PlayerControllerCoOp extends PlayerController {
     scene: Phaser.Scene,
     sprite: Phaser.Physics.Matter.Sprite,
     cursors: CursorKeys,
-    obstacles: ObstaclesController
+    obstacles: ObstaclesController,
+    config: any
   ) {
-    super(scene, sprite, cursors, obstacles);
+    super(scene, sprite, cursors, obstacles, config);
 
     events.on("increase-compliance", (amount: number) => {
       this.increaseCompliance(amount);
@@ -90,31 +92,11 @@ export default class PlayerControllerCoOp extends PlayerController {
       switch (type) {
         case "data": {
           events.emit("data-collected");
+
+          this.config.levelData[1].dataCollected++;
           sprite.destroy();
           break;
         }
-
-        case "coordinates": {
-          events.emit("coordinates-collected", gameObject); // Emit event to notify UI about collected coordinates
-          this.setCompliance(this.compliance + 11);
-          gameObject.destroy();
-          break;
-        }
-        case "id": {
-          events.emit("id-collected", gameObject); // Emit event to notify UI about collected ID
-          this.setCompliance(this.compliance + 11);
-          gameObject.destroy();
-          break;
-        }
-
-        // case 'compliance':
-        //     {
-        //         const value = sprite.getData('compliancePoints') ?? 10
-        //         this.compliance += value
-        //         events.emit('compliance-changed', this.compliance)
-        //         sprite.destroy()
-        //         break
-        //     }
       }
     });
   }

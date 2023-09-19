@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="4" nextobjectid="64">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="70" height="15" tilewidth="70" tileheight="70" infinite="0" nextlayerid="4" nextobjectid="67">
  <editorsettings>
   <export target="gameCoOp.json" format="json"/>
  </editorsettings>
@@ -388,5 +388,6 @@
   <object id="58" name="greenBox3" x="2035.5" y="423.105" width="71.4875" height="63.2389"/>
   <object id="59" name="redBox2" x="1038.86" y="427.488" width="71.4875" height="63.2389"/>
   <object id="60" name="redBox3" x="954.262" y="420.301" width="71.4875" height="63.2389"/>
+  <object id="64" name="data" x="1687.66" y="901.203" width="67.1704" height="69.9692"/>
  </objectgroup>
 </map>
