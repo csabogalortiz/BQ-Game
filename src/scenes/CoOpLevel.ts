@@ -382,32 +382,17 @@ export default class CoOpLevel extends Phaser.Scene {
       this.redBoxes.forEach((redBox) => redBox.update(dt));
     }
 
-    this.greenBoxes.forEach((greenBox) => {
-      this.greenBoxes.forEach((otherGreenBox) => {
-        if (greenBox !== otherGreenBox) {
+    [...this.greenBoxes, ...this.redBoxes].forEach((box) => {
+      [...this.greenBoxes, ...this.redBoxes].forEach((otherBox) => {
+        if (box !== otherBox) {
           if (
             Phaser.Geom.Intersects.RectangleToRectangle(
-              greenBox.sprite.getBounds(),
-              otherGreenBox.sprite.getBounds()
+              box.sprite.getBounds(),
+              otherBox.sprite.getBounds()
             )
           ) {
-            greenBox.invertDirection();
-            otherGreenBox.invertDirection();
-          }
-        }
-      });
-    });
-    this.redBoxes.forEach((redBox) => {
-      this.redBoxes.forEach((otherRedBox) => {
-        if (redBox !== otherRedBox) {
-          if (
-            Phaser.Geom.Intersects.RectangleToRectangle(
-              redBox.sprite.getBounds(),
-              otherRedBox.sprite.getBounds()
-            )
-          ) {
-            redBox.invertDirection();
-            otherRedBox.invertDirection();
+            box.invertDirection();
+            otherBox.invertDirection();
           }
         }
       });

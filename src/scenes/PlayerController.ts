@@ -37,7 +37,7 @@ export default class PlayerController {
     this.cursors = cursors;
     this.obstacles = obstacles;
     this.config = config;
-    events.on("player-celebrate", this.handlePlayerCelebrate, this);
+    events.on("player-celebrate-coop", this.handlePlayerCelebrateCoop, this);
     this.createAnimations();
 
     this.stateMachine = new StateMachine(this, "player");
@@ -87,6 +87,9 @@ export default class PlayerController {
 
       .addState("player-celebrate", {
         onEnter: this.playerCelebrateOnEnter,
+      })
+      .addState("player-celebrate-coop", {
+        onEnter: this.playerCelebrateCoopOnEnter,
       })
       .addState("player-surprise", {
         onEnter: this.playerSurpriseOnEnter,
@@ -223,10 +226,10 @@ export default class PlayerController {
     // to do- check for death
   }
 
-  private handlePlayerCelebrate() {
+  private handlePlayerCelebrateCoop() {
     // Handle the 'player-celebrate' event here
     // For example, you can trigger a celebration animation for the player
-    this.stateMachine.setState("player-celebrate");
+    this.stateMachine.setState("player-celebrate-coop");
   }
 
   private idleOnEnter() {
@@ -249,7 +252,7 @@ export default class PlayerController {
   }
 
   private walkOnUpdate() {
-    const speed = 5;
+    const speed = 10;
     if (this.cursors.left.isDown) {
       this.sprite.flipX = true;
       this.sprite.setVelocityX(-speed);
@@ -272,7 +275,7 @@ export default class PlayerController {
 
   private jumpOnEnter() {
     this.sprite.play("player-jump");
-    this.sprite.setVelocityY(-12);
+    this.sprite.setVelocityY(-18);
   }
 
   private jumpOnUpdate() {
@@ -293,6 +296,16 @@ export default class PlayerController {
     this.sprite.setOnCollide(() => {});
     this.scene.time.delayedCall(2000, () => {
       this.scene.scene.start("level-complete");
+    });
+  }
+
+  private playerCelebrateCoopOnEnter() {
+    this.sprite.play("player-celebrate0");
+    this.sprite.play("player-celebrate1");
+
+    this.sprite.setOnCollide(() => {});
+    this.scene.time.delayedCall(2000, () => {
+      this.scene.scene.start("level-coop-complete");
     });
   }
 

@@ -188,7 +188,7 @@ export default class GreenBoxController2 {
         this.stateMachine.setState("still");
         if (this.config.levelData[1].compliance >= 99) {
           // Emit the "player-celebrate" event
-          events.emit("player-celebrate");
+          events.emit("player-celebrate-coop");
         }
       },
     });
@@ -234,7 +234,7 @@ export default class GreenBoxController2 {
 
         if (this.config.levelData[1].compliance >= 99) {
           // Emit the "player-celebrate" event
-          events.emit("player-celebrate");
+          events.emit("player-celebrate-coop");
         }
       },
     });

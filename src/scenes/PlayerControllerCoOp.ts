@@ -20,7 +20,7 @@ export default class PlayerControllerCoOp extends PlayerController {
     events.emit("compliance-changed", this.compliance);
     if (this.compliance >= 99) {
       // Emit the "player-celebrate" event when compliance is 99 or more
-      events.emit("player-celebrate");
+      events.emit("player-celebrate-coop");
     }
   }
 

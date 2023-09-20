@@ -8,6 +8,7 @@ import FarmerLevel from "./scenes/FarmerLevel";
 import CoOpLevel from "./scenes/CoOpLevel";
 import { levelData } from "./scenes/GameData";
 import VictoryScreen from "./scenes/VictoryScreen";
+import LevelCoOpComplete from "./scenes/LevelCoOpComplete";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -15,18 +16,15 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT, // Use the FIT scale mode
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-
-  // fps:{
-  //   target:60,
-  // },
   physics: {
     default: "matter",
     matter: {
       debug: false,
-
+      gravity: { x: 0, y: 1.5 },
       // este hay que quitarlo es el que muestra las cajas
     },
   },
+
   scene: [
     StartScene,
     UI,
@@ -34,6 +32,7 @@ const config: Phaser.Types.Core.GameConfig = {
     CoOpLevel,
     FarmerLevel,
     LevelComplete,
+    LevelCoOpComplete,
     VictoryScreen,
   ],
 
