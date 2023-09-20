@@ -3,13 +3,13 @@ import PlayerController from "./PlayerController";
 import ObstaclesController from "./ObstaclesController";
 import TrucksController from "./TrucksController";
 
-export default class LevelComplete extends Phaser.Scene {
+export default class LevelFarmComplete extends Phaser.Scene {
   constructor() {
-    super("level-complete");
+    super("level-farm-complete");
   }
 
   preload() {
-    this.load.image("aggregator_complete", "./assets/aggregator_complete.png");
+    this.load.image("farm_complete", "./assets/farm_complete.png");
     this.load.image("phaase_button", "./assets/phase_button.png");
     this.load.atlas(
       "player",
@@ -25,7 +25,7 @@ export default class LevelComplete extends Phaser.Scene {
     const backgroundImage = this.add.sprite(
       width * 0.5,
       height * 0.5,
-      "aggregator_complete"
+      "farm_complete"
     );
 
     // Set the size of the background image to cover the entire camera viewport
@@ -59,7 +59,7 @@ export default class LevelComplete extends Phaser.Scene {
       .sprite(width * 0.55, height * 0.55, "phaase_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start("victoryScreen");
+        this.scene.start("coOpLevel");
       });
   }
 }

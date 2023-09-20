@@ -9,6 +9,7 @@ import CoOpLevel from "./scenes/CoOpLevel";
 import { levelData } from "./scenes/GameData";
 import VictoryScreen from "./scenes/VictoryScreen";
 import LevelCoOpComplete from "./scenes/LevelCoOpComplete";
+import LevelFarmComplete from "./scenes/LevelFarmComplete";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -31,6 +32,7 @@ const config: Phaser.Types.Core.GameConfig = {
     Game,
     CoOpLevel,
     FarmerLevel,
+    LevelFarmComplete,
     LevelComplete,
     LevelCoOpComplete,
     VictoryScreen,

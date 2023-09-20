@@ -26,6 +26,10 @@ export default class PlayerControllerFarm extends PlayerController {
   ) {
     super(scene, sprite, cursors, obstacles, config);
 
+    this.stateMachine.addState("player-celebrate-farm", {
+      onEnter: this.playerCelebrateFarmEnter.bind(this), // Bind this context
+    });
+
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
@@ -248,17 +252,51 @@ export default class PlayerControllerFarm extends PlayerController {
           events.emit("coordinates-collected", gameObject); // Emit event to notify UI about collected coordinates
           this.setCompliance(this.compliance + 80);
           this.config.levelData[0].compliance += 80;
+          if (this.config.levelData[0].compliance >= 99) {
+            // Emit the "player-celebrate" event when compliance is 99 or more
+            this.sprite.play("player-celebrate0");
+            this.sprite.play("player-celebrate1");
+            this.scene.scene.start("level-farm-complete");
+          }
           gameObject.destroy();
+
           break;
         }
         case "id": {
           events.emit("id-collected", gameObject); // Emit event to notify UI about collected ID
           this.setCompliance(this.compliance + 80);
           this.config.levelData[0].compliance += 80;
+          if (this.config.levelData[0].compliance >= 80) {
+            this.sprite.play("player-celebrate0");
+            this.sprite.play("player-celebrate1");
+            this.scene.scene.start("level-farm-complete");
+            // Emit the "player-celebrate" event when compliance is 99 or more
+          }
+          events.on(
+            "player-celebrate-farm",
+            this.handlePlayerCelebrateFarm,
+            this
+          );
           gameObject.destroy();
           break;
         }
       }
     });
+  }
+
+  private playerCelebrateFarmEnter() {
+    this.sprite.play("player-celebrate0");
+    this.sprite.play("player-celebrate1");
+
+    this.sprite.setOnCollide(() => {});
+    this.scene.time.delayedCall(2000, () => {
+      this.scene.scene.start("level-farm-complete");
+    });
+  }
+
+  private handlePlayerCelebrateFarm() {
+    // Handle the 'player-celebrate' event here
+    // For example, you can trigger a celebration animation for the player
+    this.stateMachine.setState("player-celebrate-farm");
   }
 }

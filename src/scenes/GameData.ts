@@ -3,6 +3,7 @@ export const levelData = [
     levelNumber: 0,
     compliance: 0,
     dataCollected: 0,
+    carbon: 0,
   },
   {
     levelNumber: 1,
