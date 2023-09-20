@@ -226,9 +226,9 @@ export default class GreenBoxController2 {
 
       onComplete: () => {
         // Increase compliance by 5%
-        events.emit("increase-compliance", 10);
+        events.emit("increase-compliance", 80);
 
-        this.config.levelData[1].compliance += 10;
+        this.config.levelData[1].compliance += 80;
 
         this.stateMachine.setState("still");
 

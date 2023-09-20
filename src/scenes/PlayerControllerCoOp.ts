@@ -18,7 +18,8 @@ export default class PlayerControllerCoOp extends PlayerController {
     this.compliance = Math.min(100, this.compliance + amount);
     // You can also update any UI elements related to compliance here
     events.emit("compliance-changed", this.compliance);
-    if (this.compliance >= 99) {
+    events.on("player-celebrate-coop", this.handlePlayerCelebrateCoop, this);
+    if (this.config.levelData[1].compliance >= 99) {
       // Emit the "player-celebrate" event when compliance is 99 or more
       events.emit("player-celebrate-coop");
     }
@@ -38,6 +39,9 @@ export default class PlayerControllerCoOp extends PlayerController {
     config: any
   ) {
     super(scene, sprite, cursors, obstacles, config);
+    this.stateMachine.addState("player-celebrate-coop", {
+      onEnter: this.playerCelebrateCoopOnEnter.bind(this), // Bind this context
+    });
 
     events.on("increase-compliance", (amount: number) => {
       this.increaseCompliance(amount);
@@ -103,5 +107,28 @@ export default class PlayerControllerCoOp extends PlayerController {
         }
       }
     });
+    if (this.config.levelData[1].compliance >= 99) {
+      this.stateMachine.setState("player-celebrate-coop");
+    }
   }
+
+  private playerCelebrateCoopOnEnter() {
+    this.sprite.play("player-celebrate0");
+    this.sprite.play("player-celebrate1");
+
+    this.sprite.setOnCollide(() => {});
+    this.scene.time.delayedCall(2000, () => {
+      this.scene.scene.start("level-coop-complete");
+    });
+  }
+
+  private handlePlayerCelebrateCoop() {
+    // Handle the 'player-celebrate' event here
+    // For example, you can trigger a celebration animation for the player
+    this.stateMachine.setState("player-celebrate-coop");
+  }
+
+  // update(dt: number) {
+  //   this.stateMachine.update(dt);
+  // }
 }

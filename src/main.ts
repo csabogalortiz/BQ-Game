@@ -20,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
     default: "matter",
     matter: {
       debug: false,
-      gravity: { x: 0, y: 1.5 },
+      gravity: { x: 0, y: 2.5 },
       // este hay que quitarlo es el que muestra las cajas
     },
   },
