@@ -34,7 +34,7 @@ export default class VictoryScreen extends Phaser.Scene {
       //   const textToShow = JSON.stringify(this.game.config.levelData[0]);
       const farmLevelText = `Farm Level Compliance: ${this.game.config.levelData[0].compliance}, Data Collected: ${this.game.config.levelData[0].dataCollected}`;
       const coOpLevelText = `CoOp Level Compliance: ${this.game.config.levelData[1].compliance}, Data Collected: ${this.game.config.levelData[1].dataCollected}`;
-      const aggregatorText = `CoOp Level Compliance: ${this.game.config.levelData[2].compliance}, Data Collected: ${this.game.config.levelData[2].dataCollected}`;
+      const aggregatorText = `Aggregator Level Compliance: ${this.game.config.levelData[2].compliance}, Data Collected: ${this.game.config.levelData[2].dataCollected}`;
 
       const farmLevelTextDisplay = this.add.text(140, 110, farmLevelText, {
         fontFamily: '"Press Start 2P"',
