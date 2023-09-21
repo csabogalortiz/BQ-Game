@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "Fertilizer_Farmer_Idle.png",
+	"frame": {"x":0,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Fertilizer_Farmer_Walk_Left_1.png",
+	"frame": {"x":84,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Fertilizer_Farmer_Walk_Left_2.png",
+	"frame": {"x":168,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Fertilizer_Farmer_Walk_Right_1.png",
+	"frame": {"x":252,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+},
+{
+	"filename": "Fertilizer_Farmer_Walk_Right_2.png",
+	"frame": {"x":336,"y":0,"w":84,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":84},
+	"sourceSize": {"w":84,"h":84}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "fertilizer_farmer_sprite_sheet.png",
+	"format": "RGBA8888",
+	"size": {"w":420,"h":84},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:77702cb6c0218172cf7bd2954471ad88:09147d6b183ee23a84820797b9da6307:999577ade706fdc5f8e032fe8520ede3$"
+}
+}

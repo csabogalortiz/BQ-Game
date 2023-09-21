@@ -183,9 +183,13 @@ export default class RedBoxController {
 
       onComplete: () => {
         // Decrease compliance by 2%
-        events.emit("decrease-compliance", 0);
-        this.config.levelData[1].compliance -= 0; // Notify the player controller to decrease compliance
+        events.emit("decrease-compliance", 2);
+        this.config.levelData[1].compliance -= 2; // Notify the player controller to decrease compliance
         this.stateMachine.setState("still");
+        if (this.config.levelData[1].compliance >= 90) {
+          // Emit the "player-celebrate" event
+          events.emit("player-celebrate-coop");
+        }
       },
     });
   }
@@ -223,9 +227,15 @@ export default class RedBoxController {
       onComplete: () => {
         // Increase compliance by 5%
         events.emit("increase-compliance", 10);
+
         this.config.levelData[1].compliance += 10;
 
         this.stateMachine.setState("still");
+
+        if (this.config.levelData[1].compliance >= 90) {
+          // Emit the "player-celebrate" event
+          events.emit("player-celebrate-coop");
+        }
       },
     });
     return;

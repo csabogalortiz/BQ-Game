@@ -52,7 +52,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoFarm.alpha = 0.8;
 
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           ohNoFarm.destroy();
           this.stateMachine.setState("idle");
         });
@@ -73,7 +73,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoWater.alpha = 0.8;
 
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           ohNoWater.destroy();
           this.stateMachine.setState("idle");
         });
@@ -93,7 +93,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoRadio.alpha = 0.8;
 
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           ohNoRadio.destroy();
           this.stateMachine.setState("idle");
         });
@@ -114,7 +114,7 @@ export default class PlayerControllerFarm extends PlayerController {
         ohNoDeforest.alpha = 0.8;
 
         // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           ohNoDeforest.destroy();
           this.stateMachine.setState("idle");
         });
@@ -136,7 +136,7 @@ export default class PlayerControllerFarm extends PlayerController {
         sign.alpha = 0.8;
 
         // Remove the 'sign' image after a certain duration (e.g., 4 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           sign.destroy();
         });
       }
@@ -155,7 +155,7 @@ export default class PlayerControllerFarm extends PlayerController {
         sign.alpha = 0.8;
 
         // Remove the 'sign' image after a certain duration (e.g., 4 seconds)
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(2000, () => {
           sign.destroy();
         });
       }
@@ -250,9 +250,9 @@ export default class PlayerControllerFarm extends PlayerController {
 
         case "coordinates": {
           events.emit("coordinates-collected", gameObject); // Emit event to notify UI about collected coordinates
-          this.setCompliance(this.compliance + 80);
-          this.config.levelData[0].compliance += 80;
-          if (this.config.levelData[0].compliance >= 99) {
+          this.setCompliance(this.compliance + 11);
+          this.config.levelData[0].compliance += 11;
+          if (this.config.levelData[0].compliance >= 85) {
             // Emit the "player-celebrate" event when compliance is 99 or more
             this.sprite.play("player-celebrate0");
             this.sprite.play("player-celebrate1");
@@ -264,9 +264,9 @@ export default class PlayerControllerFarm extends PlayerController {
         }
         case "id": {
           events.emit("id-collected", gameObject); // Emit event to notify UI about collected ID
-          this.setCompliance(this.compliance + 80);
-          this.config.levelData[0].compliance += 80;
-          if (this.config.levelData[0].compliance >= 80) {
+          this.setCompliance(this.compliance + 11);
+          this.config.levelData[0].compliance += 11;
+          if (this.config.levelData[0].compliance >= 85) {
             this.sprite.play("player-celebrate0");
             this.sprite.play("player-celebrate1");
             this.scene.scene.start("level-farm-complete");

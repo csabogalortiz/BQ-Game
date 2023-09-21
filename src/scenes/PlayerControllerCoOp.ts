@@ -54,6 +54,22 @@ export default class PlayerControllerCoOp extends PlayerController {
     this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
       const body = data.bodyB as MatterJS.BodyType;
 
+      // Check for collision with brown, red, and green boxes
+      if (
+        this.obstacles.is("brownBox", body) ||
+        this.obstacles.is("redBox", body) ||
+        this.obstacles.is("greenBox", body)
+      ) {
+        // Check if the player is currently in the "jump" state
+        if (this.stateMachine.isCurrentState("jump")) {
+          // Set the player's state back to "idle"
+          this.stateMachine.setState("idle");
+        }
+
+        // Return early to prevent setting other states
+        return;
+      }
+
       if (this.obstacles.is("redSection", body)) {
         this.stateMachine.setState("redSection-hit");
 

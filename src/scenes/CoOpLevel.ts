@@ -129,9 +129,9 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBoxGroup.add(brownBoxToLeft);
   }
   private createGreenBox() {
-    const randomX = Phaser.Math.RND.pick([900, 1600]); // Randomly choose between 759 and 1400
+    const randomX = Phaser.Math.RND.pick([900, 1300]); // Randomly choose between 759 and 1400
     const greenBox = this.matter.add
-      .sprite(randomX, 40, "greenBoxes")
+      .sprite(randomX, 10, "greenBoxes")
       .setFixedRotation();
 
     const moveDirection = randomX > 1550 ? "left" : "right";
@@ -148,9 +148,9 @@ export default class CoOpLevel extends Phaser.Scene {
   }
 
   private createRedBox() {
-    const randomX = Phaser.Math.RND.pick([900, 1800]); // Randomly choose between 759 and 1400
+    const randomX = Phaser.Math.RND.pick([1550, 1800]); // Randomly choose between 759 and 1400
     const redBox = this.matter.add
-      .sprite(randomX, 40, "redBoxes")
+      .sprite(randomX, 10, "redBoxes")
       .setFixedRotation();
 
     const moveDirection = randomX > 1550 ? "left" : "right";
@@ -172,16 +172,6 @@ export default class CoOpLevel extends Phaser.Scene {
     this.brownBoxGroup = this.add.group();
     this.greenBoxGroup = this.add.group();
     this.redBoxGroup = this.add.group();
-
-    // events.on("increase-compliance", (data) => {
-    //   console.warn("data del coOp", data);
-    //   (this.game.config as any).levelData[1].compliance += data;
-    // });
-
-    // events.on("decrease-compliance", (data) => {
-    //   console.warn("data del coOp", data);
-    //   (this.game.config as any).levelData[1].compliance -= data;
-    // });
 
     events.on("powerCoOp-collected", () => {
       this.isPowerCoOpCollected = true;
@@ -361,7 +351,7 @@ export default class CoOpLevel extends Phaser.Scene {
       this.createBrownBox();
       this.createBrownBoxLeft();
     }
-    if (this.isPowerCoOpCollected && this.frame % 180 == 0) {
+    if (this.isPowerCoOpCollected && this.frame % 150 == 0) {
       if (this.greenBoxCounter < 20) {
         this.createGreenBox();
 
