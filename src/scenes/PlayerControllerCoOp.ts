@@ -57,8 +57,8 @@ export default class PlayerControllerCoOp extends PlayerController {
       // Check for collision with brown, red, and green boxes
       if (
         this.obstacles.is("brownBox", body) ||
-        this.obstacles.is("redBox", body) ||
-        this.obstacles.is("greenBox", body)
+        this.obstacles.is("redBoxes", body) ||
+        this.obstacles.is("greenBoxes", body)
       ) {
         // Check if the player is currently in the "jump" state
         if (this.stateMachine.isCurrentState("jump")) {

@@ -145,6 +145,7 @@ export default class CoOpLevel extends Phaser.Scene {
         this.game.config
       )
     );
+    this.obstacles.add("greenBoxes", greenBox.body as MatterJS.BodyType);
   }
 
   private createRedBox() {
@@ -164,6 +165,8 @@ export default class CoOpLevel extends Phaser.Scene {
         this.game.config
       )
     );
+
+    this.obstacles.add("redBoxes", redBox.body as MatterJS.BodyType);
   }
 
   create() {
