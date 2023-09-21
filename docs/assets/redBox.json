@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "redBox.png",
+	"frame": {"x":0,"y":0,"w":83,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":70},
+	"sourceSize": {"w":83,"h":70}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "redBox.png",
+	"format": "RGBA8888",
+	"size": {"w":83,"h":70},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:bae8df990b567cb649cb0e6018ca44d1:25fe5987e52956b7dad3782248cdd5be:6d894f93e0af16a0a40f8047a188fc03$"
+}
+}

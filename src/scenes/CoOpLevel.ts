@@ -130,6 +130,7 @@ export default class CoOpLevel extends Phaser.Scene {
     );
     brownBoxToLeft.moveHorizontallyLeft();
     brownBoxToLeft.setData("type", "brownBox");
+
     this.brownBoxGroup.add(brownBoxToLeft);
     this.obstacles.add(
       "brownBox",
@@ -358,7 +359,7 @@ export default class CoOpLevel extends Phaser.Scene {
   update(t: number, dt: number) {
     this.frame++;
 
-    if (!this.isPowerCoOpCollected && this.frame % 100 == 0) {
+    if (!this.isPowerCoOpCollected && this.frame % 110 == 0) {
       this.createBrownBox();
       this.createBrownBoxLeft();
     }
