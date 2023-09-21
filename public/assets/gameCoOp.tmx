@@ -330,6 +330,11 @@
     <property name="collides" type="bool" value="true"/>
    </properties>
   </tile>
+  <tile id="109">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer id="1" name="groundCoOp" width="70" height="15">
   <data encoding="csv">
