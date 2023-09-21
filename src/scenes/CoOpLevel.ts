@@ -113,6 +113,10 @@ export default class CoOpLevel extends Phaser.Scene {
     brownBoxToRight.moveHorizontally();
     brownBoxToRight.setData("type", "brownBox");
     this.brownBoxGroup.add(brownBoxToRight); // Add the brownBox to the group
+    this.obstacles.add(
+      "brownBox",
+      brownBoxToRight.getBody() as MatterJS.BodyType
+    );
   }
 
   private createBrownBoxLeft() {
@@ -127,6 +131,10 @@ export default class CoOpLevel extends Phaser.Scene {
     brownBoxToLeft.moveHorizontallyLeft();
     brownBoxToLeft.setData("type", "brownBox");
     this.brownBoxGroup.add(brownBoxToLeft);
+    this.obstacles.add(
+      "brownBox",
+      brownBoxToLeft.getBody() as MatterJS.BodyType
+    );
   }
   private createGreenBox() {
     const randomX = Phaser.Math.RND.pick([900, 1300]); // Randomly choose between 759 and 1400
