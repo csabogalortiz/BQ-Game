@@ -10,6 +10,7 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
   private moveDirection: MoveDirection;
   private brownBox: Phaser.Physics.Matter.Image;
   private moveTween?: Phaser.Tweens.Tween;
+  private angularVelocity = 0;
 
   constructor(
     scene,
@@ -32,6 +33,9 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
   }
 
   moveHorizontally() {
+    this.angularVelocity = 10;
+
+    console.log("Moving right with angular velocity:", this.angularVelocity);
     // Move to the right only
     this.moveTween = this.scene.tweens.addCounter({
       from: 0,
@@ -43,12 +47,20 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
         const dx = x - this.x;
         this.x = x;
         this.setVelocityX(dx);
+        console.log(
+          `Angular velocity: ${this.angularVelocity}, Velocity in X: ${dx}`
+        );
+        console.log(
+          `Angular velocity: ${this.angularVelocity}, Velocity in X: ${dx}`
+        );
       },
     });
   }
 
   moveHorizontallyLeft() {
     // Move to the left only
+    this.angularVelocity = -10;
+    console.log("Moving right with angular velocity:", this.angularVelocity);
     this.moveTween = this.scene.tweens.addCounter({
       from: 0,
       to: -800, // Adjust the speed as needed, use a negative value to move left
@@ -81,5 +93,12 @@ export default class BrownBoxController extends Phaser.Physics.Matter.Image {
         this.destroy();
       },
     });
+  }
+
+  update(dt: number) {
+    // ... existing update code ...
+
+    // Update the rotation of the brown box using angular velocity
+    this.setAngularVelocity(this.angularVelocity);
   }
 }
