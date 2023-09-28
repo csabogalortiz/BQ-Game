@@ -10,6 +10,9 @@ import { levelData } from "./scenes/GameData";
 import VictoryScreen from "./scenes/VictoryScreen";
 import LevelCoOpComplete from "./scenes/LevelCoOpComplete";
 import LevelFarmComplete from "./scenes/LevelFarmComplete";
+import CoOpInstructions from "./scenes/CoOpInstructions";
+import FarmerInstructions from "./scenes/FarmerInstructions";
+import AggInstructions from "./scenes/AggInstructions";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -29,6 +32,9 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [
     StartScene,
     UI,
+    FarmerInstructions,
+    CoOpInstructions,
+    AggInstructions,
     Game,
     CoOpLevel,
     FarmerLevel,

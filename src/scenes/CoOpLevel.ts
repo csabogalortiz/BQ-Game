@@ -360,7 +360,7 @@ export default class CoOpLevel extends Phaser.Scene {
   update(t: number, dt: number) {
     this.frame++;
 
-    if (!this.isPowerCoOpCollected && this.frame % 140 == 0) {
+    if (!this.isPowerCoOpCollected && this.frame % 160 == 0) {
       this.createBrownBox();
       this.createBrownBoxLeft();
     }
