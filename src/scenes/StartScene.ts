@@ -60,11 +60,11 @@ export default class StartScene extends Phaser.Scene {
         // this.scene.start("farmLevel");
         // this.scene.start("game");
         // this.scene.start("farmerInstructions");
-        // this.scene.start("startInstructions");
+        this.scene.start("startInstructions");
         // this.scene.start("victoryScreen");
         // this.scene.start("coOpInstructions");
         // this.scene.start("aggInstructions");
-        this.scene.start("coOpLevel");
+        // this.scene.start("coOpLevel");
         // this.scene.start("victoryScreen");
       });
   }
