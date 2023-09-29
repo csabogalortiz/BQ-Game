@@ -56,10 +56,12 @@ export default class LevelComplete extends Phaser.Scene {
     // Boton!
 
     const phaseButton = this.add
-      .sprite(width * 0.55, height * 0.55, "continue_button")
+      .sprite(width * 0.5, height * 0.55, "continue_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
         this.scene.start("victoryScreen");
       });
+
+    phaseButton.setScale(0.2);
   }
 }
