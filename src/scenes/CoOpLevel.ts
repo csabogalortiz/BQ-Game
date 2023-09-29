@@ -95,6 +95,9 @@ export default class CoOpLevel extends Phaser.Scene {
     this.load.image("platform", "./assets/platform.png");
     this.load.image("coordinates", "./assets/coordinates.png");
     this.load.image("id", "./assets/id.png");
+    this.load.image("ohNoCoOp", "./assets/ohNoCoOp.png");
+    this.load.image("coOp_sign_green", "./assets/coOp_sign_green.png");
+    this.load.image("coOp_sign_red", "./assets/coOp_sign_red.png");
 
     // Inside your game scene's preload() method
     const fonts = new WebFontFile(this.load, "Press Start 2P");
@@ -186,9 +189,12 @@ export default class CoOpLevel extends Phaser.Scene {
     this.greenBoxGroup = this.add.group();
     this.redBoxGroup = this.add.group();
 
+    const coOpSignRed = this.add.image(1700, 910, "coOp_sign_red");
+    const coOpSignGreen = this.add.image(1100, 910, "coOp_sign_green");
+
     events.on("powerCoOp-collected", () => {
       this.isPowerCoOpCollected = true;
-      console.log("PowerCoOp collected");
+      // console.log("PowerCoOp collected");
       // Loop through the platformGroup and hide or destroy each platform
       const platforms =
         this.platformGroup.getChildren() as PlatformsController[];
@@ -277,6 +283,21 @@ export default class CoOpLevel extends Phaser.Scene {
           this.powerCoOp.push(new PowerCoOp(this, powerCoOp));
           this.obstacles.add("powerCoOp", powerCoOp.body as MatterJS.BodyType);
 
+          break;
+        }
+
+        case "ohNoCoOp": {
+          console.log("onoCOOOOP");
+          const ohNoCoOp = this.matter.add.rectangle(
+            x + width * 0.5,
+            y + height * 0.5,
+            width,
+            height,
+            {
+              isStatic: true,
+            }
+          );
+          this.obstacles.add("ohNoCoOp", ohNoCoOp);
           break;
         }
 

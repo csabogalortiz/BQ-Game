@@ -13,6 +13,8 @@ export default class PlayerControllerCoOp extends PlayerController {
   public obstacles!: ObstaclesController;
   public compliance = 0;
   public carbon = 99;
+  private ohNoCoOpBubble!: Phaser.GameObjects.Image;
+  private ohNoCoOpCollided = false;
 
   private increaseCompliance(amount: number) {
     this.compliance = Math.min(100, this.compliance + amount);
@@ -78,6 +80,37 @@ export default class PlayerControllerCoOp extends PlayerController {
 
       if (this.obstacles.is("greenSection", body)) {
         this.stateMachine.setState("greenSection-hit");
+
+        return;
+      }
+
+      if (this.obstacles.is("ohNoCoOp", body)) {
+        console.log("onoCOOOOP hit!!");
+
+        // Check if the bubble hasn't been created yet
+        if (!this.ohNoCoOpCollided) {
+          this.stateMachine.setState("player-surprise");
+          this.ohNoCoOpBubble = this.scene.add.image(
+            this.sprite.x,
+            this.sprite.y - this.sprite.height / 2,
+            "ohNoCoOp"
+          );
+          this.ohNoCoOpBubble.setOrigin(0.5, 1);
+          this.ohNoCoOpBubble.setScale(0.5);
+          this.ohNoCoOpBubble.setDepth(1);
+          this.ohNoCoOpBubble.alpha = 0.8;
+
+          // Set the flag to indicate that the bubble has been created
+          this.ohNoCoOpCollided = true;
+
+          // Remove the 'ohno' image after a certain duration (e.g., 3 seconds)
+          this.scene.time.delayedCall(3000, () => {
+            if (this.ohNoCoOpBubble) {
+              this.ohNoCoOpBubble.destroy();
+            }
+            this.stateMachine.setState("idle");
+          });
+        }
 
         return;
       }
