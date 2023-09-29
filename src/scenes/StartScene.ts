@@ -49,9 +49,9 @@ export default class StartScene extends Phaser.Scene {
     });
 
     // Play the animation on a sprite
-    const playerSprite = this.add.sprite(width * 0.5, height * 0.75, "player");
+    const playerSprite = this.add.sprite(width * 0.1, height * 0.62, "player");
     playerSprite.anims.play("player-celebrate");
-    playerSprite.setScale(1.6);
+    playerSprite.setScale(1);
 
     const button = this.add
       .image(width * 0.5, height * 0.5, "button")
