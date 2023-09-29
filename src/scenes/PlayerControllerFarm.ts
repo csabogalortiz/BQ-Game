@@ -35,7 +35,7 @@ export default class PlayerControllerFarm extends PlayerController {
 
       if (this.obstacles.is("nonCompliantLand", body)) {
         this.stateMachine.setState("nonCompliantLand-hit");
-
+        // comment
         return;
       }
 
