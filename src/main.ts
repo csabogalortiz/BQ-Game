@@ -13,6 +13,7 @@ import LevelFarmComplete from "./scenes/LevelFarmComplete";
 import CoOpInstructions from "./scenes/CoOpInstructions";
 import FarmerInstructions from "./scenes/FarmerInstructions";
 import AggInstructions from "./scenes/AggInstructions";
+import StartInstructions from "./scenes/StartInstructions";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -32,6 +33,7 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [
     StartScene,
     UI,
+    StartInstructions,
     FarmerInstructions,
     CoOpInstructions,
     AggInstructions,
@@ -44,7 +46,7 @@ const config: Phaser.Types.Core.GameConfig = {
     VictoryScreen,
   ],
 
-  backgroundColor: "#738CD7",
+  backgroundColor: "#6883E9",
 };
 
 const game = new Phaser.Game(config);
