@@ -56,7 +56,7 @@ export default class FarmerInstructions extends Phaser.Scene {
     // // Boton!
 
     const phaseButton = this.add
-      .sprite(width * 0.53, height * 0.92, "play_button")
+      .sprite(width * 0.53, height * 0.9, "play_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
         this.scene.start("farmLevel");
