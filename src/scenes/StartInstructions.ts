@@ -14,7 +14,7 @@ export default class StartInstructions extends Phaser.Scene {
     //   "aggregator_signBubble",
     //   "assets/info_bubble_aggregator_1.png"
     // );
-    this.load.image("startInstructionsBK", "./assets/startInstructionsBK.png");
+    this.load.image("startInstructionsBK", "assets/startInstructionsBK.png");
     this.load.image("play_orange", "./assets/play-orange.png");
     this.load.atlas(
       "player",
