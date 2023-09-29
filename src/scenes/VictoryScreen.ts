@@ -17,6 +17,11 @@ export default class VictoryScreen extends Phaser.Scene {
     this.load.addFile(fonts);
     this.load.image("dataImage", "./assets/data.png");
     this.load.image("victoryScreen", "./assets/victoryScreen.png");
+    this.load.atlas(
+      "agent-victory",
+      "./assets/agent-victory.png",
+      "./assets/agent-victory.json"
+    );
   }
 
   create() {
@@ -36,11 +41,26 @@ export default class VictoryScreen extends Phaser.Scene {
     // Send the background image to the back layer
     backgroundImage.setDepth(-1);
 
-    // this.finalPoints = this.add.text(340, 45, "Your Final Points are:", {
-    //   fontFamily: '"Press Start 2P"',
-    //   fontSize: "20px",
-    //   color: "#FFFFFF",
-    // });
+    this.anims.create({
+      key: "agent-victory",
+      frameRate: 0.27,
+      frames: this.anims.generateFrameNames("agent-victory", {
+        start: 1,
+        end: 4,
+        prefix: "agent-victory",
+        suffix: ".png",
+      }),
+      repeat: -1,
+    });
+
+    // Play the animation on a sprite
+    const agentSprite = this.add.sprite(
+      width * 0.86,
+      height * 0.75,
+      "agent-victory"
+    );
+    agentSprite.anims.play("agent-victory");
+    agentSprite.setScale(1.2);
 
     const levelNumber = 1; // Replace this with the desired level number
     const currentLevelData = levelData.find(
