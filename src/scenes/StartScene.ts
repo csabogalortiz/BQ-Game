@@ -11,6 +11,11 @@ export default class StartScene extends Phaser.Scene {
   preload() {
     this.load.image("button", "./assets/button.png");
     this.load.image("background", "./assets/startbk.png");
+    this.load.atlas(
+      "player",
+      "./assets/player_sprite_sheet.png",
+      "./assets/player_sprite_sheet.json"
+    );
   }
 
   create() {
@@ -30,6 +35,23 @@ export default class StartScene extends Phaser.Scene {
 
     // Send the background image to the back layer
     backgroundImage.setDepth(-1);
+
+    this.anims.create({
+      key: "player-celebrate",
+      frameRate: 4,
+      frames: this.anims.generateFrameNames("player", {
+        start: 1,
+        end: 4,
+        prefix: "Player_Celebrate-0",
+        suffix: ".png",
+      }),
+      repeat: -1,
+    });
+
+    // Play the animation on a sprite
+    const playerSprite = this.add.sprite(width * 0.5, height * 0.75, "player");
+    playerSprite.anims.play("player-celebrate");
+    playerSprite.setScale(1.6);
 
     const button = this.add
       .image(width * 0.5, height * 0.5, "button")
