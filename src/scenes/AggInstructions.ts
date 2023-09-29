@@ -59,7 +59,7 @@ export default class AggInstructions extends Phaser.Scene {
       .sprite(width * 0.53, height * 0.6, "play_button")
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start("farmLevel");
+        this.scene.start("game");
       });
   }
 }
